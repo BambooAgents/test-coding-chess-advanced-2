@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "tracker": "local",
+  "tracker": "github",
   "scale": "auto",
   "ui": true,
   "autonomy": "high",

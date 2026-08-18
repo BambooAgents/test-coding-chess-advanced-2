@@ -1,0 +1,8 @@
+{
+  "org": "BambooAgents",
+  "repo": "test-coding-chess-advanced-2",
+  "visibility": "public",
+  "enforcement": "strong",
+  "agent": "BambooTheAgent",
+  "team": "pi-agents"
+}
