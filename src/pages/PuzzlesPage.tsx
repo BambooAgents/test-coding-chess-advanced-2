@@ -9,6 +9,7 @@
  */
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { ChessBoard } from '../components/ChessBoard'
 import {
@@ -27,7 +28,7 @@ import {
   getByTheme,
   getByOpening,
 } from '../puzzles'
-import type { Puzzle, PuzzleStats, PuzzleSessionState } from '../puzzles/types'
+import type { Puzzle, PuzzleStats, PuzzleSessionState } from '../puzzles'
 
 // --- Styled components ---
 
@@ -263,6 +264,7 @@ const PrimaryButton = styled(ActionButton)`
 type PuzzleMode = 'plain' | 'themed'
 
 export function PuzzlesPage() {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [mode, setMode] = useState<PuzzleMode>('plain')
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null)
   const [themeType, setThemeType] = useState<'endgame' | 'opening' | null>(null)
@@ -273,6 +275,47 @@ export function PuzzlesPage() {
   const [feedback, setFeedback] = useState<'none' | 'correct' | 'wrong' | 'solved'>('none')
 
   const index = useMemo(() => getPuzzleIndex(), [])
+
+  // Consume ?set=<slug> from the URL (linked from the My Weaknesses page recommendations).
+  // Slugs are lowercase-hyphenated; reverse-map to the opening tag or theme name.
+  useEffect(() => {
+    const set = searchParams.get('set')
+    if (!set) return
+    // Special-cased slugs from the recommendations.
+    if (set === 'endgame' || set.startsWith('endgame-')) {
+      setMode('themed')
+      setThemeType('endgame')
+      // 'endgame' → all endgames; 'endgame-rook' → rookEndgame, etc.
+      if (set === 'endgame') {
+        setSelectedTheme('all-endgames')
+      } else {
+        const sub = set.replace('endgame-', '')
+        // find a theme whose slugified name matches (e.g. rook → rookEndgame)
+        const match = index.themes.find((t) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').includes(sub))
+        setSelectedTheme(match ?? 'all-endgames')
+      }
+    } else if (set === 'opening') {
+      setMode('themed')
+      setThemeType('opening')
+      setSelectedTheme(null) // no specific opening — let user pick
+    } else if (set === 'middlegame') {
+      setMode('themed')
+      setThemeType('endgame') // middlegame isn't an endgame; fall back to a theme match
+      const match = index.themes.find((t) => t.toLowerCase() === 'middlegame')
+      setSelectedTheme(match ?? 'all-endgames')
+    } else {
+      // Otherwise treat as an opening slug (e.g. 'sicilian-defense' → 'Sicilian_Defense')
+      const unslug = set.replace(/-/g, '_')
+      const match = index.openings.find((o) => o.toLowerCase().replace(/[^a-z0-9]+/g, '-') === set || o === unslug || o.toLowerCase() === unslug.toLowerCase())
+      if (match) {
+        setMode('themed')
+        setThemeType('opening')
+        setSelectedTheme(match)
+      }
+    }
+    // Clear the param so a manual visit to /puzzles starts plain.
+    setSearchParams({}, { replace: true })
+  }, [searchParams, index, setSearchParams])
 
   // Build puzzle queue when mode/theme changes
   useEffect(() => {

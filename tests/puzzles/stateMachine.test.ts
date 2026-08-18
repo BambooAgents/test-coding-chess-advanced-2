@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import {
   createSession,
   startPuzzle,
@@ -8,28 +8,7 @@ import {
 } from '../../src/puzzles/stateMachine'
 import type { Puzzle } from '../../src/puzzles/types'
 
-// A real puzzle: "White to move" — a simple back-rank mate setup
-// FEN: white to move, plays Ra8# (mate)
-// This is a constructed test puzzle, not from lichess DB
-const testPuzzle: Puzzle = {
-  id: 'test1',
-  // Position where white plays Re8# — but let's use a known-valid puzzle
-  // Simpler: just a position where white has one correct move
-  fen: 'r1bqk1nr/pppp1Bpp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 4',
-  // After the FEN position, it's Black's move (b in FEN).
-  // But wait — lichess puzzles: first move is the opponent's (setup) move,
-  // and the FEN is BEFORE that move. So moves[0] is the setup move.
-  // For this test, we need a puzzle where the user is to move.
-  // Let me construct it differently:
-  moves: ['e8g8', 'f1f3'], // not realistic, just testing the mechanics
-  rating: 1500,
-  ratingDeviation: 80,
-  popularity: 100,
-  nbPlays: 5000,
-  themes: ['opening'],
-  openingTags: [],
-  gameUrl: '',
-}
+// Test puzzles are defined inline within each test below.
 
 // A simpler puzzle: white to move, correct move is e2e4
 const simplePuzzle: Puzzle = {

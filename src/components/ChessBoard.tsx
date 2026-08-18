@@ -31,8 +31,8 @@ const Square = styled.div<{ $isLight: boolean; $isSelected: boolean; $isLegal: b
   align-items: center;
   justify-content: center;
   background: ${(props) => {
-    if (props.isCheck) return '#dc2626'
-    if (props.isLight) return 'var(--board-light)'
+    if (props.$isCheck) return '#dc2626'
+    if (props.$isLight) return 'var(--board-light)'
     return 'var(--board-dark)'
   }};
   cursor: ${(props) => (props.$isLegal ? 'pointer' : 'default')};
