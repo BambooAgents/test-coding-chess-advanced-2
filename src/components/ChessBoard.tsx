@@ -34,6 +34,7 @@ const Sq = styled.div<{
   $isLight: boolean
   $isSelected: boolean
   $isLegal: boolean
+  $isLegalCapture: boolean
   $isLastMove: boolean
   $isCheck: boolean
   $dragOver: boolean
@@ -53,6 +54,12 @@ const Sq = styled.div<{
     p.$dragOver &&
     `
     box-shadow: inset 0 0 0 3px var(--accent);
+  `}
+
+  ${(p) =>
+    p.$isLegalCapture &&
+    `
+    box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.25);
   `}
 
   &::after {
@@ -324,13 +331,13 @@ export function ChessBoard({
               $isLight={isLight(f, r)}
               $isSelected={isSelected}
               $isLegal={isLegal}
+              $isLegalCapture={isLegalCapture}
               $isLastMove={!!isLastMove}
               $isCheck={isCheck}
               $dragOver={dragSq === sq}
               onClick={() => handleSquareClick(sq)}
               onDragOver={(e) => handleDragOver(e, sq)}
               onDrop={(e) => handleDrop(e, sq)}
-              style={isLegalCapture ? { cursor: 'pointer' } : undefined}
             >
               {piece && (
                 <PieceImg

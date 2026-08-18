@@ -44,7 +44,7 @@ describe('strength mapping', () => {
   })
 
   it('returns a valid config for each label', () => {
-    const labels: StrengthLevel['label'][] = ['Easy', 'Medium', 'Hard', 'Expert']
+    const labels: StrengthLevel[] = ['Easy', 'Medium', 'Hard', 'Expert']
     for (const label of labels) {
       const cfg = getStrengthConfig(label)
       expect(cfg.skillLevel).toBeGreaterThanOrEqual(0)

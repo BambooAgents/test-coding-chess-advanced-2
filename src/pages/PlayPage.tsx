@@ -12,11 +12,11 @@
  * - "Analyze this game" — pipes PGN to /analyze via router state
  */
 
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Position, writePgn } from '../chess'
-import type { Color, MoveInfo, GameOutcome } from '../chess'
+import type { Color, MoveInfo, GameOutcome, GameResult } from '../chess'
 import { StockfishEngine } from '../engine/StockfishEngine'
 import { ChessBoard } from '../components/ChessBoard'
 import { STRENGTH_LEVELS, getStrengthConfig } from './play/strength'
@@ -134,6 +134,16 @@ const Status = styled.div<{ $over: boolean }>`
   padding: var(--sp-2);
 `
 
+const EngineErrorBanner = styled.div`
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius);
+  padding: var(--sp-2) var(--sp-3);
+  font-size: var(--fs-sm);
+  text-align: center;
+`
+
 const Toast = styled.div<{ $show: boolean }>`
   position: fixed;
   bottom: var(--sp-8);
@@ -211,6 +221,7 @@ export function PlayPage() {
   movesRef.current = moves
   playerColorRef.current = playerColor
   strengthRef.current = strength
+  const [engineError, setEngineError] = useState(false)
   gameOverRef.current = gameOver
 
   // Init engine on mount
@@ -218,7 +229,8 @@ export function PlayPage() {
     const engine = new StockfishEngine()
     engineRef.current = engine
     engine.init().catch(() => {
-      // Engine failed to init — play page still usable for viewing
+      // Engine failed to init — surface to the user so they know why the engine won't reply.
+      setEngineError(true)
     })
     return () => {
       engine.destroy()
@@ -360,34 +372,25 @@ export function PlayPage() {
   }, [])
 
   const handleAnalyze = useCallback(() => {
+    const result: GameResult = resigned
+      ? playerColor === 'white'
+        ? '0-1'
+        : '1-0'
+      : outcome === 'white_win'
+        ? '1-0'
+        : outcome === 'black_win'
+          ? '0-1'
+          : outcome === 'draw'
+            ? '1/2-1/2'
+            : '*'
     const game = {
       headers: {
         White: playerColor === 'white' ? 'Player' : 'Stockfish',
         Black: playerColor === 'white' ? 'Stockfish' : 'Player',
-        Result: resigned
-          ? playerColor === 'white'
-            ? '0-1'
-            : '1-0'
-          : outcome === 'white_win'
-            ? '1-0'
-            : outcome === 'black_win'
-              ? '0-1'
-              : outcome === 'draw'
-                ? '1/2-1/2'
-                : '*',
+        Result: result,
       },
       moves: moves,
-      result: resigned
-        ? playerColor === 'white'
-          ? '0-1'
-          : '1-0'
-        : outcome === 'white_win'
-          ? '1-0'
-          : outcome === 'black_win'
-            ? '0-1'
-            : outcome === 'draw'
-              ? '1/2-1/2'
-              : '*',
+      result,
       startingFen: new Position().fen(),
     }
     const pgn = writePgn(game)
@@ -410,22 +413,28 @@ export function PlayPage() {
           : 'Stockfish to move'
 
   // Build SAN move list
-  const sanList: string[] = []
-  {
+  const sanList = useMemo(() => {
+    const list: string[] = []
     const tempPos = new Position()
     for (const m of moves) {
       try {
         const info = tempPos.move(m.uci)
-        sanList.push(info.san)
+        list.push(info.san)
       } catch {
-        sanList.push(m.san)
+        list.push(m.san)
       }
     }
-  }
+    return list
+  }, [moves])
 
   return (
     <Container>
       <BoardArea>
+        {engineError && (
+          <EngineErrorBanner data-testid="engine-error" role="alert">
+            Engine failed to load — you can still view the board, but the computer won't reply.
+          </EngineErrorBanner>
+        )}
         <Status $over={gameOver} data-testid="play-status">
           {statusText}
         </Status>
