@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChessVision — Direction A (Indigo, Airy)</title>
+<style>
+:root {
+  --accent: #4f46e5;
+  --accent-light: #818cf8;
+  --accent-dark: #3730a3;
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --text: #1e1b2e;
+  --text-secondary: #6b7280;
+  --border: #e5e7eb;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.03);
+  --shadow-lg: 0 10px 30px rgba(79,70,229,.12), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+.nav { display: flex; align-items: center; gap: 2rem; padding: 1.25rem 3rem; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+.nav-logo { font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; }
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text-secondary); font-size: .9rem; font-weight: 500; transition: color .15s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.nav-right { margin-left: auto; display: flex; gap: 1rem; align-items: center; }
+.nav-btn { background: var(--accent); color: #fff; border: none; padding: .55rem 1.25rem; border-radius: var(--radius-sm); font-size: .85rem; font-weight: 600; cursor: pointer; }
+.section-label { font-size: .7rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+
+/* Home */
+.home { max-width: 960px; margin: 0 auto; padding: 4rem 2rem; }
+.hero-title { font-size: 2.8rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: .75rem; }
+.hero-sub { font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 3rem; max-width: 500px; }
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; cursor: pointer; transition: all .2s ease; position: relative; overflow: hidden; }
+.card:hover { border-color: var(--accent-light); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+.card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+.card:hover::after { transform: scaleX(1); }
+.card-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+.card-title { font-size: 1.35rem; font-weight: 700; margin-bottom: .4rem; }
+.card-desc { font-size: .9rem; color: var(--text-secondary); }
+
+/* Analyze Page */
+.analyze { max-width: 1200px; margin: 0 auto; padding: 2rem; display: none; }
+.analyze.active { display: grid; }
+.analyze { grid-template-columns: 1fr 380px; gap: 2rem; }
+.board-area { background: var(--surface); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
+.board-wrapper { display: flex; gap: 1rem; align-items: flex-start; }
+.chessboard { width: 480px; height: 480px; display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+.square { display: flex; align-items: center; justify-content: center; font-size: 2.2rem; }
+.square.light { background: #f0d9b5; }
+.square.dark { background: #b58863; }
+.square.highlight { box-shadow: inset 0 0 0 3px var(--accent); }
+.eval-bar { width: 24px; height: 480px; border-radius: 6px; overflow: hidden; display: flex; flex-direction: column-reverse; border: 1px solid var(--border); flex-shrink: 0; }
+.eval-white { background: #f0d9b5; width: 100%; transition: height .3s; }
+.eval-black { background: #2d2d2d; width: 100%; transition: height .3s; }
+.eval-label { font-size: .7rem; font-weight: 700; text-align: center; margin-top: .5rem; color: var(--text-secondary); }
+.info-panel { display: flex; flex-direction: column; gap: 1rem; }
+.info-card { background: var(--surface); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); }
+.opening-name { font-size: 1rem; font-weight: 600; color: var(--accent); margin-bottom: .25rem; }
+.eval-num { font-size: 1.8rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.eval-num.pos { color: var(--accent); }
+.eval-num.neg { color: #6b7280; }
+.move-list { max-height: 360px; overflow-y: auto; }
+.move-row { display: flex; align-items: center; gap: .5rem; padding: .4rem .5rem; border-radius: 6px; cursor: pointer; font-size: .85rem; }
+.move-row:hover { background: var(--bg); }
+.move-row.current { background: rgba(79,70,229,.08); }
+.move-num { color: var(--text-secondary); font-weight: 600; min-width: 2rem; }
+.move-text { font-weight: 500; }
+.badge { font-size: .7rem; font-weight: 700; padding: .1rem .3rem; border-radius: 4px; margin-left: auto; }
+.badge.brilliant { background: #22c55e; color: #fff; }
+.badge.great { background: #16a34a; color: #fff; }
+.badge.good { background: #84cc16; color: #fff; }
+.badge.inaccuracy { background: #f59e0b; color: #fff; }
+.badge.mistake { background: #f97316; color: #fff; }
+.badge.blunder { background: #ef4444; color: #fff; }
+.badge.book { background: #a78bfa; color: #fff; }
+.scrubber { display: flex; align-items: center; gap: .75rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.scrubber-btn { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: .4rem .7rem; cursor: pointer; font-size: .85rem; color: var(--text-secondary); }
+.scrubber-btn:hover { border-color: var(--accent); color: var(--accent); }
+.scrubber-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; position: relative; cursor: pointer; }
+.scrubber-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--accent); border-radius: 2px; width: 55%; }
+.scrubber-knob { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: var(--accent); border: 2px solid #fff; border-radius: 50%; box-shadow: var(--shadow); left: 55%; }
+
+.import-bar { display: flex; gap: .75rem; margin-bottom: 1.5rem; }
+.import-input { flex: 1; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: .6rem 1rem; font-size: .9rem; outline: none; }
+.import-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(79,70,229,.1); }
+.import-btn { background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); padding: .6rem 1.5rem; font-weight: 600; cursor: pointer; font-size: .9rem; }
+
+.page-toggle { display: flex; gap: .5rem; margin-bottom: 2rem; }
+.toggle-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: .5rem 1.25rem; cursor: pointer; font-weight: 600; font-size: .85rem; color: var(--text-secondary); }
+.toggle-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-logo">Chess<span>Vision</span></div>
+  <ul class="nav-links">
+    <li><a href="#" id="nav-home" class="active">Home</a></li>
+    <li><a href="#" id="nav-play">Play</a></li>
+    <li><a href="#" id="nav-analyze">Analyze</a></li>
+    <li><a href="#" id="nav-puzzles">Puzzles</a></li>
+    <li><a href="#" id="nav-weak">My Weaknesses</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-btn">Sign In</button>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="home" id="page-home">
+  <div class="section-label">Chess improvement, simplified</div>
+  <h1 class="hero-title">Understand every move.</h1>
+  <p class="hero-sub">Analyze your games with Stockfish, train your weaknesses, and get better — all in your browser.</p>
+  <div class="cards">
+    <div class="card" onclick="showAnalyze()">
+      <span class="card-icon">♟️</span>
+      <div class="card-title">Play</div>
+      <div class="card-desc">Challenge Stockfish at your level, then send the game straight to analysis.</div>
+    </div>
+    <div class="card" onclick="showAnalyze()">
+      <span class="card-icon">📊</span>
+      <div class="card-title">Analyze</div>
+      <div class="card-desc">Full game review with eval, annotations, and move-by-move classification.</div>
+    </div>
+    <div class="card" onclick="showAnalyze()">
+      <span class="card-icon">🧩</span>
+      <div class="card-title">Puzzles</div>
+      <div class="card-desc">Train tactics by theme, opening, or endgame. Rush and death-match modes.</div>
+    </div>
+    <div class="card" onclick="showAnalyze()">
+      <span class="card-icon">🎯</span>
+      <div class="card-title">My Weaknesses</div>
+      <div class="card-desc">Enter your chess.com username and find exactly where you're losing — and how to fix it.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYZE PAGE -->
+<div class="analyze" id="page-analyze">
+  <div class="board-area">
+    <div class="import-bar">
+      <input class="import-input" placeholder="chess.com username or paste PGN..." value="hikaru">
+      <button class="import-btn">Load Games</button>
+    </div>
+    <div class="board-wrapper">
+      <div class="eval-bar">
+        <div class="eval-white" style="height: 62%;"></div>
+        <div class="eval-black" style="height: 38%;"></div>
+      </div>
+      <div class="chessboard" id="board"></div>
+    </div>
+    <div class="eval-label">+1.2 (White advantage)</div>
+    <div class="scrubber">
+      <button class="scrubber-btn">⟸</button>
+      <button class="scrubber-btn">←</button>
+      <div class="scrubber-track">
+        <div class="scrubber-fill"></div>
+        <div class="scrubber-knob"></div>
+      </div>
+      <button class="scrubber-btn">→</button>
+      <button class="scrubber-btn">⟹</button>
+    </div>
+  </div>
+  <div class="info-panel">
+    <div class="info-card">
+      <div class="section-label">Opening</div>
+      <div class="opening-name">Ruy Lopez — Berlin Defense</div>
+    </div>
+    <div class="info-card">
+      <div class="section-label">Evaluation</div>
+      <div class="eval-num pos">+1.2</div>
+    </div>
+    <div class="info-card">
+      <div class="section-label">Moves</div>
+      <div class="move-list">
+        <div class="move-row"><span class="move-num">1.</span><span class="move-text">e4</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">e5</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num">2.</span><span class="move-text">Nf3</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">Nc6</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num">3.</span><span class="move-text">Bb5</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">Nf6</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num">4.</span><span class="move-text">O-O</span><span class="badge great">!!</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">Be7</span><span class="badge good">⭐</span></div>
+        <div class="move-row"><span class="move-num">5.</span><span class="move-text">Re1</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">Nd6</span><span class="badge inaccuracy">?!</span></div>
+        <div class="move-row current"><span class="move-num">6.</span><span class="move-text">d4</span><span class="badge brilliant">!!</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">c6</span><span class="badge mistake">?</span></div>
+        <div class="move-row"><span class="move-num">7.</span><span class="move-text">Nxe5</span><span class="badge good">⭐</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">Bd7</span><span class="badge blunder">??</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Build a sample board with a few pieces
+const pieces = {
+  '0,1': '♟', '0,3': '♛', '0,5': '♝', '0,7': '♞',
+  '1,0': '♟', '1,2': '♟', '1,4': '♟', '1,6': '♟',
+  '4,4': '♙', '5,4': '♟',
+  '6,0': '♙', '6,2': '♙', '6,6': '♙',
+  '7,1': '♘', '7,3': '♕', '7,5': '♗', '7,7': '♖'
+};
+const board = document.getElementById('board');
+for (let r = 0; r < 8; r++) {
+  for (let c = 0; c < 8; c++) {
+    const sq = document.createElement('div');
+    sq.className = 'square ' + ((r + c) % 2 === 0 ? 'light' : 'dark');
+    if (r === 5 && c === 4) sq.classList.add('highlight');
+    const p = pieces[r + ',' + c];
+    if (p) sq.textContent = p;
+    board.appendChild(sq);
+  }
+}
+
+function showAnalyze() {
+  document.getElementById('page-home').style.display = 'none';
+  document.getElementById('page-analyze').classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('nav-analyze').classList.add('active');
+}
+function showHome() {
+  document.getElementById('page-home').style.display = '';
+  document.getElementById('page-analyze').classList.remove('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('nav-home').classList.add('active');
+}
+document.getElementById('nav-home').onclick = (e) => { e.preventDefault(); showHome(); };
+document.getElementById('nav-analyze').onclick = (e) => { e.preventDefault(); showAnalyze(); };
+document.getElementById('nav-play').onclick = (e) => { e.preventDefault(); showAnalyze(); };
+document.getElementById('nav-puzzles').onclick = (e) => { e.preventDefault(); showAnalyze(); };
+document.getElementById('nav-weak').onclick = (e) => { e.preventDefault(); showAnalyze(); };
+</script>
+</body>
+</html>
