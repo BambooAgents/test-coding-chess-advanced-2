@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "tracker": "local",
+  "scale": "auto",
+  "ui": true,
+  "autonomy": "high",
+  "finalMerge": "human",
+  "review": {
+    "maxCorrectionRounds": 2,
+    "watchdog": "off"
+  },
+  "runs": {
+    "directory": ".pi/runs"
+  }
+}
