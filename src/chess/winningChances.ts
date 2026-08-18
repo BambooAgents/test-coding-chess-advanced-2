@@ -58,11 +58,14 @@ export function povChances(color: Color, ev: EvalScore): number {
  *
  * e1 = eval before the move, e2 = eval after the move, color = mover's color.
  *
- * Note: the lichess formula computes (povChances(before) - povChances(after)) / 2
+ * SIGN CONVENTION: The lichess code computes `(povChances(before) - povChances(after)) / 2`
  * which gives a POSITIVE value when the position worsens (before > after).
- * We negate it so that negative = worse, matching the spec's threshold checks
- * (delta <= -0.30 → blunder). This is the sign convention used by the spec's
- * decision tree (§5) and threshold table (§2.1).
+ * We invert to `(povChances(after) - povChances(before)) / 2` so that a NEGATIVE
+ * delta means the move worsened the player's position, matching the spec's
+ * threshold checks (delta <= -0.30 → blunder, §5 decision tree and §2.1 table).
+ * This is the opposite sign from lichess's raw formula but produces the
+ * correct classification results because the threshold comparisons are also
+ * inverted to match.
  */
 export function povDiff(color: Color, e1: EvalScore, e2: EvalScore): number {
   return (povChances(color, e2) - povChances(color, e1)) / 2

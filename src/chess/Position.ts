@@ -6,7 +6,7 @@
  * check/checkmate/stalemate, castling, en passant, promotion, draws.
  */
 
-import { Chess, type Move as ChessJsMove } from 'chess.js'
+import { Chess } from 'chess.js'
 import type {
   Color,
   GameOutcome,
@@ -17,6 +17,7 @@ import type {
   UciMove,
 } from './types'
 import { detectPhase } from './phase'
+import { verboseToMoveInfoHelper } from './moveUtils'
 
 /**
  * A position on the board. Wraps chess.js's Chess class.
@@ -55,7 +56,7 @@ export class Position {
 
   /** Get all legal moves with full info. */
   moves(): MoveInfo[] {
-    return this.chess.moves({ verbose: true }).map((m) => verboseToMoveInfo(m))
+    return this.chess.moves({ verbose: true }).map((m) => verboseToMoveInfoHelper(m))
   }
 
   /** Number of legal moves. */
@@ -66,7 +67,7 @@ export class Position {
   /** Make a move (UCI or SAN). Returns the MoveInfo or throws. */
   move(uci: string): MoveInfo {
     const result = this.chess.move(uci)
-    return verboseToMoveInfo(result)
+    return verboseToMoveInfoHelper(result)
   }
 
   /** Make a move from UCI components. */
@@ -186,43 +187,5 @@ export class Position {
   /** Clone this position. */
   clone(): Position {
     return Position.fromFen(this.fen())
-  }
-
-  /** Get the underlying chess.js instance (for advanced use). */
-  raw(): Chess {
-    return this.chess
-  }
-}
-
-/** Convert a chess.js verbose move to our MoveInfo. */
-function verboseToMoveInfo(m: ChessJsMove): MoveInfo {
-  const pieceMap: Record<string, string> = {
-    p: 'pawn',
-    n: 'knight',
-    b: 'bishop',
-    r: 'rook',
-    q: 'queen',
-    k: 'king',
-  }
-
-  const promotionMap: Record<string, 'knight' | 'bishop' | 'rook' | 'queen'> = {
-    n: 'knight',
-    b: 'bishop',
-    r: 'rook',
-    q: 'queen',
-  }
-
-  return {
-    uci: m.lan,
-    san: m.san,
-    from: m.from,
-    to: m.to,
-    color: m.color === 'w' ? 'white' : 'black',
-    piece: pieceMap[m.piece] as MoveInfo['piece'],
-    captured: m.captured ? (pieceMap[m.captured] as MoveInfo['captured']) : undefined,
-    promotion: m.promotion ? promotionMap[m.promotion] : undefined,
-    flags: m.flags,
-    fenBefore: m.before,
-    fenAfter: m.after,
   }
 }

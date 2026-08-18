@@ -75,154 +75,9 @@ describe('classifyMove — negative classifications (steps 6-8)', () => {
   })
 
   it('classifies as mistake when delta is -0.20 to -0.30', () => {
-    // Find cp values that give delta ≈ -0.25
-    // winningChances(cp) = 2/(1+exp(-0.00368208*cp)) - 1
-    // We need delta ≈ -0.25
-    // delta = (povChances(color, before) - povChances(color, after)) / 2
-    // For white: delta = (winningChances(before) - winningChances(after)) / 2
-    // We want delta ≈ -0.25, so winningChances(after) - winningChances(before) ≈ 0.5
-    // If before = 0 (WC=0), after needs WC ≈ -0.5, which is about cp ≈ -300
-    // Let me check: winningChances(-300) = 2/(1+exp(0.00368208*300)) - 1
-    // = 2/(1+exp(1.1046)) - 1 = 2/(1+3.018) - 1 = 2/4.018 - 1 = 0.498 - 1 = -0.502
-    // delta = (0 - (-0.502))/2 = 0.502/2 = 0.251... wait that's positive for the mover?
-    // No — delta = (povChances(before) - povChances(after))/2 = (0 - (-0.502))/2 = 0.251
-    // That's positive, meaning the position improved? No, from white's POV, going from 0 to -300
-    // means the position worsened. But the formula says delta = (WC(before) - WC(after))/2
-    // = (0 - WC(-300))/2 = (0 - (-0.502))/2 = +0.251
-    // That means delta is POSITIVE when the position gets worse for white?
-    // No, wait: povChances returns from the MOVER's perspective.
-    // White moves: povChances(white, before) = WC(before_cp), povChances(white, after) = WC(after_cp)
-    // If white moves and position goes from cp=0 to cp=-300, WC goes from 0 to -0.502
-    // delta = (WC(0) - WC(-300))/2 = (0 - (-0.502))/2 = 0.251
-    // That's positive — but the position got WORSE for white!
-    // The formula says delta = (povChances(before) - povChances(after))/2
-    // If before is better (higher WC), then before - after > 0, meaning delta > 0
-    // But the spec says "negative delta means the move worsened the player's position"
-    // Wait, re-reading the spec:
-    // "delta = povDiff(color, e1, e2) = (povChances(color, e1) - povChances(color, e2)) / 2"
-    // "A negative delta means the move worsened the player's position"
-    // So if e1 (before) is better than e2 (after), then e1 - e2 > 0, delta > 0
-    // That means a GOOD move (position improved) has delta > 0 and a BAD move has delta < 0
-    // Wait no: if the position WORSENED, e2 < e1, so e1 - e2 > 0, delta > 0
-    // That contradicts "negative delta means worsened"!
-    // Let me re-read: "delta = (povChances(color, e1) - povChances(color, e2)) / 2"
-    // If position worsened: e2 < e1, so e1 - e2 > 0, delta > 0.
-    // But spec says "A negative delta means the move worsened."
-    // This seems contradictory. Let me check the lichess code.
-    // lichess: povDiff = (povChances(color, e1) - povChances(color, e2)) / 2
-    // If white plays a bad move: evalBefore (white POV) = +100, evalAfter (white POV) = -100
-    // povChances(white, before) = WC(100) ≈ 0.31
-    // povChances(white, after) = WC(-100) ≈ -0.31
-    // delta = (0.31 - (-0.31))/2 = 0.62/2 = 0.31 — POSITIVE!
-    // But the spec says delta ≤ -0.30 for blunder...
-    // AH WAIT. I think the convention is that evalAfter is from the OPPONENT's perspective
-    // after the move. No — re-reading: "e1 = eval before the move, e2 = eval after the move"
-    // and "delta ranges from -1 (catastrophic loss) to +1 (brilliant gain)"
-    // "A negative delta means the move worsened the player's position"
-    // So for a blunder, delta should be negative.
-    // Let me check: maybe the formula is the other way: (e2 - e1) instead of (e1 - e2)?
-    // From the lichess code: povDiff(c, e1, e2) = (povChances(c, e1) - povChances(c, e2)) / 2
-    // For a blunder (position worsened): e1 > e2, so e1 - e2 > 0, delta > 0
-    // That doesn't match "negative = worse".
-    // Unless... the evalAfter is from the opponent's POV (because it's the opponent's turn)?
-    // In lichess, after a move, the eval is from the NEXT player to move (the opponent).
-    // So if white plays a blunder, the eval after is from black's perspective = good for black
-    // = positive cp for black = NEGATIVE cp for white.
-    // So evalAfter is ALWAYS from the opponent's perspective? No, that doesn't make sense either.
-    // Actually, in lichess, evals are always from White's perspective.
-    // The trick is in the "player's perspective" conversion.
-    // Let me think again: 
-    // Before white's move: eval is from white's perspective (white to move).
-    // After white's move: eval is from white's perspective (black to move).
-    // If white plays a blunder, evalBefore = +100 (white POV), evalAfter = -100 (white POV).
-    // povChances(white, before) = WC(100) ≈ +0.31
-    // povChances(white, after) = WC(-100) ≈ -0.31
-    // delta = (0.31 - (-0.31))/2 = 0.31 → POSITIVE
-    // But spec says negative = worse. So maybe I have the formula backwards.
-    // OR maybe the formula in the spec is correct but the delta interpretation is different.
-    // Let me look at lichess Advice.scala more carefully.
-    // In lichess, the advice compares the BEST move's eval to the PLAYED move's eval.
-    // The "delta" in lichess is: bestMoveEval - playedMoveEval (from mover's perspective)
-    // If the played move is worse than best, delta = best - played > 0 (positive)
-    // And then lichess checks: if (d <= delta) where delta is NEGATIVE (-0.3, -0.2, -0.1)
-    // Wait — in lichess, the check is: d <= delta where d is the centipawn/mate difference
-    // and delta is the threshold (e.g. -0.3 for blunder).
-    // Actually, re-reading the spec more carefully:
-    // "delta = povDiff(color, e1, e2) = (povChances(color, e1) - povChances(color, e2)) / 2"
-    // "A negative delta means the move worsened the player's position"
-    // For a blunder: position went from good to bad.
-    // povChances(white, before) = high, povChances(white, after) = low
-    // delta = (high - low) / 2 = positive
-    // That contradicts! Unless the convention is that e2 (after) is actually
-    // the eval AFTER the opponent's best response, not just after the player's move.
-    // Or unless I'm reading the formula wrong.
-    // 
-    // OK, let me just look at what makes the tests pass. The spec says:
-    // "if delta <= -0.30: return BLUNDER"
-    // For a blunder to give delta <= -0.30, we need delta negative.
-    // delta = (povChances(before) - povChances(after)) / 2
-    // For delta to be negative: povChances(before) < povChances(after)
-    // That means the position IMPROVED for the mover (after > before).
-    // That can't be right for a blunder.
-    // 
-    // I think the issue is that the formula should be:
-    // delta = (povChances(after) - povChances(before)) / 2
-    // i.e. (e2 - e1), not (e1 - e2).
-    // Then for a blunder: after < before → delta < 0 → correct.
-    // 
-    // BUT the spec explicitly says: "delta = povDiff(color, e1, e2) = (povChances(color, e1) - povChances(color, e2)) / 2"
-    // And "A negative delta means the move worsened."
-    // 
-    // The only way both can be true is if e2 > e1 when the position worsens.
-    // That would be the case if e2 is from the OPPONENT's perspective.
-    // i.e., after white plays a blunder, the eval from black's perspective is good
-    // (high for black), so povChances(black, after) would be high.
-    // But the function takes color = white (the mover), and computes povChances(white, after).
-    //
-    // Hmm, I think there might be an error in the spec, or the convention is
-    // that evalAfter is the eval from the position AFTER the move, which is
-    // from the opponent's perspective (opponent to move).
-    // In engine analysis, after white plays, the engine evaluates from black's
-    // perspective, so a good position for black (bad for white) has a high eval.
-    // If we then convert with povChances(white, evalAfter) and evalAfter is
-    // from black's perspective... no, that doesn't make sense either.
-    //
-    // Actually, I think the key insight is: in lichess, the evals are ALWAYS
-    // from white's perspective. The "player's perspective" conversion via
-    // povChances handles the color.
-    // For a white blunder: evalBefore (white POV) = +100, evalAfter (white POV) = -100
-    // But the OPPONENT is the one who benefits. The "delta" from the player's
-    // perspective should be negative.
-    // povChances(white, before) = WC(+100) ≈ +0.31
-    // povChances(white, after) = WC(-100) ≈ -0.31
-    // delta = (before - after)/2 = (0.31 - (-0.31))/2 = 0.31 → positive!
-    //
-    // This is DEFINITELY positive, which means the formula as written gives
-    // a positive delta for a blunder, contradicting the spec.
-    //
-    // CONCLUSION: The formula should be (after - before), not (before - after).
-    // OR the spec means something different by "e1" and "e2".
-    // 
-    // Let me just make the implementation match the spec's INTENT (negative = worse)
-    // and the threshold checks (delta <= -0.30 = blunder).
-    // The correct formula for "how much did the move worsen the position" is:
-    // delta = povChances(after) - povChances(before)  [mover's perspective]
-    // If the move worsened: after < before → delta < 0 → correct.
-    // The spec's formula (before - after) gives the opposite sign.
-    //
-    // I'll use the correct sign (after - before) to match the spec's thresholds.
-    
-    // For a mistake: delta ≈ -0.25
-    // We need povChances(white, after) - povChances(white, before) ≈ -0.25
-    // before = 0 → WC(0) = 0
-    // after needs WC(after) ≈ -0.5 → cp ≈ -300
-    // Let's verify: WC(-300) ≈ -0.50
-    // delta = (-0.50 - 0)/2... wait, the /2 is in the formula.
-    // Actually the formula divides by 2. Let me reconsider.
-    // If delta = (povChances(after) - povChances(before)) / 2
-    // and before=0 (WC=0), after=-300 (WC≈-0.50):
-    // delta = (-0.50 - 0) / 2 = -0.25 → MISTAKE. Correct!
-    
+    // White moves, position goes from cp=0 to cp=-300.
+    // povDiff = (povChances(after) - povChances(before)) / 2 = (WC(-300) - WC(0)) / 2 ≈ -0.25 → MISTAKE.
+    // (povDiff is inverted from lichess's raw formula so negative delta = worse, per spec §5.)
     const result = classifyMove(
       makeInput({
         color: 'white',
@@ -405,6 +260,60 @@ describe('classifyMove — mate sequences (step 5)', () => {
     )
     // Should be at least inaccuracy (lost forced mate)
     expect(['inaccuracy', 'mistake', 'blunder']).toContain(result)
+  })
+
+  it('classifies mate_created for black as best', () => {
+    // Black moves, before: cp=-100 (slightly good for white), after: mate=-3 (black mates)
+    // mate < 0 = Black mates → good for black mover
+    const result = classifyMove(
+      makeInput({
+        color: 'black',
+        evalBefore: { cp: -100 },
+        evalAfter: { mate: -3 },
+        bestEval: { cp: -100 },
+      }),
+    )
+    expect(result).toBe('best')
+  })
+
+  it('classifies mate_lost for black as negative', () => {
+    // Black had mate=-3 (black mating), after: cp=0 (lost the mate)
+    const result = classifyMove(
+      makeInput({
+        color: 'black',
+        evalBefore: { mate: -3 },
+        evalAfter: { cp: 0 },
+        bestEval: { mate: -3 },
+      }),
+    )
+    expect(['inaccuracy', 'mistake', 'blunder']).toContain(result)
+  })
+
+  it('classifies mate_delayed for black as inaccuracy', () => {
+    // Black had mate=-3, now mate=-6 (slower mate = worse)
+    // |mateAfter| > |mateBefore| → delayed → inaccuracy if increase > 2
+    const result = classifyMove(
+      makeInput({
+        color: 'black',
+        evalBefore: { mate: -3 },
+        evalAfter: { mate: -6 },
+        bestEval: { mate: -3 },
+      }),
+    )
+    expect(result).toBe('inaccuracy')
+  })
+
+  it('classifies mate_delayed for white as inaccuracy', () => {
+    // White had mate=3, now mate=6 (slower mate = worse)
+    const result = classifyMove(
+      makeInput({
+        color: 'white',
+        evalBefore: { mate: 3 },
+        evalAfter: { mate: 6 },
+        bestEval: { mate: 3 },
+      }),
+    )
+    expect(result).toBe('inaccuracy')
   })
 })
 

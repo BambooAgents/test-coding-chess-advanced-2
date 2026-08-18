@@ -60,5 +60,7 @@ export {
 // Move classification
 export { classifyMove } from './classifyMove'
 
-// Phase detection
-export { detectPhase, isGarbageTime } from './phase'
+// Phase detection — not exported from barrel to avoid leaking chess.js Chess type.
+// Use Position.phase() instead. The isGarbageTime helper is used internally
+// by classifyMove; detectPhase is used internally by Position.
+// export { detectPhase, isGarbageTime } from './phase'

@@ -6,6 +6,7 @@
  */
 
 import type {
+  Color,
   ClassifyMoveInput,
   MoveClassification,
 } from './types'
@@ -13,9 +14,7 @@ import {
   evalToWinPercent,
   povDiff,
 } from './winningChances'
-
-/** Garbage-time threshold: |bestEval| > 700cp → skip annotation. */
-const GARBAGE_TIME_CP = 700
+import { isGarbageTime } from './phase'
 
 /** Winning-chance delta thresholds (lichess-based, negative classifications). */
 const DELTA_BLUNDER = -0.30
@@ -32,41 +31,44 @@ const BOOK_CP_LOSS = 20
 // const OPENING_PLY_LIMIT = 20
 
 /**
- * Check if an eval is in "garbage time" — the position is already decisively
- * won/lost and moves shouldn't be annotated.
+ * Detect a mate-sequence transition between two evals.
+ * Returns one of: 'mate_created', 'mate_lost', 'mate_delayed', null.
  */
-function isGarbageTime(bestCp: number): boolean {
-  return Math.abs(bestCp) > GARBAGE_TIME_CP
-}
-
 /**
  * Detect a mate-sequence transition between two evals.
+ * Mate scores are from White's perspective (positive = White mates, negative = Black mates).
+ * The mover's color determines which sign means "mating the opponent."
  * Returns one of: 'mate_created', 'mate_lost', 'mate_delayed', null.
  */
 function detectMateSequence(
   evalBefore: { cp?: number; mate?: number },
   evalAfter: { cp?: number; mate?: number },
+  color: Color,
 ): 'mate_created' | 'mate_lost' | 'mate_delayed' | null {
   const beforeHasMate = evalBefore.mate !== undefined
   const afterHasMate = evalAfter.mate !== undefined
 
-  // MateCreated: eval was cp, now mate (positive for the mover = good)
-  if (!beforeHasMate && afterHasMate && (evalAfter.mate ?? 0) > 0) {
+  // For a White mover, mate > 0 means White is mating (good).
+  // For a Black mover, mate < 0 means Black is mating (good).
+  const moverMate = (mate: number) => color === 'white' ? mate > 0 : mate < 0
+
+  // MateCreated: eval was cp, now mate in mover's favour
+  if (!beforeHasMate && afterHasMate && moverMate(evalAfter.mate!)) {
     return 'mate_created'
   }
 
-  // MateLost: eval was mate (positive), now cp
-  if (beforeHasMate && (evalBefore.mate ?? 0) > 0 && !afterHasMate) {
+  // MateLost: eval was mate (mover mating), now cp
+  if (beforeHasMate && moverMate(evalBefore.mate!) && !afterHasMate) {
     return 'mate_lost'
   }
 
-  // MateDelayed: was mate (positive), now mate (positive) but slower
+  // MateDelayed: was mate (mover mating), now mate (mover mating) but slower
   if (
     beforeHasMate &&
     afterHasMate &&
-    (evalBefore.mate ?? 0) > 0 &&
-    (evalAfter.mate ?? 0) > 0 &&
-    (evalAfter.mate ?? 0) > (evalBefore.mate ?? 0)
+    moverMate(evalBefore.mate!) &&
+    moverMate(evalAfter.mate!) &&
+    Math.abs(evalAfter.mate!) > Math.abs(evalBefore.mate!)
   ) {
     return 'mate_delayed'
   }
@@ -115,7 +117,7 @@ export function classifyMove(input: ClassifyMoveInput): MoveClassification {
   const delta = povDiff(color, evalBefore, evalAfter)
 
   // Step 5: Handle mate sequences
-  const mateSeq = detectMateSequence(evalBefore, evalAfter)
+  const mateSeq = detectMateSequence(evalBefore, evalAfter, color)
   if (mateSeq === 'mate_created') {
     return 'best'
   }
@@ -127,9 +129,10 @@ export function classifyMove(input: ClassifyMoveInput): MoveClassification {
     return 'inaccuracy'
   }
   if (mateSeq === 'mate_delayed') {
-    // Slower mate — inaccuracy if distance increased by > 2, else good
-    const mateBefore = evalBefore.mate ?? 0
-    const mateAfter = evalAfter.mate ?? 0
+    // Slower mate — inaccuracy if distance increased by > 2, else good.
+    // Use absolute values since mate scores are signed (positive = White, negative = Black).
+    const mateBefore = Math.abs(evalBefore.mate ?? 0)
+    const mateAfter = Math.abs(evalAfter.mate ?? 0)
     if (mateAfter - mateBefore > 2) return 'inaccuracy'
     return 'good'
   }

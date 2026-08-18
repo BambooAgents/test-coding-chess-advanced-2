@@ -195,6 +195,86 @@ describe('Position — draws', () => {
     const pos = Position.fromFen(fen)
     expect(pos.isInsufficientMaterial()).toBe(false)
   })
+
+  it('detects threefold repetition', () => {
+    // Play 1.Nf3 Nf6 2.Ng1 Ng8 3.Nf3 Nf6 4.Ng1 Ng8 — three repetitions of the
+    // starting position (including the initial one).
+    const pos = new Position()
+    pos.move('g1f3')
+    pos.move('g8f6')
+    pos.move('f3g1')
+    pos.move('f6g8')
+    pos.move('g1f3')
+    pos.move('g8f6')
+    pos.move('f3g1')
+    pos.move('f6g8')
+    expect(pos.isThreefoldRepetition()).toBe(true)
+    expect(pos.drawReason()).toBe('threefold_repetition')
+  })
+
+  it('detects fifty-move rule', () => {
+    // Position with half-move clock at 100 (>= 100 triggers fifty-move rule).
+    // Knights shuffling to reach 100 half-moves: use a FEN with the clock already high.
+    // K+N vs K+N, half-move clock = 99, white to move. After one knight move, clock = 100.
+    const fen = '4k3/8/8/8/8/8/8/3NK1n1 w - - 99 50'
+    const pos = Position.fromFen(fen)
+    // Make a non-capturing, non-pawn move to increment the clock to 100
+    pos.move('d1e3') // knight move, clock goes to 100
+    expect(pos.isDraw()).toBe(true)
+    expect(pos.drawReason()).toBe('fifty_move_rule')
+  })
+})
+
+describe('Position — castling execution', () => {
+  it('executes queenside castling for white (O-O-O)', () => {
+    // King on e1, rook on a1, both sides have castling rights
+    const fen = 'r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1'
+    const pos = Position.fromFen(fen)
+    const move = pos.move('e1c1')
+    expect(move.san).toBe('O-O-O')
+    // After O-O-O: king on c1, rook on d1
+    expect(pos.pieceAt('c1')).toEqual({ type: 'k', color: 'w' })
+    expect(pos.pieceAt('d1')).toEqual({ type: 'r', color: 'w' })
+    // King and rook should no longer be on e1 and a1
+    expect(pos.pieceAt('e1')).toBeNull()
+    expect(pos.pieceAt('a1')).toBeNull()
+  })
+
+  it('executes kingside castling for white (O-O)', () => {
+    const fen = 'r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1'
+    const pos = Position.fromFen(fen)
+    const move = pos.move('e1g1')
+    expect(move.san).toBe('O-O')
+    // After O-O: king on g1, rook on f1
+    expect(pos.pieceAt('g1')).toEqual({ type: 'k', color: 'w' })
+    expect(pos.pieceAt('f1')).toEqual({ type: 'r', color: 'w' })
+    expect(pos.pieceAt('e1')).toBeNull()
+    expect(pos.pieceAt('h1')).toBeNull()
+  })
+
+  it('executes queenside castling for black (O-O-O)', () => {
+    const fen = 'r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R b KQkq - 0 1'
+    const pos = Position.fromFen(fen)
+    const move = pos.move('e8c8')
+    expect(move.san).toBe('O-O-O')
+    // After O-O-O: king on c8, rook on d8
+    expect(pos.pieceAt('c8')).toEqual({ type: 'k', color: 'b' })
+    expect(pos.pieceAt('d8')).toEqual({ type: 'r', color: 'b' })
+    expect(pos.pieceAt('e8')).toBeNull()
+    expect(pos.pieceAt('a8')).toBeNull()
+  })
+
+  it('executes kingside castling for black (O-O)', () => {
+    const fen = 'r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R b KQkq - 0 1'
+    const pos = Position.fromFen(fen)
+    const move = pos.move('e8g8')
+    expect(move.san).toBe('O-O')
+    // After O-O: king on g8, rook on f8
+    expect(pos.pieceAt('g8')).toEqual({ type: 'k', color: 'b' })
+    expect(pos.pieceAt('f8')).toEqual({ type: 'r', color: 'b' })
+    expect(pos.pieceAt('e8')).toBeNull()
+    expect(pos.pieceAt('h8')).toBeNull()
+  })
 })
 
 describe('Position — game state', () => {
