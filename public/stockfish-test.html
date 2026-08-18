@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>Stockfish WASM Test</title></head>
+<body>
+<div id="status">loading</div>
+<div id="bestmove"></div>
+<script type="module">
+  import { StockfishEngine } from '/test-coding-chess-advanced-2/src/engine/StockfishEngine.ts'
+
+  const status = document.getElementById('status')
+  const bestmoveEl = document.getElementById('bestmove')
+
+  try {
+    const engine = new StockfishEngine()
+    await engine.init()
+    status.textContent = 'uciok'
+
+    const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+    const result = await engine.getBestMove(startingFen, 5)
+    bestmoveEl.textContent = result.bestMove
+    engine.destroy()
+  } catch (err) {
+    status.textContent = 'error: ' + err.message
+  }
+</script>
+</body>
+</html>

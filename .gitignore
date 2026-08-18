@@ -1,8 +1,12 @@
-.env
-.env.*
-!.env.example
 node_modules/
 dist/
 coverage/
+test-results/
+playwright-report/
+.env
+.env.*
+!.env.example
 .pi-worktrees/
 .playwright-cli/
+tsconfig.tsbuildinfo
+tsconfig.*.tsbuildinfo
