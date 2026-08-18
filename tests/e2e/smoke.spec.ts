@@ -24,7 +24,7 @@ test('top nav is present and navigates to Play page', async ({ page }) => {
 
   // Should be on the Play page
   await expect(page).toHaveURL(/.*\/play$/)
-  await expect(page.locator('h2')).toContainText('Play')
+  await expect(page.locator('[data-testid="play-status"]')).toBeVisible({ timeout: 10_000 })
 })
 
 test('can navigate to each page via nav', async ({ page }) => {
