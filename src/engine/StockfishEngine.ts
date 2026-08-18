@@ -15,6 +15,7 @@ export interface StockfishResult {
   bestMove: string
   ponder?: string
   score?: number
+  mate?: number
   depth?: number
 }
 
@@ -93,6 +94,57 @@ export class StockfishEngine {
       throw new Error('Stockfish worker not initialized')
     }
     this.worker.postMessage(msg)
+  }
+
+  /**
+   * Get the full evaluation for a given FEN position at a given depth.
+   * Includes both best move and score (cp or mate).
+   */
+  async getEvaluation(fen: string, depth = 6): Promise<StockfishResult> {
+    if (!this.worker) {
+      throw new Error('Stockfish not initialized. Call init() first.')
+    }
+
+    return new Promise<StockfishResult>((resolve) => {
+      let bestMove = ''
+      let ponder: string | undefined
+      let score: number | undefined
+      let searchDepth: number | undefined
+
+      const handler = (line: string) => {
+        if (line.startsWith('info')) {
+          const depthMatch = line.match(/depth (\d+)/)
+          if (depthMatch) {
+            searchDepth = parseInt(depthMatch[1], 10)
+          }
+          const scoreMatch = line.match(/score cp (-?\d+)/)
+          if (scoreMatch) {
+            score = parseInt(scoreMatch[1], 10)
+          }
+        }
+
+        if (line.startsWith('bestmove')) {
+          const parts = line.split(/\s+/)
+          bestMove = parts[1] || '(none)'
+          if (parts[3] && parts[3] !== '(none)') {
+            ponder = parts[3]
+          }
+          this.removeListener('search', handler)
+          resolve({
+            bestMove,
+            ponder,
+            score,
+            depth: searchDepth,
+          })
+        }
+      }
+
+      this.addListener('search', handler)
+
+      this.send('ucinewgame')
+      this.send(`position fen ${fen}`)
+      this.send(`go depth ${depth}`)
+    })
   }
 
   /**
