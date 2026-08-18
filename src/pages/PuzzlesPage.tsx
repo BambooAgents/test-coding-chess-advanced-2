@@ -28,6 +28,7 @@ import {
   getByTheme,
   getByOpening,
 } from '../puzzles'
+import { Position } from '../chess'
 import type { Puzzle, PuzzleStats, PuzzleSessionState } from '../puzzles'
 
 // --- Styled components ---
@@ -347,7 +348,7 @@ export function PuzzlesPage() {
     setStats(session.stats)
   }, [session.stats])
 
-  const handleMove = useCallback((uci: string) => {
+  const handleMove = useCallback((uci: string): boolean => {
     const result = tryMove(session, uci)
     if (result.correct) {
       if (result.session.state === 'solved') {
@@ -359,6 +360,7 @@ export function PuzzlesPage() {
       setFeedback('wrong')
     }
     setSession(result.session)
+    return result.correct
   }, [session])
 
   const handleNext = useCallback(() => {
@@ -404,6 +406,12 @@ export function PuzzlesPage() {
   // The user's color for the current puzzle
   const userColor = session.userColor
   const currentPuzzle = session.puzzle
+  // Derive a Position for the ChessBoard (which takes a Position, not a FEN).
+  const currentPosition = useMemo(
+    () => (session.currentFen ? new Position(session.currentFen) : new Position()),
+    [session.currentFen],
+  )
+  const lastBoardMove = null
 
   return (
     <Page>
@@ -481,11 +489,11 @@ export function PuzzlesPage() {
         <Layout>
           <BoardArea>
             <ChessBoard
-              fen={session.currentFen}
+              position={currentPosition}
               onMove={handleMove}
               orientation={userColor}
-              interactive={session.state === 'playing'}
-              lastMove={null}
+              disabled={session.state !== 'playing'}
+              lastMove={lastBoardMove}
             />
           </BoardArea>
 
