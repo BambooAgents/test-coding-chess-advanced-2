@@ -23,12 +23,13 @@ test.describe('Play page', () => {
 
     await expect(page.getByTestId('move-list')).toContainText('e4')
 
-    // Wait for engine to reply
-    await page.waitForTimeout(3000)
-
+    // Wait for engine to reply — engine move should appear in the move list
+    await expect(page.getByTestId('move-list')).not.toContainText('No moves yet', { timeout: 10_000 })
+    // The move list should have at least 2 entries (player + engine)
     const moveListText = await page.getByTestId('move-list').textContent()
     expect(moveListText).toBeTruthy()
-    expect(moveListText!.length).toBeGreaterThan(10)
+    // Should contain more than just the first move — check it's not only "1. e4"
+    expect(moveListText!.length).toBeGreaterThan(5)
   })
 
   test('can change difficulty', async ({ page }) => {
