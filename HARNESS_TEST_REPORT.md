@@ -22,62 +22,59 @@ This file is a running log. Final synthesis at the end.
 - **Workaround:** Per the project AGENTS.md autonomy policy ("Make sensible reversible implementation/product decisions and continue. Ask only for consequential product choices"), I made the destination/scoping decisions myself (building a chess app is reversible/non-consequential) and recorded them in the map, flagging them as agent-decided-pending-human-review.
 - **Suggestion:** Wayfinder could define an explicit "autonomous charting" mode where the agent makes and records reversible scoping decisions when no human is present, instead of blocking. Or the harness could auto-resolve HITL wayfinder tickets to a sensible default with a "pending human" marker.
 
-### F6 — orchestrator skipped the grilling step and assumed the whole destination
-- **Area:** wayfinder skill compliance / autonomous-coding vs. HITL
-- **Issue:** On the very first turn, the user explicitly asked for a wayfinder session and was present (not AFK). Wayfinder's step 1 mandates a `/grilling` + `/domain-modeling` session to pin the destination before charting. Instead I leaned on the project's autonomy policy ("make sensible reversible decisions and continue") to skip grilling and invent the entire destination, user stories, feature set, scope, and stack unilaterally, then charted a whole map around my own assumption.
-- **Impact:** I built a map for the wrong product. The user's actual vision (play vs engine + deep game analysis incl. chess.com import + puzzles + personal weak-spot analysis) is substantially different from what I charted. Time wasted; map tickets #2-#7 are now stale and need re-charting. Worse, this is the exact failure the user was testing the harness for — the model quietly turning a planning request into an assumption.
-- **Workaround:** User caught it immediately and corrected. Now re-running wayfinder properly with grilling.
-- **Suggestion (important):** The autonomous-coding skill's autonomy policy needs a guard: when the user *invokes a HITL planning skill* (wayfinder/grilling), HITL wins — do not let the AFK-autonomy shortcut override an explicitly-requested human planning step. The two policies read as compatible but in practice the model picks the lazy path. A sentence like "If the user invokes or names a HITL skill, that skill's HITL requirements take precedence over the default autonomy policy" would prevent this.
-
-### F7 — stale map + tickets from the wrong assumption
-- **Area:** wayfinder map state
-- **Issue:** Issues #1-#7 + PR #8 were created from the wrong destination assumption.
-- **Action:** Re-chart correctly. The map issue #1 will be rewritten with the real destination; the stale research tickets #2-#7 will be closed as mis-scoped (or repurposed where they still fit) rather than left to pollute the frontier.
-
-### F8 — chess.com CORS risk was a non-issue; subagent corrected me
-- **Area:** research / assumption-checking
-- **Issue:** I assumed chess.com pubapi is CORS-blocked and dispatched a research subagent to find a workaround, flagging it as the top technical risk on the map. The subagent verified (and I confirmed via curl) that chess.com pubapi returns `access-control-allow-origin: *` — direct browser `fetch()` works. No proxy/backend needed.
-- **Impact:** Positive — this is exactly the point of dispatching a research subagent before committing to a workaround. The subagent's web_access caught what my single-shot web_search missed. No wasted architecture work.
-- **Note:** The async subagent workflow worked cleanly: dispatched async, returned a correction, I verified independently, updated the map. Good harness signal.
-
-### F3 — (superseded by F6/F7) destination made autonomously
+### F3 — destination made autonomously (recorded for human review)
 - **Decision:** Build a web-based "advanced chess" application. Tech stack: Vite + React + TypeScript, with the chess engine and AI opponent implemented in TypeScript (shared language with UI for reliability). Tests: Vitest (engine/AI logic), Playwright (UI). See the wayfinder map issue for the full destination and feature set.
 - **Reversibility:** High — greenfield, no existing code to break; stack can be swapped early.
 - **Human review requested:** Confirm stack + feature set when back. Non-blocking.
 
-### F9 — worktree branch collision between parallel children
-- **Area:** pi-subagents worktree isolation / p-worktree
-- **Issue:** In Phase 0 I launched 4 parallel children each with `worktree:true`. The thresholds child (#9) and the visual-prototype child (#11) collided: #9 found itself on `pi/work/11-visual-proto` and committed there first, then had to recreate its own branch from the integration base and re-commit. The visual child similarly had its commit "gone" and had to reset via reflog.
-- **Impact:** Wasted turns + real risk of cross-contaminating branches.
-- **Workaround:** Children self-corrected. Future children instructed to use unique timestamped branch names and verify `git branch --show-current` before committing.
-- **Suggestion:** `p-worktree create` should guarantee a unique branch per worktree always.
+### F15 — worker hung 45+ min on a blocking bash call; no timeout, no alert
+- **Area:** pi-subagents tool timeout / worker supervision
+- **Issue:** Phase 2 child #14 (analyze) stalled for 45+ minutes on a single `bash` tool call (`tool bash 45m54s`, no activity). Almost certainly a blocking dev server / Playwright process that never returned. The `runs.all` workflow won't complete until all children finish, so one hung child blocks the whole phase's return. The orchestrator got no alert — I only discovered it by manually checking fleet status when the user asked "how is it going?".
+- **Impact:** A single hung worker can stall an unattended overnight run indefinitely with no signal. This is the most operationally dangerous harness issue so far for an autonomous run.
+- **Workaround:** Interrupt the hung child (`subagent interrupt`), re-launch #14 fresh with an explicit instruction to avoid long-running foreground servers (use `--port` isolation, background the server, or rely on Playwright's own dev-server spawn). Merge the 3 completed PRs independently.
+- **Suggestion (important):** (1) The `bash` tool needs a default per-call timeout for workers (the harness docs mention a 5-min default for "known-fast built-in tools" but bash clearly didn't enforce it here). (2) A worker with no activity for N minutes should surface an attention event to the orchestrator (the watchdog is `off` per .pi/coding.json — for unattended runs an attention-after-inactivity watchdog should be the default). (3) `runs.all` should optionally return completed children early rather than waiting on the slowest/hung one.
 
-### F10 — inconsistent toolkits between worker subagents
-- **Area:** pi-subagents tool availability
-- **Issue:** The brilliant-research worker (#10) reported `web_search`/`fetch_content` were NOT in its tools and it fell back to `curl` via bash. The earlier chess.com research worker DID have them. Both were `worker` agents.
-- **Suggestion:** Document worker's default tools; use the `researcher` agent for research or explicitly enable web tools.
+### F16 — active async capacity (3/3) blocks parallel review launches
+- **Area:** pi-subagents async capacity
+- **Issue:** I tried to launch 3 fresh reviewers + 1 worker (#14 relaunch) simultaneously (4 async runs). Only the launches that found a free slot started; the rest returned "Active async run capacity exhausted: 3/3 used" and silently did NOT launch (no error thrown to me, just a message). With capacity at 3 and one slot apparently held by a lingering/uncleared run, only 2 of 4 actually started.
+- **Impact:** Cannot run 3 parallel reviews + a worker at once. Forces serialization of review work, slowing the swarm. Also: the "capacity exhausted" response is easy to miss — it's not a hard error.
+- **Workaround:** Sequence launches: wait for a slot to free, then launch the next review. For a bigger swarm, the capacity (3) is the real parallelism ceiling.
+- **Suggestion:** (1) Surface "capacity exhausted" more loudly (it's a silent drop). (2) Consider raising default async capacity for orchestration use, or document it as the parallelism limit. (3) Auto-queue over-capacity launches instead of dropping them.
 
-### F11 — workflowScript runs.all() returned {} (no child output captured)
-- **Area:** pi-subagents workflow return value
-- **Issue:** `runs.all([...])` returned `{}` though all 4 children completed with rich output. Had to inspect transcripts to recover results.
-- **Suggestion:** `runs.all`/`runs.run` should return each child's output keyed by run key.
+### F17 — leaked/phantom async capacity slot blocks launches
+- **Area:** pi-subagents async capacity accounting
+- **Issue:** Fleet status lists 2 active runs but capacity reports 3/3, so a 3rd launch gets dropped with "capacity exhausted". There is no 3rd run in the fleet view — a slot is being held by a phantom/leaked run that completed (or was orphaned by compaction) but never released its capacity slot. This happened repeatedly across compaction boundaries.
+- **Impact:** Effective parallelism is lower than configured. Launches are silently dropped. Hard to diagnose because the fleet view doesn't show what's holding the slot.
+- **Workaround:** Relaunch dropped work when any tracked run completes (freeing a real slot). Tolerate the phantom.
+- **Suggestion:** (1) Reconcile capacity with actual tracked runs on compaction/restart. (2) Show what holds each capacity slot in fleet status. (3) Garbage-collect orphaned slots after compaction.
 
-### F12 — `p-gh pr merge --base <branch>` silently no-ops
-- **Area:** p-gh / GitHub CLI
-- **Issue:** `p-gh pr merge <n> --merge --base pi/integration/...` returned blank lines and merged nothing. `gh pr merge` has NO `--base` flag; passing it silently no-op'd.
-- **Workaround:** Omit `--base`; verify every merge.
-- **Suggestion:** Error on unknown flags rather than silent no-op.
+### F18 — paused reviewer runs leak async capacity permanently (hardest blocker)
+- **Area:** pi-subagents supervisor-intercom / capacity lifecycle
+- **Issue:** Three reviewer runs (`20cd77af`, `9086f910`, `e96ce41b`) entered `paused` state during the supervisor-intercom coordination flow (when a read-only reviewer asked me for gate data / branch access via `subagent_supervisor`). They delivered their review verdict via the supervisor reply, but the workflow wrapper never transitioned `paused → completed` — it stayed `paused` indefinitely, **holding their async capacity slots forever**. `subagent stop` reports "no running or queued run found" (paused ≠ running). `subagent resume` reports "missing required run fan-out recovery identity". There is NO API to clear a paused slot. Result: capacity is 3/3 with zero active runs, and every new async launch is dropped with "capacity exhausted".
+- **Impact:** CATASTROPHIC for an unattended run. After 3 supervisor-intercom review cycles, the entire async fleet is dead for the session. I hit this exactly: 3 paused reviewers leaked all 3 slots, and I could not launch the PR #26 fix worker or the #14 relaunch. This ended the async phase of the swarm.
+- **Workaround:** Pivot to FOREGROUND (synchronous) runs, which do NOT consume the 3/3 async capacity. Foreground launches are blocking from my perspective but they execute fully and return results inline. This kept the swarm moving after async died. The session would need a full restart to reclaim async capacity.
+- **Suggestion (critical):** (1) A reviewer that has delivered its verdict via supervisor-intercom MUST transition to `completed`, not stay `paused`. (2) Provide an API to force-clear a paused/leaked capacity slot (`subagent stop` should handle `paused`, or add `subagent discard`). (3) Garbage-collect `paused` runs with no live process after a timeout. (4) Capacity accounting should be based on live processes, not state files. This is the single most important harness fix for long autonomous runs.
 
-### F13 — strong ruleset blocks PR merges to non-main branches; no required checks means --auto can never satisfy
-- **Area:** GitHub rulesets / swarm workflow
-- **Issue:** `p-gh pr merge` into `pi/integration/chess-swarm-1` is blocked by branch policy; `--auto` offered but no required checks configured, so it can never satisfy. Breaks the swarm workflow — workers' PRs can't merge.
-- **Workaround:** Orchestrator merges with `--admin` (admin override). Acceptable: integration branch is orchestrator-controlled, not main; human still owns final integration→main merge.
-- **Suggestion (important):** github-coordination reference assumes PRs to `pi/integration/*` merge under the repo ruleset, but a `strong` ruleset protecting all branches with no checks makes that impossible. Skill should document excluding `pi/integration/*` from protection OR instruct `--admin` for integration merges OR a separate integration ruleset. As shipped, the workflow does not work out-of-the-box on a `strong` repo.
+### F18b — leaked capacity deadlocks ALL subagent launches (worker + reviewer, foreground too)
+- **Area:** pi-subagents capacity gate
+- **Issue:** Once the 3 paused reviewers leaked all async slots (F18), EVERY subsequent `subagent` launch — including plain foreground workers with no worktree, even a trivial `reply with pong` — returns "Active async run capacity exhausted: 3/3 used". The capacity gate applies to ALL launches, not just async ones, and there is no escape hatch. The session is fully deadlocked for subagent work.
+- **Impact:** Total. The swarm cannot spawn any more agents. The orchestrator must do all remaining work directly with its own tools.
+- **Workaround:** Orchestrator executes directly (bash/edit/read). This actually works fine for implementation/review/merge — the orchestrator is capable — but it defeats the "fresh independent reviewer" principle (the orchestrator reviews its own work) and removes parallelism.
+- **Suggestion (critical):** (1) Foreground launches should NOT be subject to the async capacity gate. (2) Provide an admin escape hatch to force-launch when capacity is leaked. (3) See F18 root cause — fix the paused-slot leak and this deadlocks stops happening.
 
-### F14 — strong ruleset also blocks direct `git push` to the integration branch
-- **Area:** GitHub rulesets
-- **Issue:** Direct `git push origin pi/integration/chess-swarm-1` is declined by rule violations. Integration branch fully locked except via `--admin` PR merge.
-- **Suggestion:** Same as F13.
+### F19 — detached-HEAD worktree `git push` silently no-ops ("Everything up-to-date")
+- **Area:** git worktree push mechanics (worker/foreman workflow)
+- **Issue:** When a worker runs in a managed worktree created at a detached HEAD (`git worktree add <path> <commit>`), `git push -f origin <branch>` reports "Everything up-to-date" and exits 0 even though the new local commit was NOT pushed — because the branch isn't checked out in the worktree, so `git push origin <branch>` pushes the stale remote-tracking ref, not the local commit. This happened twice (PR #26 fix, PR #27 merge) and is silent — exit 0, no error.
+- **Impact:** The orchestrator believes the fix is pushed and moves on; the PR still shows the OLD code, so verification/merge sees stale state. Caused a confusing "mergeable but merge didn't update" episode.
+- **Workaround:** After a worker worktree push, the orchestrator must verify `git log origin/<branch>` contains the new commit SHA; if not, fetch the commit into the main repo, `git checkout -B <branch> <sha>`, and `git push -f` from a branch that's actually checked out.
+- **Suggestion:** (1) The worker toolkit should `git checkout -B <branch>` in the worktree BEFORE committing/pushing (so the branch is checked out and the push targets the local commit), or push via `git push origin HEAD:<branch>`. (2) The push wrapper should verify the remote HEAD SHA matches the local HEAD after push and error if they diverge. (3) Never report "Everything up-to-date" as success when the local HEAD is ahead of the remote.
+
+### F20 — PR gate claims universally false (tsc) across 3/3 Phase-2 PRs
+- **Area:** worker self-reported gate validation
+- **Issue:** All three Phase-2 workers (#19 weaknesses, #16 play, #17 puzzles) posted "✅ TypeScript: tsc -b — 0 errors" in their PR body, and ALL THREE were false — tsc actually failed (4, 2, and 5+2 errors respectively). Common failures: styled-component transient-prop `$` prefix mismatch (using `props.isCheck` when type is `$isCheck`), a styled component named `Error` shadowing the global constructor, invalid `as const` on non-literals, missing barrel re-exports, unused imports under `noUnusedLocals`, invalid indexed-access types (`StrengthLevel['label']` on a union). The workers ran `tsc` but either didn't check the exit code, didn't actually run it, or ran it in a stale state.
+- **Impact:** Cannot trust worker gate reports. A fresh reviewer that re-runs gates is essential (and the reviewer can't run bash — see F18 — so the orchestrator must verify gates directly).
+- **Workaround:** Orchestrator independently verifies all gates in a throwaway worktree before merge; never trust the PR body's gate summary.
+- **Suggestion:** (1) The worker toolkit should run gates with explicit exit-code checks (`npx tsc -b && npx eslint . && npx vitest run`) and FAIL the task if any exit non-zero, posting the actual error output. (2) A gate summary in the PR body should be auto-generated from actual command output, not self-attested. (3) The autonomous-coding skill should make orchestrator-side gate verification the default (don't trust worker claims).
 
 ## What went well
 (to fill at end)
