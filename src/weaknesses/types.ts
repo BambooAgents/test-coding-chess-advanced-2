@@ -34,7 +34,6 @@ export interface TurningPoint {
   lostFromWinning: boolean
   wentWrongInFirst10: boolean
   builtAdvantageThenLost: boolean
-  turningPly: number | null
 }
 
 export interface WeaknessReport {
@@ -43,7 +42,6 @@ export interface WeaknessReport {
   openings: OpeningStat[]
   endgame: EndgameAnalysis
   turningPoints: TurningPointSummary
-  openingBlunderRates: OpeningBlunderRate[]
   recommendations: Recommendation[]
   averageAccuracy: number
 }

@@ -15,7 +15,7 @@ import {
   computeAverageAccuracy,
   buildReport,
 } from '../src/weaknesses/analysis'
-import type { ParsedGame, EvalScore, MoveInfo, Color } from '../src/chess/types'
+import type { ParsedGame, EvalScore, MoveInfo, Color, MoveClassification } from '../src/chess/types'
 
 function makeGame(opts: {
   moves?: MoveInfo[]
@@ -151,8 +151,8 @@ describe('detectTurningPoint', () => {
     for (let i = 0; i < 15; i++) {
       evals.push({ cp: -300 })
     }
-    const classifications = new Array(30).fill('good') as const
-    const tp = detectTurningPoint(evals, 'white', [...classifications], 'loss')
+    const classifications: MoveClassification[] = new Array(30).fill('good')
+    const tp = detectTurningPoint(evals, 'white', classifications, 'loss')
     expect(tp).not.toBeNull()
     expect(tp!.builtAdvantageThenLost).toBe(true)
   })
@@ -166,8 +166,8 @@ describe('detectTurningPoint', () => {
     const evals: EvalScore[] = []
     for (let i = 0; i < 15; i++) evals.push({ cp: 200 })
     for (let i = 0; i < 15; i++) evals.push({ cp: -300 })
-    const classifications = new Array(30).fill('good') as const
-    const tp = detectTurningPoint(evals, 'white', [...classifications], 'win')
+    const classifications: MoveClassification[] = new Array(30).fill('good')
+    const tp = detectTurningPoint(evals, 'white', classifications, 'win')
     expect(tp!.builtAdvantageThenLost).toBe(false)
   })
 
@@ -366,7 +366,6 @@ describe('aggregateTurningPoints', () => {
       lostFromWinning: true,
       wentWrongInFirst10: true,
       builtAdvantageThenLost: false,
-      turningPly: 5,
     }
 
     const tp = aggregateTurningPoints([analysis])

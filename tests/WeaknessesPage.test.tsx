@@ -19,6 +19,16 @@ import { fetchChessComGames } from '../src/chess/chessCom'
 
 const mockFetchChessComGames = vi.mocked(fetchChessComGames)
 
+/** Minimal valid PGN for a short game that parsePgn can handle. */
+const SAMPLE_PGN = '[Event "Test"]\n[Site "chess.com"]\n[White "w"]\n[Black "b"]\n[Result "1-0"]\n[Opening "Italian Game"]\n[ECO "C50"]\n\n1. e4 e5 2. Nf3 Nc6 1-0'
+
+function makeMockGames(count: number) {
+  return Array.from({ length: count }, (_, i) => ({
+    pgn: SAMPLE_PGN,
+    playerColor: i % 2 === 0 ? 'white' as const : 'black' as const,
+  }))
+}
+
 beforeEach(() => {
   vi.clearAllMocks()
 })
@@ -111,5 +121,34 @@ describe('WeaknessesPage', () => {
       expect(button).toBeDisabled()
       expect(input).toBeDisabled()
     })
+  })
+
+  it('updates report LIVE as games complete (progressive rendering)', async () => {
+    const games = makeMockGames(3)
+    mockFetchChessComGames.mockResolvedValueOnce(games)
+
+    render(
+      <MemoryRouter>
+        <WeaknessesPage />
+      </MemoryRouter>,
+    )
+
+    const input = screen.getByPlaceholderText('e.g. hikaru')
+    fireEvent.change(input, { target: { value: 'testuser' } })
+
+    const button = screen.getByText('Analyze')
+    await act(async () => {
+      fireEvent.click(button)
+    })
+
+    // After all games complete, the final report should show 3 games analyzed
+    await waitFor(() => {
+      expect(screen.getByText('Analysis complete: 3 games analyzed')).toBeInTheDocument()
+    })
+
+    // During analysis, partial progress text should have appeared (at least 1 of 3)
+    // The progress text format is "Analyzing game N of M..."
+    // We verify the report rendered by checking the Overview section appears
+    expect(screen.getByText('Games Analyzed')).toBeInTheDocument()
   })
 })

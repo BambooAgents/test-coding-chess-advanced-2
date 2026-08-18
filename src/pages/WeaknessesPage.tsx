@@ -111,7 +111,7 @@ const ProgressBar = styled.div`
 `
 
 const ProgressFill = styled.div<{ $progress: number }>`
-  width: ${($p) => $p.progress}%;
+  width: ${($p) => $p.$progress}%;
   height: 100%;
   background: var(--accent);
   transition: width 0.3s ease;
@@ -123,7 +123,7 @@ const ProgressText = styled.p`
   margin-bottom: var(--sp-8);
 `
 
-const Error = styled.div`
+const ErrorAlert = styled.div`
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid var(--danger);
   border-radius: var(--radius-md);
@@ -422,7 +422,7 @@ export function WeaknessesPage() {
         </Button>
       </InputForm>
 
-      {state === 'error' && <Error>{error}</Error>}
+      {state === 'error' && <ErrorAlert>{error}</ErrorAlert>}
 
       {(state === 'analyzing' || state === 'done') && totalGames > 0 && (
         <>

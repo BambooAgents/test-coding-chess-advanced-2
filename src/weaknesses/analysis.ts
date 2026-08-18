@@ -81,22 +81,11 @@ export function detectTurningPoint(
   const builtAdvantageThenLost =
     userResult === 'loss' && hadEarlyAdvantage && laterDropped
 
-  let turningPly: number | null = null
-  let maxSwing = 0
-  for (let i = 1; i < userChances.length; i++) {
-    const swing = userChances[i - 1] - userChances[i]
-    if (swing > maxSwing) {
-      maxSwing = swing
-      turningPly = i
-    }
-  }
-
   return {
     wonFromLosing,
     lostFromWinning,
     wentWrongInFirst10,
     builtAdvantageThenLost,
-    turningPly,
   }
 }
 
@@ -498,7 +487,6 @@ export function buildReport(analyses: GameAnalysis[]): WeaknessReport {
   const openings = aggregateOpenings(analyses)
   const endgame = aggregateEndgame(analyses)
   const turningPoints = aggregateTurningPoints(analyses)
-  const openingBlunderRates = computeOpeningBlunderRates(analyses)
   const recommendations = generateRecommendations(openings, endgame, turningPoints)
   const averageAccuracy = computeAverageAccuracy(analyses)
 
@@ -508,7 +496,6 @@ export function buildReport(analyses: GameAnalysis[]): WeaknessReport {
     openings,
     endgame,
     turningPoints,
-    openingBlunderRates,
     recommendations,
     averageAccuracy,
   }
