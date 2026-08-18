@@ -16,9 +16,4 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true,
   },
-  // Stockfish WASM needs proper headers and large file handling
-  optimizeDeps: {
-    exclude: ['stockfish.js'],
-  },
-  assetsInclude: ['**/*.wasm'],
 })

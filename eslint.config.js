@@ -6,10 +6,10 @@ import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   {
-    ignores: ['dist', '.pi-worktrees', 'node_modules', 'playwright-report', '.playwright-cli'],
+    ignores: ['dist', '.pi-worktrees', 'node_modules', 'playwright-report', '.playwright-cli', 'public'],
   },
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{ts,tsx,js}'],
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     languageOptions: {
       ecmaVersion: 2022,

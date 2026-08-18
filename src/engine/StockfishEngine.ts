@@ -1,12 +1,14 @@
 /**
  * Stockfish WebAssembly engine wrapper.
  *
- * Loads stockfish.js in a Web Worker, communicates via the UCI protocol,
- * and exposes a Promise-based API for getting best moves.
+ * Loads stockfish.wasm.js (from public/stockfish/) as a Web Worker,
+ * communicates via the UCI protocol, and exposes a Promise-based API
+ * for getting best moves.
  *
- * In the browser, the worker is created from the stockfish.js entry point.
- * In tests (jsdom/Node), we fall back to a mock that returns fixed moves
- * for the starting position, since WASM isn't available in jsdom.
+ * The stockfish.js package provides self-contained worker scripts
+ * (stockfish.wasm.js for WASM support, stockfish.js for JS fallback).
+ * We copy these to public/stockfish/ at build-setup time so they're
+ * served as static assets — Vite doesn't need to bundle them.
  */
 
 export interface StockfishResult {
@@ -26,15 +28,17 @@ export class StockfishEngine {
 
     this.ready = new Promise<void>((resolve, reject) => {
       try {
-        // Create a Web Worker from the stockfish.js package
-        // Vite will handle the worker bundling
-        this.worker = new Worker(
-          new URL('../stockfish-worker.js', import.meta.url),
-          { type: 'module' },
-        )
+        // Load stockfish.wasm.js directly as a Web Worker from the
+        // public/stockfish/ directory. The base path (e.g.
+        // /test-coding-chess-advanced-2/) is prepended so this works
+        // on GitHub Pages subpath hosting.
+        const basePath = import.meta.env.BASE_URL ?? '/'
+        const workerUrl = `${basePath}stockfish/stockfish.wasm.js`
+
+        this.worker = new Worker(workerUrl, { type: 'classic' })
 
         this.worker.onmessage = (e: MessageEvent) => {
-          const line: string = typeof e.data === 'string' ? e.data : e.data?.text ?? ''
+          const line: string = typeof e.data === 'string' ? e.data : ''
           if (line) {
             this.handleMessage(line)
           }

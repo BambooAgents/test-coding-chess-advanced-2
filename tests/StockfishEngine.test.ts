@@ -25,45 +25,17 @@ describe('StockfishEngine', () => {
     expect(typeof engine.getBestMove).toBe('function')
     engine.destroy()
   })
+
+  it('should throw if setSkillLevel is called before init', () => {
+    const engine = new StockfishEngine()
+    expect(() => engine.setSkillLevel(10)).toThrow('Stockfish not initialized')
+    engine.destroy()
+  })
 })
 
 /**
- * Integration test for Stockfish WASM.
- *
- * This test is skipped in the jsdom/Node environment because WASM
- * and Web Workers are not available there. It will run in a real
- * browser environment (e.g. via Playwright or a browser test runner).
- *
- * The test proves that:
- * 1. Stockfish WASM can be loaded
- * 2. It responds to the UCI protocol (returns "uciok")
- * 3. It returns a legal best move for the starting position
- *
- * In the browser test, the starting position best move should be
- * a legal move like "e2e4", "g1f3", etc.
+ * Integration tests for Stockfish WASM run via Playwright (browser environment)
+ * — see tests/e2e/stockfish.spec.ts. WASM + Web Workers are not available
+ * in the jsdom/Node environment used by Vitest, so the real engine
+ * load + best-move test is a Playwright e2e test.
  */
-describe('StockfishEngine integration (browser-only)', () => {
-  it.skip('should load Stockfish WASM and return a best move for the starting position', async () => {
-    const engine = new StockfishEngine()
-    await engine.init()
-
-    const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
-    const result = await engine.getBestMove(startingFen, 5)
-
-    expect(result.bestMove).toBeDefined()
-    expect(result.bestMove).not.toBe('(none)')
-    // Best move should be a 4-5 character UCI move (e.g. "e2e4", "g1f3")
-    expect(result.bestMove).toMatch(/^[a-h][1-8][a-h][1-8][qrbn]?$/)
-
-    engine.destroy()
-  })
-
-  it.skip('should respond to uci with uciok', async () => {
-    const engine = new StockfishEngine()
-    // init() sends "uci" and waits for "uciok"
-    await engine.init()
-    // If we get here, uciok was received
-    expect(true).toBe(true)
-    engine.destroy()
-  })
-})

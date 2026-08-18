@@ -9,3 +9,4 @@ playwright-report/
 .pi-worktrees/
 .playwright-cli/
 tsconfig.tsbuildinfo
+tsconfig.*.tsbuildinfo
