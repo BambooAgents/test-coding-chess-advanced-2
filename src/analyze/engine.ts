@@ -9,6 +9,8 @@
 import { Position } from '../chess/Position'
 import { classifyMove } from '../chess/classifyMove'
 import { isGarbageTime } from '../chess/phase'
+import { isBrilliant as isBrilliantMove, type BrilliantEngine } from '../chess/brilliant'
+import { PIECE_VALUES } from '../chess/see'
 import type {
   Color,
   EvalScore,
@@ -21,6 +23,10 @@ import type {
 export interface AnalyzeEngine {
   /** Evaluate a position, returning cp/mate from White's POV. */
   evaluate(fen: string): Promise<EvalScore>
+  /** Best move (UCI) for a FEN. Required for brilliant detection. */
+  bestMove?(fen: string): Promise<string>
+  /** MultiPV N=2 evals for a FEN, White's POV. Required for brilliant detection. */
+  multiPv2?(fen: string): Promise<{ pv1: EvalScore; pv2: EvalScore }>
 }
 
 /** One classified move in the analysis output. */
@@ -106,17 +112,32 @@ export async function analyzeGame(
     let classification: MoveClassification = 'no_annotation'
     const garbageCp = evalBefore.cp ?? (evalBefore.mate !== undefined ? (evalBefore.mate > 0 ? 1000 : -1000) : 0)
     if (!isGarbageTime(garbageCp)) {
-      classification = classifyMove({
-        color,
-        evalBefore,
-        evalAfter,
-        bestEval,
-        isCheckmate,
-        legalMoveCount,
-        ply,
-        isOpening,
-        isBestMove,
-      })
+      // Brilliant (??) takes priority over the standard badges per the spec's
+      // classification priority queue. Only attempt if the engine supports the
+      // extra calls (bestMove + multiPv2) and the move isn't mate.
+      let brilliant = false
+      if (engine.bestMove && engine.multiPv2 && !isCheckmate) {
+        try {
+          brilliant = await detectBrilliant(engine, fenBefore, move.uci, move.san, color, fenAfter, evalAfter, move.captured)
+        } catch {
+          brilliant = false
+        }
+      }
+      if (brilliant) {
+        classification = 'brilliant'
+      } else {
+        classification = classifyMove({
+          color,
+          evalBefore,
+          evalAfter,
+          bestEval,
+          isCheckmate,
+          legalMoveCount,
+          ply,
+          isOpening,
+          isBestMove,
+        })
+      }
     }
 
     moves.push({
@@ -152,4 +173,39 @@ function isBestMoveHeuristic(evalBefore: EvalScore, evalAfter: EvalScore): boole
     return Math.abs(evalAfter.cp - evalBefore.cp) <= 10
   }
   return false
+}
+
+/**
+ * Run the brilliant heuristic for a move, adapting the AnalyzeEngine to the
+ * BrilliantEngine interface. Returns true if the move is Brilliant (??).
+ */
+async function detectBrilliant(
+  engine: AnalyzeEngine,
+  fenBefore: string,
+  playedUci: string,
+  playedSan: string,
+  mover: Color,
+  fenAfter: string,
+  evalAfterMove: EvalScore,
+  capturedPiece?: string,
+): Promise<boolean> {
+  if (!engine.bestMove || !engine.multiPv2) return false
+  const brilliantEngine: BrilliantEngine = {
+    bestMove: (fen) => engine.bestMove!(fen),
+    multiPv2: (fen) => engine.multiPv2!(fen),
+    evaluate: (fen) => engine.evaluate(fen),
+  }
+  const movedCapturedValue = capturedPiece ? PIECE_VALUES[capturedPiece] ?? 0 : 0
+  return isBrilliantMove(
+    {
+      fenBefore,
+      playedUci,
+      playedSan,
+      mover,
+      fenAfter,
+      evalAfterMove,
+      movedCapturedValue,
+    },
+    brilliantEngine,
+  )
 }
