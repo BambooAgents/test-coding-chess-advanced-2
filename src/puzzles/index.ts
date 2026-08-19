@@ -29,3 +29,21 @@ export {
   stepSolution,
   getLegalMoves,
 } from './stateMachine'
+
+export {
+  type RushState,
+  type RushSession,
+  type DeathMatchState,
+  type DeathMatchSession,
+  createRushSession,
+  startRush,
+  rushCorrect,
+  rushWrong,
+  rushTick,
+  RUSH_MAX_WRONG,
+  createDeathMatchSession,
+  startDeathMatch,
+  dmCorrect,
+  dmWrong,
+  pickNextPuzzle,
+} from './modes'
