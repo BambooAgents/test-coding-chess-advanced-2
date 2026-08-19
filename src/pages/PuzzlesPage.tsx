@@ -27,9 +27,19 @@ import {
   getEndgamePuzzles,
   getByTheme,
   getByOpening,
+  createRushSession,
+  startRush,
+  rushCorrect,
+  rushWrong,
+  rushTick,
+  createDeathMatchSession,
+  startDeathMatch,
+  dmCorrect,
+  dmWrong,
+  pickNextPuzzle,
 } from '../puzzles'
 import { Position } from '../chess'
-import type { Puzzle, PuzzleStats, PuzzleSessionState } from '../puzzles'
+import type { Puzzle, PuzzleStats, PuzzleSessionState, RushSession, DeathMatchSession } from '../puzzles'
 
 // --- Styled components ---
 
@@ -262,7 +272,7 @@ const PrimaryButton = styled(ActionButton)`
 
 // --- Component ---
 
-type PuzzleMode = 'plain' | 'themed'
+type PuzzleMode = 'plain' | 'themed' | 'rush' | 'deathmatch'
 
 export function PuzzlesPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -270,6 +280,9 @@ export function PuzzlesPage() {
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null)
   const [themeType, setThemeType] = useState<'endgame' | 'opening' | null>(null)
   const [session, setSession] = useState<PuzzleSessionState>(createSession())
+  const [rushSession, setRushSession] = useState<RushSession>(createRushSession())
+  const [dmSession, setDmSession] = useState<DeathMatchSession>(createDeathMatchSession())
+  const [seenPuzzleIds, setSeenPuzzleIds] = useState<Set<string>>(new Set())
   const [stats, setStats] = useState<PuzzleStats>(loadStats())
   const [puzzleQueue, setPuzzleQueue] = useState<Puzzle[]>([])
   const [queueIndex, setQueueIndex] = useState(0)
@@ -393,6 +406,112 @@ export function PuzzlesPage() {
     setFeedback('none')
   }, [session])
 
+  // --- Rush / Death-Match handlers ---
+  const allPuzzles = useMemo(() => getAllPuzzles(), [])
+
+  const loadNextRushPuzzle = useCallback((rs: RushSession) => {
+    if (rs.state !== 'playing') return
+    const next = pickNextPuzzle(allPuzzles, rs.ratingFloor, seenPuzzleIds)
+    if (next) {
+      setSeenPuzzleIds((prev) => new Set(prev).add(next.id))
+      setSession(startPuzzle(createSession(), next))
+      setRushSession({ ...rs, currentPuzzle: next })
+      setFeedback('none')
+    }
+  }, [allPuzzles, seenPuzzleIds])
+
+  const loadNextDmPuzzle = useCallback((ds: DeathMatchSession) => {
+    if (ds.state !== 'playing') return
+    const next = pickNextPuzzle(allPuzzles, ds.ratingFloor, seenPuzzleIds)
+    if (next) {
+      setSeenPuzzleIds((prev) => new Set(prev).add(next.id))
+      setSession(startPuzzle(createSession(), next))
+      setDmSession({ ...ds, currentPuzzle: next })
+      setFeedback('none')
+    }
+  }, [allPuzzles, seenPuzzleIds])
+
+  const handleStartRush = useCallback(() => {
+    const rs = startRush(180)
+    setRushSession(rs)
+    setSeenPuzzleIds(new Set())
+    loadNextRushPuzzle(rs)
+  }, [loadNextRushPuzzle])
+
+  const handleStartDeathMatch = useCallback(() => {
+    const ds = startDeathMatch()
+    setDmSession(ds)
+    setSeenPuzzleIds(new Set())
+    loadNextDmPuzzle(ds)
+  }, [loadNextDmPuzzle])
+
+  // Rush move handler: correct → next puzzle; wrong → count, 3 = finish.
+  const handleRushMove = useCallback((uci: string): boolean => {
+    const result = tryMove(session, uci)
+    if (result.correct) {
+      if (result.session.state === 'solved') {
+        const rs = rushCorrect(rushSession)
+        setRushSession(rs)
+        setFeedback('solved')
+        loadNextRushPuzzle(rs)
+      } else {
+        setSession(result.session)
+        setFeedback('correct')
+      }
+    } else {
+      const rs = rushWrong(rushSession)
+      setRushSession(rs)
+      setFeedback('wrong')
+      if (rs.state === 'finished') {
+        setSession(createSession())
+      } else {
+        loadNextRushPuzzle(rs)
+      }
+    }
+    return result.correct
+  }, [session, rushSession, loadNextRushPuzzle])
+
+  // Death-Match move handler.
+  const handleDmMove = useCallback((uci: string): boolean => {
+    const result = tryMove(session, uci)
+    if (result.correct) {
+      if (result.session.state === 'solved') {
+        const ds = dmCorrect(dmSession)
+        setDmSession(ds)
+        setFeedback('solved')
+        loadNextDmPuzzle(ds)
+      } else {
+        setSession(result.session)
+        setFeedback('correct')
+      }
+    } else {
+      const ds = dmWrong(dmSession)
+      setDmSession(ds)
+      setFeedback('wrong')
+      if (ds.state === 'finished') {
+        setSession(createSession())
+      } else {
+        loadNextDmPuzzle(ds)
+      }
+    }
+    return result.correct
+  }, [session, dmSession, loadNextDmPuzzle])
+
+  // Rush timer: tick every second while playing.
+  useEffect(() => {
+    if (mode !== 'rush' || rushSession.state !== 'playing') return
+    const id = setInterval(() => {
+      setRushSession((prev) => {
+        const next = rushTick(prev, 1)
+        if (next.state === 'finished') {
+          clearInterval(id)
+        }
+        return next
+      })
+    }, 1000)
+    return () => clearInterval(id)
+  }, [mode, rushSession.state])
+
   // Get endgame theme names
   const endgameThemes = useMemo(() => {
     return index.themes.filter((t) =>
@@ -423,6 +542,12 @@ export function PuzzlesPage() {
         </ModeButton>
         <ModeButton $active={mode === 'themed'} onClick={() => { setMode('themed'); setThemeType('endgame'); setSelectedTheme('all-endgames') }}>
           Themed Sets
+        </ModeButton>
+        <ModeButton $active={mode === 'rush'} onClick={() => setMode('rush')} data-testid="mode-rush">
+          Rush
+        </ModeButton>
+        <ModeButton $active={mode === 'deathmatch'} onClick={() => setMode('deathmatch')} data-testid="mode-deathmatch">
+          Death Match
         </ModeButton>
       </ModeSelector>
 
@@ -485,12 +610,70 @@ export function PuzzlesPage() {
         </Stat>
       </StatsBar>
 
+      {mode === 'rush' && (
+        <div data-testid="rush-panel" style={{ display: 'flex', gap: 'var(--sp-4)', alignItems: 'center', flexWrap: 'wrap' }}>
+          {rushSession.state === 'idle' ? (
+            <PrimaryButton data-testid="start-rush" onClick={handleStartRush}>Start Rush (3:00)</PrimaryButton>
+          ) : (
+            <>
+              <Stat>
+                <StatValue data-testid="rush-time">{Math.floor(rushSession.timeLeft / 60)}:{String(rushSession.timeLeft % 60).padStart(2, '0')}</StatValue>
+                <StatLabel>Time</StatLabel>
+              </Stat>
+              <Stat>
+                <StatValue data-testid="rush-score">{rushSession.solved}</StatValue>
+                <StatLabel>Solved</StatLabel>
+              </Stat>
+              <Stat>
+                <StatValue data-testid="rush-wrong">{rushSession.wrongCount}/3</StatValue>
+                <StatLabel>Wrong</StatLabel>
+              </Stat>
+              {rushSession.state === 'finished' && (
+                <div data-testid="rush-finished">
+                  Rush over! Score: {rushSession.solved}{' '}
+                  <PrimaryButton onClick={handleStartRush}>Play Again</PrimaryButton>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
+
+      {mode === 'deathmatch' && (
+        <div data-testid="deathmatch-panel" style={{ display: 'flex', gap: 'var(--sp-4)', alignItems: 'center', flexWrap: 'wrap' }}>
+          {dmSession.state === 'idle' ? (
+            <PrimaryButton data-testid="start-dm" onClick={handleStartDeathMatch}>Start Death Match</PrimaryButton>
+          ) : (
+            <>
+              <Stat>
+                <StatValue data-testid="dm-lives">{'❤'.repeat(Math.max(0, dmSession.lives))}</StatValue>
+                <StatLabel>Lives</StatLabel>
+              </Stat>
+              <Stat>
+                <StatValue data-testid="dm-score">{dmSession.solved}</StatValue>
+                <StatLabel>Solved</StatLabel>
+              </Stat>
+              <Stat>
+                <StatValue data-testid="dm-streak">{dmSession.inARow}</StatValue>
+                <StatLabel>In a Row</StatLabel>
+              </Stat>
+              {dmSession.state === 'finished' && (
+                <div data-testid="dm-finished">
+                  Death Match over! Solved: {dmSession.solved}{' '}
+                  <PrimaryButton onClick={handleStartDeathMatch}>Play Again</PrimaryButton>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
+
       {currentPuzzle && (
         <Layout>
           <BoardArea>
             <ChessBoard
               position={currentPosition}
-              onMove={handleMove}
+              onMove={mode === 'rush' ? handleRushMove : mode === 'deathmatch' ? handleDmMove : handleMove}
               orientation={userColor}
               disabled={session.state !== 'playing'}
               lastMove={lastBoardMove}
