@@ -1,0 +1,30 @@
+82c9d2a Merge pull request #30 from BambooAgents/pi/work/18-puzzle-modes-20260819-092846
+b69fef4 feat(puzzles): #18 Rush + Death-Match modes
+fecccb3 Merge pull request #29 from BambooAgents/pi/work/15-analyze-full-20260819-091955
+75237e8 feat(analyze): #15 full fidelity — brilliant (??), accuracy %, best-move arrows
+9bfde58 Merge pull request #28 from BambooAgents/pi/work/14-analyze-core-20260819-011124
+ff923fc feat(analyze): #14 Analyze page core — board, eval bar, scrubber, move list, 6 eval-delta badges
+8467b16 Merge pull request #27 from BambooAgents/pi/work/17-puzzles-20260818-235056
+c2962d1 merge: integrate play ChessBoard into puzzles page — reconcile ChessBoard.tsx, adapt PuzzlesPage to Position-based board API
+25c8555 fix: review findings on #17 puzzles — tsc transient props + barrel export, unused vars, consume ?set= URL contract from Weaknesses
+b3719b6 Merge pull request #26 from BambooAgents/pi/work/16-play-page-20260818-235043
+405a5a3 fix: review findings on #16 play — tsc GameResult + StrengthLevel errors, useMemo sanList, engine-error banner, capture ring
+2ebe03e Merge pull request #25 from BambooAgents/pi/work/19-weaknesses-20260818-235106
+be9d91d fix: review findings on #19 weaknesses — tsc errors, Error shadow, live-update test, dead code removal
+a8bc124 fix: remove unused imports + add Playwright e2e tests for puzzles page (#17)
+8548778 fix: relax Playwright move test assertion
+7d0969b feat: My Weaknesses page (#19) — live weak-stockfish report + recommendations
+1e86d3b feat: Play page (#16) — vs configurable Stockfish, take-back, analyze-handoff
+f6e0a29 feat: puzzles — curated bundle, plain puzzles, themed opening/endgame sets (#17)
+e8b07bd Merge pull request #24 from BambooAgents/pi/work/13-chess-core-20260818-233742
+68a8ce5 fix: review findings on chess core (#13) — color-blind mate detection, chess.js leak, duplicate code, missing tests
+f5220f2 feat(chess-core): implement chess core library with tests (#13)
+6c14626 Merge pull request #23 from BambooAgents/pi/work/12-scaffold-spa-20260818-232248
+aea0655 fix: Stockfish-WASM integration, CI workflow, lint coverage, tsconfig refs
+4a1507d Merge pull request #20 from BambooAgents/pi/work/11-visual-proto
+a937d8f Merge pull request #22 from BambooAgents/pi/work/10-brilliant-heuristic
+97bda99 Merge pull request #21 from BambooAgents/pi/work/9-anno-thresholds
+9fc9caf feat: scaffold Vite+React+TS SPA with app shell, Stockfish-WASM, Vitest, Playwright
+e1a2976 docs(spec): brilliant (??) move heuristic — reverse-engineered approximation
+07c4c93 research(#9): eval-delta annotation thresholds spec
+a8aad81 prototype: two visual directions for app shell + analyze page (#11)

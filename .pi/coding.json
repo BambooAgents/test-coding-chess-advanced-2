@@ -7,7 +7,17 @@
   "finalMerge": "human",
   "review": {
     "maxCorrectionRounds": 2,
-    "watchdog": "off"
+    "watchdog": "off",
+    "acceptance": {
+      "enabled": true,
+      "agent": "acceptance-reviewer",
+      "requiredFor": ["ui", "data", "external-integration"],
+      "bootFromScratch": true,
+      "noMocks": true,
+      "fullUx": true,
+      "blockerOnFail": true,
+      "rejectAfterRoundsExhausted": true
+    }
   },
   "runs": {
     "directory": ".pi/runs"
