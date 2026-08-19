@@ -60,6 +60,15 @@ export {
 // Move classification
 export { classifyMove } from './classifyMove'
 
+// SEE + Brilliant heuristic (heuristic approximation of chess.com ??).
+export { see, findHangingPieceBait, PIECE_VALUES, type SeeResult } from './see'
+export {
+  isBrilliant,
+  BRILLIANT_THRESHOLDS,
+  type BrilliantEngine,
+  type BrilliantInput,
+} from './brilliant'
+
 // Phase detection — not exported from barrel to avoid leaking chess.js Chess type.
 // Use Position.phase() instead. The isGarbageTime helper is used internally
 // by classifyMove; detectPhase is used internally by Position.

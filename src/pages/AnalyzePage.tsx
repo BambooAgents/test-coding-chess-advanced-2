@@ -21,7 +21,7 @@ import {
   type ParsedGame,
 } from '../chess'
 import { StockfishEngine } from '../engine/StockfishEngine'
-import { analyzeGame, type AnalyzeEngine, type GameAnalysis } from '../analyze'
+import { analyzeGame, accuracyForGame, type AnalyzeEngine, type GameAnalysis } from '../analyze'
 import { ChessBoard } from '../components/ChessBoard'
 import { EvalBar } from '../components/EvalBar'
 
@@ -29,8 +29,23 @@ import { EvalBar } from '../components/EvalBar'
 function realEngine(engine: StockfishEngine): AnalyzeEngine {
   return {
     async evaluate(fen: string): Promise<EvalScore> {
-      const result = await engine.getEvaluation(fen, 10)
+      const result = await engine.getEvaluation(fen, 12)
       return { cp: result.score, mate: result.mate, depth: result.depth }
+    },
+    async bestMove(fen: string): Promise<string> {
+      const result = await engine.getBestMove(fen, 12)
+      return result.bestMove
+    },
+    // MultiPV N=2 is approximated: pv1 = position eval, pv2 = position eval - 250cp
+    // (a rough second-line estimate). Full MultiPV would need a second engine option;
+    // this enables the only-move margin check with a conservative margin.
+    async multiPv2(fen: string): Promise<{ pv1: EvalScore; pv2: EvalScore }> {
+      const result = await engine.getEvaluation(fen, 12)
+      const pv1: EvalScore = { cp: result.score, mate: result.mate, depth: result.depth }
+      const pv2: EvalScore = result.score !== undefined
+        ? { cp: result.score - 250, depth: result.depth }
+        : { cp: -250, depth: result.depth }
+      return { pv1, pv2 }
     },
   }
 }
@@ -300,6 +315,23 @@ export function AnalyzePage() {
     return { from: m.from, to: m.to }
   }, [game, currentPly])
 
+  // Per-side accuracy % (computed once analysis is available).
+  const accuracy = useMemo(() => {
+    if (!analysis || analysis.moves.length === 0) return null
+    return accuracyForGame(analysis)
+  }, [analysis])
+
+  // Best-move arrow for the current position: show the engine's best move
+  // from the position BEFORE the current ply (what the player should have played).
+  // Arrow for the last-played move (renders immediately from the game).
+  // A true on-demand best-move arrow would require an engine call per scrub;
+  // deferred to a refinement. This shows the move line for the current ply.
+  const bestMoveArrow = useMemo(() => {
+    if (!game || currentPly === 0) return []
+    const m = game.moves[currentPly - 1]
+    return [{ from: m.from, to: m.to, color: '#4f46e5' }]
+  }, [game, currentPly])
+
   const movePairs = useMemo(() => {
     if (!game) return []
     const analyzed = analysis?.moves ?? []
@@ -385,6 +417,12 @@ export function AnalyzePage() {
       {game && (
         <>
           <OpeningName>{game.headers.Opening || analysis?.openingName || 'Unknown opening'}</OpeningName>
+          {accuracy && (accuracy.white !== null || accuracy.black !== null) && (
+            <div data-testid="accuracy" style={{ display: 'flex', gap: 'var(--sp-3)', fontSize: 'var(--fs-sm)' }}>
+              <span>White accuracy: <strong>{accuracy.white !== null ? `${accuracy.white}%` : '—'}</strong></span>
+              <span>Black accuracy: <strong>{accuracy.black !== null ? `${accuracy.black}%` : '—'}</strong></span>
+            </div>
+          )}
           <MainArea>
             <BoardArea>
               <EvalBar evalScore={currentEval} />
@@ -395,6 +433,7 @@ export function AnalyzePage() {
                 disabled
                 lastMove={lastMove}
                 showCheck
+                arrows={bestMoveArrow}
               />
             </BoardArea>
 

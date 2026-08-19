@@ -8,3 +8,4 @@ export {
   type AnalyzedMove,
   type GameAnalysis,
 } from './engine'
+export { accuracyForSide, accuracyForGame, type AccuracyResult } from './accuracy'

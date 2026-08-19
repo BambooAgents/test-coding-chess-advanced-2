@@ -84,6 +84,7 @@ export interface ParsedGame {
 /** Move classification badges (eval-delta based). Brilliant is separate (ticket #15). */
 export type MoveClassification =
   | 'book'
+  | 'brilliant'
   | 'best'
   | 'great'
   | 'good'
@@ -95,6 +96,7 @@ export type MoveClassification =
 /** Classification glyph for display. */
 export const CLASSIFICATION_GLYPHS: Record<MoveClassification, string> = {
   book: '',
+  brilliant: '!!',
   best: '!',
   great: '!!',
   good: '',
@@ -107,6 +109,7 @@ export const CLASSIFICATION_GLYPHS: Record<MoveClassification, string> = {
 /** Classification labels for display. */
 export const CLASSIFICATION_LABELS: Record<MoveClassification, string> = {
   book: 'Book',
+  brilliant: 'Brilliant',
   best: 'Best',
   great: 'Great',
   good: 'Good',

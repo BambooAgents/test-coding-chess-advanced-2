@@ -91,6 +91,43 @@ function coordsToSquare(file: number, rank: number): string {
   return 'abcdefgh'[file] + (8 - rank)
 }
 
+/** Convert a square string to [file, rank] (0-7, 0-7), accounting for orientation. */
+function squareToCoords(sq: string, orientation: Color): [number, number] {
+  const file = 'abcdefgh'.indexOf(sq[0])
+  const rank = 8 - parseInt(sq[1], 10)
+  if (orientation === 'white') return [file, rank]
+  return [7 - file, 7 - rank]
+}
+
+/** A single arrow on the board SVG. */
+function Arrow({ ff, fr, tf, tr, color }: { ff: number; fr: number; tf: number; tr: number; color: string }) {
+  // Convert to SVG coordinates (0-8), center of each square.
+  const x1 = ff + 0.5
+  const y1 = fr + 0.5
+  const x2 = tf + 0.5
+  const y2 = tr + 0.5
+  // Shorten the arrow so the head doesn't cover the target piece.
+  const dx = x2 - x1
+  const dy = y2 - y1
+  const len = Math.sqrt(dx * dx + dy * dy)
+  const ux = dx / len
+  const uy = dy / len
+  const endX = x2 - ux * 0.28
+  const endY = y2 - uy * 0.28
+  const angle = Math.atan2(dy, dx)
+  const headLen = 0.3
+  const headAngle = 0.5
+  return (
+    <g opacity={0.8}>
+      <line x1={x1} y1={y1} x2={endX} y2={endY} stroke={color} strokeWidth={0.14} strokeLinecap="round" />
+      <polygon
+        points={`${x2},${y2} ${x2 - headLen * Math.cos(angle - headAngle)},${y2 - headLen * Math.sin(angle - headAngle)} ${x2 - headLen * Math.cos(angle + headAngle)},${y2 - headLen * Math.sin(angle + headAngle)}`}
+        fill={color}
+      />
+    </g>
+  )
+}
+
 function isLight(file: number, rank: number): boolean {
   return (file + rank) % 2 === 0
 }
@@ -148,6 +185,8 @@ export interface ChessBoardProps {
   showCheck?: boolean
   /** Disable interaction */
   disabled?: boolean
+  /** Arrows to draw on the board (e.g. best-move arrows). Each is {from,to,color}. */
+  arrows?: { from: Square; to: Square; color?: string }[]
 }
 
 export function ChessBoard({
@@ -157,6 +196,7 @@ export function ChessBoard({
   lastMove = null,
   showCheck = false,
   disabled = false,
+  arrows = [],
 }: ChessBoardProps) {
   const [selected, setSelected] = useState<Square | null>(null)
   const [legalTargets, setLegalTargets] = useState<Set<string>>(new Set())
@@ -352,6 +392,27 @@ export function ChessBoard({
             </Sq>
           )
         }),
+      )}
+      {arrows.length > 0 && (
+        <svg
+          data-testid="board-arrows"
+          viewBox="0 0 8 8"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none',
+          }}
+        >
+          {arrows.map((arr, i) => {
+            const [ff, fr] = squareToCoords(arr.from, orientation)
+            const [tf, tr] = squareToCoords(arr.to, orientation)
+            return (
+              <Arrow key={i} ff={ff} fr={fr} tf={tf} tr={tr} color={arr.color ?? '#4f46e5'} />
+            )
+          })}
+        </svg>
       )}
     </BoardGrid>
   )
