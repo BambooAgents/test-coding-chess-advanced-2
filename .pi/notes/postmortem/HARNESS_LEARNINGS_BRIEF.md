@@ -181,3 +181,64 @@ The harness grades its own homework by checking the answer key is
 non-empty. The fix is a hostile user — a fresh agent that boots the app,
 uses it for real, and is allowed to say "this is broken" even when every
 test passes. Everything else is hardening around that one gate.
+
+---
+
+## 8. Sandboxing findings (added 2026-08-21)
+
+### What happened
+After the harness-bug fixes were applied externally, the user enabled
+sandboxing for the session. On the agent's first commands under the new
+sandbox, several capabilities appeared missing and briefly blocked the
+autonomous run. On re-checking moments later, most capabilities were
+actually present. So the observations split into "genuinely restricted" vs
+"transient/half-mounted during sandbox enablement."
+
+### What I OBSERVED as broken (with evidence) — and the resolution
+
+| Capability | First observation | On re-check | Verdict |
+|------------|-------------------|-------------|---------|
+| `p-gh` (GitHub CLI wrapper) | `p-gh: command not found`; `/home/bamboo/.pi/agent/bin/p-gh` did not exist | Present at `/home/bamboo/pi/framework/bin/p-gh` and works (`p-gh issue view 1` → title) | **Transient** — it was always on PATH via `/home/bamboo/pi/framework/bin`; the first shell's `which` failed, likely a PATH/population race during sandbox bring-up. Not a real sandbox restriction. |
+| `.pi/agent` dir (pi-subagents runtime) | `ls: cannot access '/home/bamboo/.pi/'` | Exists (`drwx------ 8 ... agent/`), pi-subagents 0.50.0 present | **Transient** — the `.pi` mount appeared within seconds. Race during sandbox bring-up. |
+| `gh` auth | `gh auth status`: not logged in | `gh auth status`: ✓ logged in as BambooTheBear (keyring) | **Transient** — keyring unlock lagged the first call. |
+| SSH to github | "Host key verification failed"; `known_hosts` had 0 github.com entries | `git ls-remote origin HEAD` succeeded | **Genuine fragility** — `~/.ssh/known_hosts` has 0 `github.com` entries (only `github-personal` alias configured); `ssh-keyscan` to populate it FAILED with "No such file or directory" on first attempt (dir not writable/visible yet), then the fetch worked anyway. SSH host-key state is fragile under sandbox. |
+| `/tmp` writable | first test: writable | writable | Not restricted. |
+| Project files / node / npm | all present | present | Not restricted. |
+| Subagent runtime | not tested first | `subagent list` works, async + foreground launches work, capacity 0/3, budget 0/40 | Not restricted. |
+
+### What was GENUINELY a sandbox concern (the real signals)
+1. **SSH `known_hosts` is not reliably populated for `github.com`.** The SSH
+   config uses an alias `github-personal` but the git remote is
+   `git@github.com:...`. Under sandbox, the first SSH operation failed
+   host-key verification. This is a real, reproducible fragility: the
+   sandbox should pre-seed `known_hosts` for `github.com` (or the remote
+   should use the `github-personal` alias + its host key).
+2. **Sandbox bring-up is not instantaneous.** Several paths/auth states
+   (`p-gh`, `.pi/agent` mount, keyring) were absent for the first few
+   seconds and then appeared. An autonomous run that fires commands
+   immediately on session start can see a "broken" environment that is
+   actually fine 5 seconds later. **Implication: the harness/agent should
+   either (a) wait for a readiness signal before the first command, or
+   (b) retry-on-ENOENT/ENOTCONN for the first N seconds of a session.**
+3. **The agent (me) mis-diagnosed "transient" as "permanently missing" and
+   almost aborted the run.** This is a harness/agent behavior bug: a
+   single failed `which`/`ls` should not be treated as "capability
+   absent." I should re-probe before concluding the environment is
+   broken.
+
+### What I would have needed to run autonomously (had it stayed broken)
+- `p-gh` OR raw `gh` (authed) OR an HTTP client + `GITHUB_TOKEN` — any one
+  GitHub-access path.
+- SSH to `github.com` working (known_hosts pre-seeded) for `git push`/`fetch`.
+- The `.pi/agent` mount (pi-subagents runtime) for `subagent` launches.
+- `/tmp` writable (for worktrees, screenshots, vite dev server, playwright).
+- Node/npm on PATH.
+
+### Recommendation for the harness meta-analysis
+- Pre-seed `~/.ssh/known_hosts` with github.com host keys in the sandbox
+  image (or use the `github-personal` SSH alias in the git remote).
+- Add a brief "environment readiness" probe + retry window at session
+  start so transient bring-up races don't look like permanent missing
+  capabilities.
+- Teach the agent (prompt/skill) to re-probe before declaring an
+  environment capability missing — a single ENOENT is not proof.
