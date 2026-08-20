@@ -28,6 +28,8 @@ export {
   tryMove,
   stepSolution,
   getLegalMoves,
+  getSolutionSan,
+  formatSolutionSan,
 } from './stateMachine'
 
 export {

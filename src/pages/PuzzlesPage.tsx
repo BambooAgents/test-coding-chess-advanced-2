@@ -37,6 +37,7 @@ import {
   dmCorrect,
   dmWrong,
   pickNextPuzzle,
+  formatSolutionSan,
 } from '../puzzles'
 import { Position } from '../chess'
 import type { Puzzle, PuzzleStats, PuzzleSessionState, RushSession, DeathMatchSession } from '../puzzles'
@@ -268,6 +269,26 @@ const PrimaryButton = styled(ActionButton)`
     background: var(--accent-hover);
     color: white;
   }
+`
+
+const SolutionBox = styled.div`
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg-elevated);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  font-family: 'Courier New', monospace;
+  line-height: 1.6;
+  word-break: break-word;
+`
+
+const SolutionTitle = styled.div`
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: var(--sp-2);
 `
 
 // --- Component ---
@@ -694,6 +715,13 @@ export function PuzzlesPage() {
               <NeutralFeedback>
                 {userColor === 'white' ? 'White' : 'Black'} to move — find the best move
               </NeutralFeedback>
+            )}
+
+            {(session.state === 'failed' || session.showSolution) && session.puzzle && (
+              <SolutionBox data-testid="solution-display">
+                <SolutionTitle>Solution</SolutionTitle>
+                {formatSolutionSan(session.puzzle, session.solutionStep > 0 ? session.solutionStep : session.puzzle.moves.length)}
+              </SolutionBox>
             )}
 
             <PuzzleInfo>
