@@ -9,7 +9,7 @@ import type { Puzzle, PuzzleIndex } from './types'
 
 /**
  * Parse a raw puzzle row (from the lichess CSV format) into a Puzzle.
- * CSV fields: PuzzleId,FEN,Moves,Rating,RatingDeviation,Popularity,NbPlays,Themes,OpeningTags,GameUrl
+ * CSV fields: PuzzleId,FEN,Moves,Rating,RatingDeviation,Popularity,NbPlays,Themes,GameUrl,OpeningTags,DailyDate
  */
 export function parsePuzzleRow(row: string): Puzzle {
   // Split by comma but handle the fact that fields don't contain commas
@@ -28,8 +28,8 @@ export function parsePuzzleRow(row: string): Puzzle {
     popularityStr,
     nbPlaysStr,
     themesStr,
-    openingTagsStr,
     gameUrl,
+    openingTagsStr,
   ] = parts
 
   return {

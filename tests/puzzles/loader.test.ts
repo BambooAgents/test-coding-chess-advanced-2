@@ -64,7 +64,8 @@ const samplePuzzles: Puzzle[] = [
 
 describe('parsePuzzleRow', () => {
   it('parses a valid CSV row', () => {
-    const row = '00Q42Nod+8d2,rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1,g1f3 e5e4,1500,80,100,5000,opening fork,Kings_Gambit,https://lichess.org/abc123'
+    // Real lichess CSV order: PuzzleId,FEN,Moves,Rating,RatingDeviation,Popularity,NbPlays,Themes,GameUrl,OpeningTags,DailyDate
+    const row = '00Q42Nod+8d2,rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1,g1f3 e5e4,1500,80,100,5000,opening fork,https://lichess.org/abc123,Kings_Gambit,2023-01-01'
     const puzzle = parsePuzzleRow(row)
     expect(puzzle.id).toBe('00Q42Nod+8d2')
     expect(puzzle.fen).toBe('rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1')
@@ -76,10 +77,13 @@ describe('parsePuzzleRow', () => {
   })
 
   it('handles empty themes', () => {
-    const row = 'p1,rnbqkbnr w KQkq - 0 1,e2e4,1500,80,100,5000,,,https://lichess.org/x'
+    // Real CSV order: PuzzleId,FEN,Moves,Rating,RatingDeviation,Popularity,NbPlays,Themes,GameUrl,OpeningTags,DailyDate
+    // Both Themes and OpeningTags empty, plus DailyDate
+    const row = 'p1,rnbqkbnr w KQkq - 0 1,e2e4,1500,80,100,5000,,https://lichess.org/x,,2023-01-01'
     const puzzle = parsePuzzleRow(row)
     expect(puzzle.themes).toEqual([])
     expect(puzzle.openingTags).toEqual([])
+    expect(puzzle.gameUrl).toBe('https://lichess.org/x')
   })
 
   it('throws on invalid row', () => {
