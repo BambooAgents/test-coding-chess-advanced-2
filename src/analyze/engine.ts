@@ -23,6 +23,8 @@ import type {
 export interface AnalyzeEngine {
   /** Evaluate a position, returning cp/mate from White's POV. */
   evaluate(fen: string): Promise<EvalScore>
+  /** Evaluate a position at a lower depth (for evalAfter, faster). Falls back to evaluate(). */
+  evaluateAfter?(fen: string): Promise<EvalScore>
   /** Best move (UCI) for a FEN. Required for brilliant detection. */
   bestMove?(fen: string): Promise<string>
   /** MultiPV N=2 evals for a FEN, White's POV. Required for brilliant detection. */
@@ -61,11 +63,15 @@ export interface GameAnalysis {
  *
  * `onProgress` is called after each move is analyzed so the UI can render
  * progressively (live-update requirement).
+ *
+ * `isCancelled` is checked before each move; if it returns true, the loop
+ * stops early and returns the partial analysis computed so far.
  */
 export async function analyzeGame(
   game: ParsedGame,
   engine: AnalyzeEngine,
   onProgress?: (analysis: GameAnalysis) => void,
+  isCancelled?: () => boolean,
 ): Promise<GameAnalysis> {
   const moves: AnalyzedMove[] = []
   const openingName = game.headers.Opening || game.headers.opening || null
@@ -74,6 +80,9 @@ export async function analyzeGame(
   const pos = new Position(game.startingFen)
 
   for (let ply = 0; ply < game.moves.length; ply++) {
+    // Check cancellation before starting the next move.
+    if (isCancelled?.()) break
+
     const move = game.moves[ply]
     const fenBefore = move.fenBefore || pos.fen()
     const color = pos.turn()
@@ -93,7 +102,9 @@ export async function analyzeGame(
       // skip classification but keep the move.
     }
     const fenAfter = move.fenAfter || pos.fen()
-    const evalAfter = await engine.evaluate(fenAfter)
+    const evalAfter = engine.evaluateAfter
+      ? await engine.evaluateAfter(fenAfter)
+      : await engine.evaluate(fenAfter)
 
     // Detect forced moves (only one legal move) — re-derive from the position.
     let legalMoveCount = 0

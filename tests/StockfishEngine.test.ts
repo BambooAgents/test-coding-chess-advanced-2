@@ -23,12 +23,29 @@ describe('StockfishEngine', () => {
     expect(typeof engine.destroy).toBe('function')
     expect(typeof engine.init).toBe('function')
     expect(typeof engine.getBestMove).toBe('function')
+    expect(typeof engine.getMultiPv).toBe('function')
     engine.destroy()
   })
 
   it('should throw if setSkillLevel is called before init', () => {
     const engine = new StockfishEngine()
     expect(() => engine.setSkillLevel(10)).toThrow('Stockfish not initialized')
+    engine.destroy()
+  })
+
+  it('should throw if getMultiPv is called before init', async () => {
+    const engine = new StockfishEngine()
+    await expect(
+      engine.getMultiPv('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'),
+    ).rejects.toThrow('Stockfish not initialized')
+    engine.destroy()
+  })
+
+  it('should throw if getEvaluation is called before init', async () => {
+    const engine = new StockfishEngine()
+    await expect(
+      engine.getEvaluation('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'),
+    ).rejects.toThrow('Stockfish not initialized')
     engine.destroy()
   })
 })

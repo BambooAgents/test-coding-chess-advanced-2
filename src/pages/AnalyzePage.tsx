@@ -32,20 +32,28 @@ function realEngine(engine: StockfishEngine): AnalyzeEngine {
       const result = await engine.getEvaluation(fen, 12)
       return { cp: result.score, mate: result.mate, depth: result.depth }
     },
+    async evaluateAfter(fen: string): Promise<EvalScore> {
+      // Lower depth for the eval-after pass (faster, still accurate enough for classification).
+      const result = await engine.getEvaluation(fen, 8)
+      return { cp: result.score, mate: result.mate, depth: result.depth }
+    },
     async bestMove(fen: string): Promise<string> {
       const result = await engine.getBestMove(fen, 12)
       return result.bestMove
     },
-    // MultiPV N=2 is approximated: pv1 = position eval, pv2 = position eval - 250cp
-    // (a rough second-line estimate). Full MultiPV would need a second engine option;
-    // this enables the only-move margin check with a conservative margin.
+    // Real MultiPV N=2: uses engine.getMultiPv which sends
+    // `setoption name MultiPV value 2` and parses the two PV lines.
     async multiPv2(fen: string): Promise<{ pv1: EvalScore; pv2: EvalScore }> {
-      const result = await engine.getEvaluation(fen, 12)
-      const pv1: EvalScore = { cp: result.score, mate: result.mate, depth: result.depth }
-      const pv2: EvalScore = result.score !== undefined
-        ? { cp: result.score - 250, depth: result.depth }
-        : { cp: -250, depth: result.depth }
-      return { pv1, pv2 }
+      const lines = await engine.getMultiPv(fen, 12, 2)
+      const toScore = (l: { cp?: number; mate?: number; depth?: number }): EvalScore => ({
+        cp: l.cp,
+        mate: l.mate,
+        depth: l.depth,
+      })
+      return {
+        pv1: toScore(lines[0]),
+        pv2: toScore(lines[1]),
+      }
     },
   }
 }
@@ -101,6 +109,16 @@ const Button = styled.button`
   font-size: var(--fs-sm);
   cursor: pointer;
   &:disabled { opacity: 0.5; cursor: not-allowed; }
+`
+
+const CancelBtn = styled.button`
+  padding: var(--sp-1) var(--sp-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  cursor: pointer;
 `
 
 const Select = styled.select`
@@ -218,6 +236,7 @@ export function AnalyzePage() {
   const [currentPly, setCurrentPly] = useState(0)
   const [analyzing, setAnalyzing] = useState(false)
   const engineRef = useRef<StockfishEngine | null>(null)
+  const cancelRef = useRef<boolean>(false)
 
   // Handoff from Play page: router state carries a PGN.
   useEffect(() => {
@@ -263,10 +282,12 @@ export function AnalyzePage() {
 
   const runAnalysis = useCallback(async (g: ParsedGame) => {
     if (!engineRef.current) return
+    cancelRef.current = false
     setAnalyzing(true)
     try {
       const engine = realEngine(engineRef.current)
-      await analyzeGame(g, engine, (partial) => setAnalysis({ ...partial }))
+      const cancelChecker = () => cancelRef.current
+      await analyzeGame(g, engine, (partial) => setAnalysis({ ...partial }), cancelChecker)
     } catch (e) {
       setError(`Analysis failed: ${(e as Error).message}`)
     } finally {
@@ -412,7 +433,14 @@ export function AnalyzePage() {
       </TopBar>
 
       {error && <Status role="alert" data-testid="analyze-error">{error}</Status>}
-      {analyzing && <Status data-testid="analyzing">Analyzing… {analysis?.moves.length ?? 0}/{game?.moves.length ?? 0}</Status>}
+      {analyzing && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)' }}>
+          <Status data-testid="analyzing">Analyzing… {analysis?.moves.length ?? 0}/{game?.moves.length ?? 0}</Status>
+          <CancelBtn data-testid="cancel-analysis" onClick={() => { cancelRef.current = true }}>
+            Cancel
+          </CancelBtn>
+        </div>
+      )}
 
       {game && (
         <>
