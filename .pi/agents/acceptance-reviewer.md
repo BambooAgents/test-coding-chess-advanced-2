@@ -2,7 +2,6 @@
 name: acceptance-reviewer
 description: Fresh hostile-user acceptance reviewer that boots the entire app from scratch with zero mocks, exercises the full UX (every page, every feature), captures screenshots, and critically hunts for product-level defects a code reviewer cannot catch. Emits a structured BLOCKER/IMPORTANT/NIT finding list. Does not edit source.
 tools: bash, read, ls, grep, find, write
-model: anthropic/claude-sonnet-4
 systemPromptMode: append
 inheritProjectContext: true
 inheritSkills: false
