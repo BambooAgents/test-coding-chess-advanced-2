@@ -8,7 +8,7 @@ inheritProjectContext: true
 inheritSkills: false
 defaultContext: fresh
 acceptanceRole: read-only
-maxSubagentDepth: 1
+maxSubagentDepth: 2
 ---
 
 # Acceptance Reviewer — Hostile-User Product Truth Gate
@@ -106,6 +106,49 @@ found, is a BLOCKER unless noted:
   nothing, a form with no submit, an error with no recovery.
 - **Obvious wrong annotations.** A move obviously bad but labeled "Best",
   a quiet move labeled "Brilliant", etc.
+- **Spatial displacement bugs.** An element that exists and has the right
+  content but is rendered in the wrong place — e.g. a board arrow SVG that
+  resolves against the viewport instead of its board container, drawing
+  arrows across the nav bar / move list. Vision models routinely
+  hallucinate these as "correctly on the board." You MUST verify spatial
+  containment with a DOM probe (see §6), not just ask the vision-checker.
+
+### 5. DOM spatial-containment probes (mandatory for every visual element)
+Vision models are unreliable for spatial verification — they see pixels and
+  assume they're in the right place. For any element that has a visual
+  position constraint (arrows on the board, badges in the move list, the
+  eval bar beside the board, toasts within the viewport), run a DOM probe
+  that checks the element's bounding rect is actually contained in its
+  expected parent. This is a text/DOM task — you (GLM-5.2) can do this
+  reliably without vision.
+
+```js
+// Example: verify the board-arrows SVG is inside the board, not the viewport
+const probe = await page.evaluate(() => {
+  const svg = document.querySelector('[data-testid="board-arrows"]')
+  const board = document.querySelector('[data-testid="chess-board"]')
+  if (!svg || !board) return { error: 'missing element' }
+  const s = svg.getBoundingClientRect()
+  const b = board.getBoundingClientRect()
+  const contained =
+    s.x >= b.x && s.y >= b.y && s.right <= b.right && s.bottom <= b.bottom
+  return {
+    svg: { x: s.x, y: s.y, w: s.width, h: s.height },
+    board: { x: b.x, y: b.y, w: b.width, h: b.height },
+    contained,  // false = BLOCKER: element is outside its container
+  }
+})
+if (probe.contained === false) {
+  // BLOCKER: the element is rendering outside its container
+}
+```
+
+Run this containment check for: board arrows SVG vs board container; eval
+bar vs board; move-list badges vs move-list; toasts vs viewport; any
+absolutely-positioned overlay vs its intended parent. If
+`contained === false`, that is a BLOCKER regardless of what the
+vision-checker reports — the vision model may hallucinate "on the board"
+when the SVG is actually spanning the viewport.
 
 ### 5. Check the "fakeable artifacts" registry
 Read `docs/agents/acceptance.md` §"Fakeable artifacts registry". For each
@@ -161,6 +204,18 @@ format:
 - **Do not read screenshots yourself.** You are GLM-5.2, a text-only model.
   You CANNOT see images. Always dispatch a `vision-checker` subagent for
   every screenshot. The vision-checker's text report is what you collect.
+- **Do not write a visual verdict when vision-checkers fail.** If your
+  vision-checker subagents fail (e.g. nesting-depth error, model error),
+  you MUST report "vision verification unavailable — no visual verdict"
+  and STOP. Do not compensate by asking the supervisor, by relying on DOM
+  presence checks alone, or by inferring what the screenshot "probably"
+  shows. A failed vision check is NOT a pass — it is a BLOCKER on the
+  review itself.
+- **Do not trust vision-checker spatial claims.** Vision models
+  hallucinate positions. For spatial-correctness (is an element inside
+  its container?), use DOM containment probes (§5), not vision. Use
+  vision only for subjective checks (contrast, legibility, whether a
+  color is visible, whether a toast appears).
 - **Do not trust self-attestations.** If a PR says "tsc 0 errors," ignore
   it; you are not checking tsc. If a PR says "puzzles are curated," open the
   data file and check.

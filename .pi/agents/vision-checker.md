@@ -41,8 +41,21 @@ Report ALL of the following that are visible in the image:
 - Is there a move list? What moves are shown? Are there classification badges
   (??, !, ?!, ??, etc.) next to moves? What colors are the badges — are they
   visible or transparent?
-- Are there any arrows drawn on the board? What color/direction?
 - Is there an accuracy % display? What values?
+
+### Arrows, lines, and overlays — SPATIAL VERIFICATION (critical)
+For EACH arrow, line, or marking you see in the image:
+- Specify EXACTLY which region it appears in: ON the chess board grid, on the
+  move list panel, on the navigation bar, on the input panel, or overlapping
+  multiple regions.
+- Do NOT assume an arrow is on the board just because you see indigo/purple
+  pixels. Verify its position against the board's visible 8x8 grid.
+- An arrow that belongs on the board but appears ANYWHERE ELSE (nav bar, move
+  list, input panel, spanning the whole page) is a **BLOCKER** — report it.
+- If the arrow crosses over or lands on non-board UI elements, that is a
+  BLOCKER spatial-displacement bug, not a cosmetic issue.
+- Give the approximate from/to board squares ONLY if the arrow is actually on
+  the board grid. If it is not on the board, say so explicitly.
 
 ### Text & color
 - What text is visible? Quote it exactly.
