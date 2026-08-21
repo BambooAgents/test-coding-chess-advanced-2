@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChessForge — Direction B (Teal, Dense)</title>
+<style>
+:root {
+  --accent: #0d9488;
+  --accent-light: #2dd4bf;
+  --accent-dark: #0f766e;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-alt: #f1f5f9;
+  --text: #0f172a;
+  --text-secondary: #475569;
+  --border: #cbd5e1;
+  --shadow: 0 1px 2px rgba(0,0,0,.04);
+  --shadow-lg: 0 4px 20px rgba(13,148,136,.15);
+  --radius: 8px;
+  --radius-sm: 6px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+.nav { display: flex; align-items: center; gap: 1.5rem; padding: .75rem 1.5rem; background: var(--text); color: #fff; }
+.nav-logo { font-size: 1.1rem; font-weight: 800; letter-spacing: -.03em; color: #fff; }
+.nav-logo span { color: var(--accent-light); }
+.nav-links { display: flex; gap: .25rem; list-style: none; margin-left: 1.5rem; }
+.nav-links a { text-decoration: none; color: #94a3b8; font-size: .8rem; font-weight: 600; padding: .4rem .8rem; border-radius: var(--radius-sm); transition: all .12s; }
+.nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(255,255,255,.1); }
+.nav-right { margin-left: auto; display: flex; gap: .75rem; align-items: center; }
+.nav-btn { background: var(--accent); color: #fff; border: none; padding: .45rem 1rem; border-radius: var(--radius-sm); font-size: .8rem; font-weight: 700; cursor: pointer; }
+.nav-btn:hover { background: var(--accent-dark); }
+.tag { font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); background: rgba(13,148,136,.1); padding: .2rem .5rem; border-radius: 4px; display: inline-block; }
+
+/* Home */
+.home { max-width: 1080px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+.hero { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2rem; }
+.hero-title { font-size: 2.2rem; font-weight: 900; letter-spacing: -.04em; line-height: 1.1; }
+.hero-title span { color: var(--accent); }
+.hero-sub { font-size: .9rem; color: var(--text-secondary); margin-top: .4rem; }
+.hero-stats { display: flex; gap: 1.5rem; }
+.stat { text-align: right; }
+.stat-val { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+.stat-label { font-size: .7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: .1em; }
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; cursor: pointer; transition: all .15s ease; border-top: 3px solid transparent; }
+.card:hover { border-color: var(--accent-light); border-top-color: var(--accent); box-shadow: var(--shadow-lg); }
+.card-icon { font-size: 1.5rem; margin-bottom: .75rem; display: block; }
+.card-title { font-size: 1rem; font-weight: 700; margin-bottom: .25rem; }
+.card-desc { font-size: .78rem; color: var(--text-secondary); line-height: 1.4; }
+.card-meta { font-size: .7rem; color: var(--accent); font-weight: 600; margin-top: .5rem; }
+
+/* Analyze Page */
+.analyze { max-width: 1280px; margin: 0 auto; padding: 1rem 1.5rem; display: none; }
+.analyze.active { display: grid; }
+.analyze { grid-template-columns: 1fr 340px; gap: 1rem; }
+.import-bar { display: flex; gap: .5rem; margin-bottom: 1rem; }
+.import-input { flex: 1; border: 2px solid var(--border); border-radius: var(--radius-sm); padding: .5rem .75rem; font-size: .85rem; font-weight: 500; outline: none; }
+.import-input:focus { border-color: var(--accent); }
+.import-btn { background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); padding: .5rem 1.25rem; font-weight: 700; cursor: pointer; font-size: .85rem; }
+.import-btn:hover { background: var(--accent-dark); }
+.import-btn.alt { background: var(--surface); color: var(--text); border: 2px solid var(--border); }
+.board-area { background: var(--surface); border-radius: var(--radius); padding: 1rem; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.board-wrapper { display: flex; gap: .75rem; align-items: flex-start; }
+.chessboard { width: 420px; height: 420px; display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr); border-radius: 4px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.square { display: flex; align-items: center; justify-content: center; font-size: 2rem; position: relative; }
+.square.light { background: #e8edf2; }
+.square.dark { background: #7d99a9; }
+.square.highlight::after { content: ''; position: absolute; inset: 2px; border: 3px solid var(--accent); border-radius: 2px; }
+.eval-bar { width: 20px; height: 420px; border-radius: 3px; overflow: hidden; display: flex; flex-direction: column-reverse; border: 1px solid var(--border); flex-shrink: 0; }
+.eval-white { background: #e8edf2; }
+.eval-black { background: #0f172a; }
+.eval-label { font-size: .75rem; font-weight: 700; text-align: center; margin-top: .4rem; }
+.eval-label .pos { color: var(--accent-dark); }
+.board-meta { display: flex; justify-content: space-between; align-items: center; padding: .5rem 0; margin-top: .75rem; border-top: 1px solid var(--border); }
+.opening-tag { font-size: .8rem; font-weight: 600; color: var(--accent); }
+.eval-num { font-size: 1.4rem; font-weight: 900; font-variant-numeric: tabular-nums; }
+.eval-num.pos { color: var(--accent); }
+.scrubber { display: flex; align-items: center; gap: .4rem; margin-top: .75rem; padding-top: .75rem; border-top: 1px solid var(--border); }
+.scrubber-btn { background: var(--surface-alt); border: 1px solid var(--border); border-radius: 4px; padding: .3rem .5rem; cursor: pointer; font-size: .75rem; color: var(--text-secondary); font-weight: 600; }
+.scrubber-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(13,148,136,.05); }
+.scrubber-track { flex: 1; height: 6px; background: var(--surface-alt); border-radius: 3px; position: relative; cursor: pointer; border: 1px solid var(--border); }
+.scrubber-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--accent); border-radius: 3px; width: 50%; }
+.scrubber-knob { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; background: var(--accent); border: 2px solid #fff; border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,.2); left: 50%; }
+.info-panel { display: flex; flex-direction: column; gap: .75rem; }
+.info-card { background: var(--surface); border-radius: var(--radius); padding: 1rem; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.info-card-title { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: .5rem; }
+.move-list { max-height: 320px; overflow-y: auto; }
+.move-row { display: flex; align-items: center; gap: .35rem; padding: .3rem .4rem; border-radius: 4px; cursor: pointer; font-size: .8rem; border: 1px solid transparent; }
+.move-row:hover { background: var(--surface-alt); }
+.move-row.current { background: rgba(13,148,136,.1); border-color: var(--accent-light); }
+.move-num { color: var(--text-secondary); font-weight: 700; min-width: 1.5rem; font-size: .75rem; }
+.move-text { font-weight: 600; font-size: .82rem; }
+.badge { font-size: .65rem; font-weight: 800; padding: .1rem .25rem; border-radius: 3px; margin-left: auto; min-width: 20px; text-align: center; }
+.badge.brilliant { background: #16a34a; color: #fff; }
+.badge.great { background: #22c55e; color: #fff; }
+.badge.good { background: #65a30d; color: #fff; }
+.badge.inaccuracy { background: #ca8a04; color: #fff; }
+.badge.mistake { background: #ea580c; color: #fff; }
+.badge.blunder { background: #dc2626; color: #fff; }
+.badge.book { background: #8b5cf6; color: #fff; }
+
+.acc-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
+.acc-label { font-size: .8rem; font-weight: 600; }
+.acc-bar-bg { width: 120px; height: 6px; background: var(--surface-alt); border-radius: 3px; overflow: hidden; }
+.acc-bar-fill { height: 100%; background: var(--accent); border-radius: 3px; }
+.acc-pct { font-size: .85rem; font-weight: 800; font-variant-numeric: tabular-nums; min-width: 2.5rem; text-align: right; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-logo">Chess<span>Forge</span></div>
+  <ul class="nav-links">
+    <li><a href="#" id="nav-home" class="active">Home</a></li>
+    <li><a href="#" id="nav-play">Play</a></li>
+    <li><a href="#" id="nav-analyze">Analyze</a></li>
+    <li><a href="#" id="nav-puzzles">Puzzles</a></li>
+    <li><a href="#" id="nav-weak">Weaknesses</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-btn">Get Started</button>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="home" id="page-home">
+  <div class="hero">
+    <div>
+      <div class="tag">Open Source · Stockfish WASM · No Server</div>
+      <h1 class="hero-title">Forge your <span>chess skills</span>.</h1>
+      <p class="hero-sub">Analyze, train, and improve — entirely in your browser. Powered by Stockfish.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">12.4k</div><div class="stat-label">Puzzles</div></div>
+      <div class="stat"><div class="stat-val">∞</div><div class="stat-label">Games</div></div>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card" onclick="showAnalyze()">
+      <span class="card-icon">♟️</span>
+      <div class="card-title">Play</div>
+      <div class="card-desc">Vs Stockfish at your level.</div>
+      <div class="card-meta">4 difficulty levels →</div>
+    </div>
+    <div class="card" onclick="showAnalyze()">
+      <span class="card-icon">📊</span>
+      <div class="card-title">Analyze</div>
+      <div class="card-desc">Full review with eval + badges.</div>
+      <div class="card-meta">chess.com or PGN →</div>
+    </div>
+    <div class="card" onclick="showAnalyze()">
+      <span class="card-icon">🧩</span>
+      <div class="card-title">Puzzles</div>
+      <div class="card-desc">Tactics by theme & opening.</div>
+      <div class="card-meta">Rush + Death-match →</div>
+    </div>
+    <div class="card" onclick="showAnalyze()">
+      <span class="card-icon">🎯</span>
+      <div class="card-title">Weaknesses</div>
+      <div class="card-desc">Find where you lose games.</div>
+      <div class="card-meta">chess.com username →</div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYZE PAGE -->
+<div class="analyze" id="page-analyze">
+  <div style="grid-column: 1 / -1;">
+    <div class="import-bar">
+      <input class="import-input" placeholder="Enter chess.com username or paste PGN..." value="hikaru">
+      <button class="import-btn">Load Games</button>
+      <button class="import-btn alt">Paste PGN</button>
+    </div>
+  </div>
+  <div class="board-area">
+    <div class="board-wrapper">
+      <div class="eval-bar">
+        <div class="eval-white" style="height: 58%;"></div>
+        <div class="eval-black" style="height: 42%;"></div>
+      </div>
+      <div class="chessboard" id="board"></div>
+    </div>
+    <div class="eval-label"><span class="pos">+0.8 — White slightly better</span></div>
+    <div class="board-meta">
+      <span class="opening-tag">Ruy Lopez · Berlin Defense</span>
+      <span class="eval-num pos">+0.8</span>
+    </div>
+    <div class="scrubber">
+      <button class="scrubber-btn">|⟸</button>
+      <button class="scrubber-btn">←</button>
+      <div class="scrubber-track">
+        <div class="scrubber-fill"></div>
+        <div class="scrubber-knob"></div>
+      </div>
+      <button class="scrubber-btn">→</button>
+      <button class="scrubber-btn">⟹|</button>
+    </div>
+  </div>
+  <div class="info-panel">
+    <div class="info-card">
+      <div class="info-card-title">Accuracy</div>
+      <div class="acc-row">
+        <span class="acc-label">White</span>
+        <div class="acc-bar-bg"><div class="acc-bar-fill" style="width: 92%;"></div></div>
+        <span class="acc-pct">92%</span>
+      </div>
+      <div class="acc-row">
+        <span class="acc-label">Black</span>
+        <div class="acc-bar-bg"><div class="acc-bar-fill" style="width: 78%; background: #94a3b8;"></div></div>
+        <span class="acc-pct">78%</span>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">Move List</div>
+      <div class="move-list">
+        <div class="move-row"><span class="move-num">1.</span><span class="move-text">e4</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">e5</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num">2.</span><span class="move-text">Nf3</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">Nc6</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num">3.</span><span class="move-text">Bb5</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">Nf6</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num">4.</span><span class="move-text">O-O</span><span class="badge great">!!</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">Be7</span><span class="badge good">★</span></div>
+        <div class="move-row"><span class="move-num">5.</span><span class="move-text">Re1</span><span class="badge book">📕</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">Nd6</span><span class="badge inaccuracy">?!</span></div>
+        <div class="move-row current"><span class="move-num">6.</span><span class="move-text">d4</span><span class="badge brilliant">!!</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">c6</span><span class="badge mistake">?</span></div>
+        <div class="move-row"><span class="move-num">7.</span><span class="move-text">Nxe5</span><span class="badge good">★</span></div>
+        <div class="move-row"><span class="move-num"></span><span class="move-text">Bd7</span><span class="badge blunder">??</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const pieces = {
+  '0,1': '♟', '0,3': '♛', '0,5': '♝', '0,7': '♞',
+  '1,0': '♟', '1,2': '♟', '1,4': '♟', '1,6': '♟',
+  '4,4': '♙', '5,4': '♟',
+  '6,0': '♙', '6,2': '♙', '6,6': '♙',
+  '7,1': '♘', '7,3': '♕', '7,5': '♗', '7,7': '♖'
+};
+const board = document.getElementById('board');
+for (let r = 0; r < 8; r++) {
+  for (let c = 0; c < 8; c++) {
+    const sq = document.createElement('div');
+    sq.className = 'square ' + ((r + c) % 2 === 0 ? 'light' : 'dark');
+    if (r === 5 && c === 4) sq.classList.add('highlight');
+    const p = pieces[r + ',' + c];
+    if (p) sq.textContent = p;
+    board.appendChild(sq);
+  }
+}
+function showAnalyze() {
+  document.getElementById('page-home').style.display = 'none';
+  document.getElementById('page-analyze').classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('nav-analyze').classList.add('active');
+}
+function showHome() {
+  document.getElementById('page-home').style.display = '';
+  document.getElementById('page-analyze').classList.remove('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('nav-home').classList.add('active');
+}
+document.getElementById('nav-home').onclick = (e) => { e.preventDefault(); showHome(); };
+document.getElementById('nav-analyze').onclick = (e) => { e.preventDefault(); showAnalyze(); };
+document.getElementById('nav-play').onclick = (e) => { e.preventDefault(); showAnalyze(); };
+document.getElementById('nav-puzzles').onclick = (e) => { e.preventDefault(); showAnalyze(); };
+document.getElementById('nav-weak').onclick = (e) => { e.preventDefault(); showAnalyze(); };
+</script>
+</body>
+</html>

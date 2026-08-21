@@ -1,0 +1,38 @@
+{
+  "play": {
+    "hasBoard": true,
+    "boardSize": {
+      "w": 560,
+      "h": 560
+    },
+    "squareCount": 64,
+    "squareSize": {
+      "w": 70,
+      "h": 70
+    },
+    "piecesWithGlyph": 0,
+    "samplePieces": [],
+    "sampleSquareColors": [
+      "rgb(240, 217, 181)",
+      "rgb(181, 136, 99)"
+    ]
+  },
+  "puzzles": {
+    "hasBoard": true,
+    "boardSize": {
+      "w": 560,
+      "h": 560
+    },
+    "squareCount": 64,
+    "squareSize": {
+      "w": 70,
+      "h": 70
+    },
+    "piecesWithGlyph": 0,
+    "samplePieces": [],
+    "sampleSquareColors": [
+      "rgb(240, 217, 181)",
+      "rgb(181, 136, 99)"
+    ]
+  }
+}

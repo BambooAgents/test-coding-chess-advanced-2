@@ -1,0 +1,17 @@
+{
+  "svgs": [
+    {
+      "testid": "board-arrows",
+      "x": 164,
+      "y": 365,
+      "w": 560,
+      "h": 560,
+      "spansFullViewport": false
+    }
+  ],
+  "viewport": {
+    "w": 1400,
+    "h": 900
+  },
+  "anyFullViewportSvg": false
+}

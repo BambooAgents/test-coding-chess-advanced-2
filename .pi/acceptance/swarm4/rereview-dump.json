@@ -1,0 +1,908 @@
+{
+  "step1": {
+    "url": "http://localhost:5183/test-coding-chess-advanced-2/weaknesses",
+    "title": "My Weaknesses",
+    "subtitle": "Enter your chess.com username to get a live analysis of your weak spots — openings, endgames, and what to train.",
+    "hasUsernameInput": true,
+    "inputType": "text",
+    "buttonLabel": "Analyze",
+    "bodyTextSample": "♟ Chess Advanced\nHome\nPlay\nAnalyze\nPuzzles\nMy Weaknesses\nMy Weaknesses\n\nEnter your chess.com username to get a live analysis of your weak spots — openings, endgames, and what to train.\n\nChess.com Username\nGames to Analyze\n20 games\n50 games\n100 games\nAnalyze"
+  },
+  "step2": {
+    "analysisComplete": true,
+    "completedGames": "50",
+    "stillAnalyzing": false,
+    "progressLine": null,
+    "errorVisible": false,
+    "bodyTextHead": "♟ Chess Advanced\nHome\nPlay\nAnalyze\nPuzzles\nMy Weaknesses\nMy Weaknesses\n\nEnter your chess.com username to get a live analysis of your weak spots — openings, endgames, and what to train.\n\nChess.com Username\nGames to Analyze\n20 games\n50 games\n100 games\nAnalyze\n\nAnalysis complete: 50 games analyzed\n\nRecommendations\nReduce endgame blundersHIGH\n\nYou committed 4 blunder(s) in the endgame phase. Endgame precision is critical — small mistakes can turn wins into draws.\n\nTrain →\nConvert winning positionsHIGH\n\nIn 3 game(s), you built an advantage in the first 10 moves but then lost it. Focus on converting advantages — train middlegame technique.\n\nTrain →\nImprove opening playHIGH\n\nIn 37 game(s), you made significant mistakes in the first 10 moves. Study opening principles and common traps.\n\nTrain →\nOve"
+  },
+  "step3": {
+    "openingRowsCount": 42,
+    "openingRows": [
+      [
+        "Indian Game Knights Variation",
+        "A46",
+        "played",
+        "1",
+        "0",
+        "1",
+        "0",
+        "3.9%",
+        "71.7%"
+      ],
+      [
+        "Bishops Opening Berlin Vienna Hybrid Variation 4",
+        "C28",
+        "played",
+        "6",
+        "5",
+        "1",
+        "0",
+        "7.2%",
+        "66.1%"
+      ],
+      [
+        "Reti Opening Kingside Fianchetto Variation",
+        "A04",
+        "faced",
+        "1",
+        "0",
+        "1",
+        "0",
+        "15.8%",
+        "58.6%"
+      ],
+      [
+        "Scandinavian Defense Closed 2",
+        "B01",
+        "played",
+        "2",
+        "1",
+        "1",
+        "0",
+        "1.3%",
+        "67.0%"
+      ],
+      [
+        "Modern Defense Standard Line",
+        "B06",
+        "faced",
+        "1",
+        "0",
+        "1",
+        "0",
+        "3.7%",
+        "57.2%"
+      ],
+      [
+        "Pirc Defense Main Line 4.Be3 Bg7 5.F3 O O 6.Qd2",
+        "B07",
+        "faced",
+        "1",
+        "0",
+        "1",
+        "0",
+        "0.0%",
+        "64.7%"
+      ],
+      [
+        "Sicilian Defense Taimanov Bastrikov Variation",
+        "B48",
+        "played",
+        "1",
+        "0",
+        "1",
+        "0",
+        "14.3%",
+        "60.6%"
+      ],
+      [
+        "Colle System 3",
+        "D04",
+        "played",
+        "1",
+        "0",
+        "1",
+        "0",
+        "9.6%",
+        "68.6%"
+      ],
+      [
+        "Indian Game Spielmann Indian Variation",
+        "A46",
+        "played",
+        "1",
+        "1",
+        "0",
+        "0",
+        "7.3%",
+        "63.2%"
+      ],
+      [
+        "Caro Kann Defense Gurgenidze System 4.H3 Bg7",
+        "B15",
+        "faced",
+        "2",
+        "2",
+        "0",
+        "0",
+        "0.0%",
+        "70.5%"
+      ],
+      [
+        "Old Benoni Defense 2.Dxc5",
+        "A43",
+        "played",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0.0%",
+        "67.8%"
+      ],
+      [
+        "Modern Defense With 1 E4 2.D4 Bg7 3.C3 C6 4.Bd3",
+        "B06",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0.0%",
+        "64.6%"
+      ],
+      [
+        "Sicilian Defense Canal Main Line 4.Bxd7 Nxd7 5.D4 Cxd4",
+        "B52",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0.0%",
+        "74.5%"
+      ],
+      [
+        "Sicilian Defense Kan Knight Variation 5",
+        "B43",
+        "played",
+        "1",
+        "0",
+        "0",
+        "1",
+        "6.0%",
+        "71.3%"
+      ],
+      [
+        "Indian Game Knights Variation East Indian Defense",
+        "A48",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "4.5%",
+        "73.0%"
+      ],
+      [
+        "Pirc Defense Classical Variation 4",
+        "B08",
+        "played",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0.0%",
+        "70.2%"
+      ],
+      [
+        "English Opening Symmetrical Variation",
+        "A34",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "13.0%",
+        "63.5%"
+      ],
+      [
+        "Reti Opening Sicilian Invitation",
+        "A04",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "3.7%",
+        "55.5%"
+      ],
+      [
+        "Bishops Opening Berlin Vienna Hybrid Hromadka Variation",
+        "C28",
+        "played",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0.0%",
+        "64.0%"
+      ],
+      [
+        "Kings Indian Defense Semi Classical Variation 6",
+        "E61",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "4.6%",
+        "76.9%"
+      ],
+      [
+        "Modern Defense Pterodactyl Central Benoni Variation",
+        "B06",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "2.5%",
+        "80.2%"
+      ],
+      [
+        "Pirc Defense Classical Quiet Chigorin Line 7.D5 Nb8",
+        "B08",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "8.6%",
+        "71.3%"
+      ],
+      [
+        "Van T Kruijs Opening 1",
+        "A00",
+        "played",
+        "1",
+        "1",
+        "0",
+        "0",
+        "2.9%",
+        "71.6%"
+      ],
+      [
+        "French Defense Knight Variation Two Knights Variation",
+        "C00",
+        "played",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0.0%",
+        "76.8%"
+      ],
+      [
+        "Alekhines Defense Scandinavian Variation 3.Exd5 Nxd5 4.Bc4 Nb6 5.Bb3",
+        "B02",
+        "faced",
+        "1",
+        "0",
+        "0",
+        "1",
+        "8.8%",
+        "64.2%"
+      ],
+      [
+        "Queens Indian Defense Fianchetto Classical Kramnik Variation 7",
+        "E17",
+        "played",
+        "1",
+        "1",
+        "0",
+        "0",
+        "3.3%",
+        "57.9%"
+      ],
+      [
+        "Modern Defense Standard Pterodactyl Anhanguera Variation",
+        "B06",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0.0%",
+        "74.6%"
+      ],
+      [
+        "Catalan Opening Closed Traditional Variation 9.B3",
+        "E09",
+        "played",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0.0%",
+        "71.2%"
+      ],
+      [
+        "Caro Kann Defense Exchange Variation",
+        "B13",
+        "played",
+        "1",
+        "1",
+        "0",
+        "0",
+        "7.1%",
+        "69.5%"
+      ],
+      [
+        "Sicilian Defense Hyperaccelerated Dragon Variation 3.Bc4 Bg7 4.O O Nc6 5.C3",
+        "B27",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "10.5%",
+        "65.3%"
+      ],
+      [
+        "Reti Opening Kingside Fianchetto Variation 2.G3 Bg7 3.Bg2 D6 4.O O",
+        "A04",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "13.0%",
+        "69.1%"
+      ],
+      [
+        "English Opening Anglo Indian Kings Knight Queens Indian Formation",
+        "A15",
+        "played",
+        "1",
+        "1",
+        "0",
+        "0",
+        "3.2%",
+        "76.1%"
+      ],
+      [
+        "Modern Defense With 1 D4 2.Nc3 Bg7",
+        "A40",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "8.0%",
+        "52.9%"
+      ],
+      [
+        "Slav Defense Modern Quiet Pin Defense 5.Nbd2 E6 6.Bd3 Nbd7",
+        "D11",
+        "played",
+        "2",
+        "1",
+        "0",
+        "1",
+        "4.0%",
+        "57.9%"
+      ],
+      [
+        "Indian Game Knights Variation East Indian Defense 3.Nbd2 Bg7 4.E4 D6",
+        "A48",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0.0%",
+        "73.3%"
+      ],
+      [
+        "Modern Defense With 1 D4 2.Nf3 Bg7 3.C3 D6 4.Bg5",
+        "A40",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "0.0%",
+        "67.6%"
+      ],
+      [
+        "Modern Defense With 1 D4 2.Nf3 Bg7",
+        "A40",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "3.3%",
+        "67.9%"
+      ],
+      [
+        "Alapin Sicilian Defense",
+        "B22",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "1.8%",
+        "75.0%"
+      ],
+      [
+        "Closed Sicilian Defense",
+        "B23",
+        "played",
+        "1",
+        "1",
+        "0",
+        "0",
+        "15.6%",
+        "63.7%"
+      ],
+      [
+        "Modern Defense With 1 E4",
+        "B06",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "6.1%",
+        "74.4%"
+      ],
+      [
+        "Queens Pawn Opening Chigorin Variation",
+        "D00",
+        "faced",
+        "1",
+        "1",
+        "0",
+        "0",
+        "2.9%",
+        "60.5%"
+      ],
+      [
+        "Indian Game",
+        "A45",
+        "faced",
+        "1",
+        "0",
+        "0",
+        "1",
+        "9.4%",
+        "63.0%"
+      ]
+    ],
+    "recsCount": 3,
+    "recs": [
+      {
+        "text": "Train →",
+        "href": "/test-coding-chess-advanced-2/puzzles?set=endgame"
+      },
+      {
+        "text": "Train →",
+        "href": "/test-coding-chess-advanced-2/puzzles?set=middlegame"
+      },
+      {
+        "text": "Train →",
+        "href": "/test-coding-chess-advanced-2/puzzles?set=opening"
+      }
+    ],
+    "sevBadges": [
+      "HIGH",
+      "HIGH",
+      "HIGH"
+    ]
+  },
+  "b1openings": {
+    "found": true,
+    "rows": [
+      {
+        "name": "Indian Game Knights Variation",
+        "eco": "A46",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Bishops Opening Berlin Vienna Hybrid Variation 4",
+        "eco": "C28",
+        "perspective": "played",
+        "games": "6"
+      },
+      {
+        "name": "Reti Opening Kingside Fianchetto Variation",
+        "eco": "A04",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Scandinavian Defense Closed 2",
+        "eco": "B01",
+        "perspective": "played",
+        "games": "2"
+      },
+      {
+        "name": "Modern Defense Standard Line",
+        "eco": "B06",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Pirc Defense Main Line 4.Be3 Bg7 5.F3 O O 6.Qd2",
+        "eco": "B07",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Sicilian Defense Taimanov Bastrikov Variation",
+        "eco": "B48",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Colle System 3",
+        "eco": "D04",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Indian Game Spielmann Indian Variation",
+        "eco": "A46",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Caro Kann Defense Gurgenidze System 4.H3 Bg7",
+        "eco": "B15",
+        "perspective": "faced",
+        "games": "2"
+      },
+      {
+        "name": "Old Benoni Defense 2.Dxc5",
+        "eco": "A43",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Modern Defense With 1 E4 2.D4 Bg7 3.C3 C6 4.Bd3",
+        "eco": "B06",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Sicilian Defense Canal Main Line 4.Bxd7 Nxd7 5.D4 Cxd4",
+        "eco": "B52",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Sicilian Defense Kan Knight Variation 5",
+        "eco": "B43",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Indian Game Knights Variation East Indian Defense",
+        "eco": "A48",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Pirc Defense Classical Variation 4",
+        "eco": "B08",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "English Opening Symmetrical Variation",
+        "eco": "A34",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Reti Opening Sicilian Invitation",
+        "eco": "A04",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Bishops Opening Berlin Vienna Hybrid Hromadka Variation",
+        "eco": "C28",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Kings Indian Defense Semi Classical Variation 6",
+        "eco": "E61",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Modern Defense Pterodactyl Central Benoni Variation",
+        "eco": "B06",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Pirc Defense Classical Quiet Chigorin Line 7.D5 Nb8",
+        "eco": "B08",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Van T Kruijs Opening 1",
+        "eco": "A00",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "French Defense Knight Variation Two Knights Variation",
+        "eco": "C00",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Alekhines Defense Scandinavian Variation 3.Exd5 Nxd5 4.Bc4 Nb6 5.Bb3",
+        "eco": "B02",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Queens Indian Defense Fianchetto Classical Kramnik Variation 7",
+        "eco": "E17",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Modern Defense Standard Pterodactyl Anhanguera Variation",
+        "eco": "B06",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Catalan Opening Closed Traditional Variation 9.B3",
+        "eco": "E09",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Caro Kann Defense Exchange Variation",
+        "eco": "B13",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Sicilian Defense Hyperaccelerated Dragon Variation 3.Bc4 Bg7 4.O O Nc6 5.C3",
+        "eco": "B27",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Reti Opening Kingside Fianchetto Variation 2.G3 Bg7 3.Bg2 D6 4.O O",
+        "eco": "A04",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "English Opening Anglo Indian Kings Knight Queens Indian Formation",
+        "eco": "A15",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Modern Defense With 1 D4 2.Nc3 Bg7",
+        "eco": "A40",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Slav Defense Modern Quiet Pin Defense 5.Nbd2 E6 6.Bd3 Nbd7",
+        "eco": "D11",
+        "perspective": "played",
+        "games": "2"
+      },
+      {
+        "name": "Indian Game Knights Variation East Indian Defense 3.Nbd2 Bg7 4.E4 D6",
+        "eco": "A48",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Modern Defense With 1 D4 2.Nf3 Bg7 3.C3 D6 4.Bg5",
+        "eco": "A40",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Modern Defense With 1 D4 2.Nf3 Bg7",
+        "eco": "A40",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Alapin Sicilian Defense",
+        "eco": "B22",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Closed Sicilian Defense",
+        "eco": "B23",
+        "perspective": "played",
+        "games": "1"
+      },
+      {
+        "name": "Modern Defense With 1 E4",
+        "eco": "B06",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Queens Pawn Opening Chigorin Variation",
+        "eco": "D00",
+        "perspective": "faced",
+        "games": "1"
+      },
+      {
+        "name": "Indian Game",
+        "eco": "A45",
+        "perspective": "faced",
+        "games": "1"
+      }
+    ],
+    "unknownCount": 0,
+    "names": [
+      "Indian Game Knights Variation",
+      "Bishops Opening Berlin Vienna Hybrid Variation 4",
+      "Reti Opening Kingside Fianchetto Variation",
+      "Scandinavian Defense Closed 2",
+      "Modern Defense Standard Line",
+      "Pirc Defense Main Line 4.Be3 Bg7 5.F3 O O 6.Qd2",
+      "Sicilian Defense Taimanov Bastrikov Variation",
+      "Colle System 3",
+      "Indian Game Spielmann Indian Variation",
+      "Caro Kann Defense Gurgenidze System 4.H3 Bg7",
+      "Old Benoni Defense 2.Dxc5",
+      "Modern Defense With 1 E4 2.D4 Bg7 3.C3 C6 4.Bd3",
+      "Sicilian Defense Canal Main Line 4.Bxd7 Nxd7 5.D4 Cxd4",
+      "Sicilian Defense Kan Knight Variation 5",
+      "Indian Game Knights Variation East Indian Defense",
+      "Pirc Defense Classical Variation 4",
+      "English Opening Symmetrical Variation",
+      "Reti Opening Sicilian Invitation",
+      "Bishops Opening Berlin Vienna Hybrid Hromadka Variation",
+      "Kings Indian Defense Semi Classical Variation 6",
+      "Modern Defense Pterodactyl Central Benoni Variation",
+      "Pirc Defense Classical Quiet Chigorin Line 7.D5 Nb8",
+      "Van T Kruijs Opening 1",
+      "French Defense Knight Variation Two Knights Variation",
+      "Alekhines Defense Scandinavian Variation 3.Exd5 Nxd5 4.Bc4 Nb6 5.Bb3",
+      "Queens Indian Defense Fianchetto Classical Kramnik Variation 7",
+      "Modern Defense Standard Pterodactyl Anhanguera Variation",
+      "Catalan Opening Closed Traditional Variation 9.B3",
+      "Caro Kann Defense Exchange Variation",
+      "Sicilian Defense Hyperaccelerated Dragon Variation 3.Bc4 Bg7 4.O O Nc6 5.C3",
+      "Reti Opening Kingside Fianchetto Variation 2.G3 Bg7 3.Bg2 D6 4.O O",
+      "English Opening Anglo Indian Kings Knight Queens Indian Formation",
+      "Modern Defense With 1 D4 2.Nc3 Bg7",
+      "Slav Defense Modern Quiet Pin Defense 5.Nbd2 E6 6.Bd3 Nbd7",
+      "Indian Game Knights Variation East Indian Defense 3.Nbd2 Bg7 4.E4 D6",
+      "Modern Defense With 1 D4 2.Nf3 Bg7 3.C3 D6 4.Bg5",
+      "Modern Defense With 1 D4 2.Nf3 Bg7",
+      "Alapin Sicilian Defense",
+      "Closed Sicilian Defense",
+      "Modern Defense With 1 E4",
+      "Queens Pawn Opening Chigorin Variation",
+      "Indian Game"
+    ]
+  },
+  "n1console": {
+    "totalMessages": 3,
+    "severityWarnings": [],
+    "styledComponentsWarnings": [],
+    "pageErrors": []
+  },
+  "i1puzzles": {
+    "url": "http://localhost:5183/test-coding-chess-advanced-2/puzzles",
+    "search": "",
+    "modeButtons": [
+      {
+        "text": "Plain Puzzles",
+        "active": false
+      },
+      {
+        "text": "Themed Sets",
+        "active": false
+      },
+      {
+        "text": "Rush",
+        "active": false
+      },
+      {
+        "text": "Death Match",
+        "active": false
+      },
+      {
+        "text": "All Endgames",
+        "active": false
+      },
+      {
+        "text": "Advanced Pawn",
+        "active": false
+      },
+      {
+        "text": "Bishop Endgame",
+        "active": false
+      },
+      {
+        "text": "Endgame",
+        "active": false
+      },
+      {
+        "text": "Knight Endgame",
+        "active": false
+      },
+      {
+        "text": "Pawn Endgame",
+        "active": false
+      },
+      {
+        "text": "Queen Endgame",
+        "active": false
+      },
+      {
+        "text": "Queen Rook Endgame",
+        "active": false
+      }
+    ],
+    "hasOpeningPicker": true,
+    "bodyTextHead": "♟ Chess Advanced\nHome\nPlay\nAnalyze\nPuzzles\nMy Weaknesses\n🧩 Puzzles\nPlain Puzzles\nThemed Sets\nRush\nDeath Match\nENDGAME SETS\nAll Endgames\nAdvanced Pawn\nBishop Endgame\nEndgame\nKnight Endgame\nPawn Endgame\nQueen Endgame\nQueen Rook Endgame\nRook Endgame\nOPENING SETS\nAlekhine Defense\nAlekhine Defense Other variations\nAlekhine Defense Scandinavian Variation\nAnderssens Opening\nAnderssens Opening Other variations\nBenoni Defense\nBenoni Defense Old Benoni\nBird Opening\nBird Opening Dutch Variation\nBishops Opening\nBishops Opening Boi Variation\nBishops Opening Other variations\nBishops Opening Ponziani Gambit"
+  },
+  "i1mode": {
+    "modeButtonCounts": {
+      "Rush": 1,
+      "Death Match": 1
+    },
+    "openingButtons": [
+      "Caro-Kann Defense",
+      "Caro-Kann Defense Accelerated Panov Attack",
+      "Caro-Kann Defense Advance Variation",
+      "Caro-Kann Defense Classical Variation",
+      "Caro-Kann Defense Exchange Variation",
+      "Caro-Kann Defense Hillbilly Attack",
+      "Caro-Kann Defense Karpov Variation",
+      "Caro-Kann Defense Main Line",
+      "Caro-Kann Defense Other variations",
+      "Caro-Kann Defense Panov Attack",
+      "Caro-Kann Defense Tartakower Variation",
+      "Caro-Kann Defense Two Knights Attack",
+      "English Defense",
+      "English Defense Other variations",
+      "English Opening",
+      "English Opening Agincourt Defense",
+      "English Opening Anglo-Indian Defense",
+      "English Opening Carls-Bremen System",
+      "English Opening Kings English Variation",
+      "English Opening Mikenas-Carls",
+      "English Opening Symmetrical Variation",
+      "French Defense",
+      "French Defense Advance Variation",
+      "French Defense Chigorin Variation",
+      "French Defense Classical Variation",
+      "French Defense Exchange Variation",
+      "French Defense Henneberger Variation",
+      "French Defense Knight Variation",
+      "French Defense La Bourdonnais Variation",
+      "French Defense Normal Variation"
+    ]
+  }
+}

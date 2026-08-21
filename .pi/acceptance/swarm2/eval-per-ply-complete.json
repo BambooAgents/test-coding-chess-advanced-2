@@ -1,0 +1,128 @@
+[
+  {
+    "ply": 1,
+    "label": "-0.71",
+    "fillHeight": "254.297px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 2,
+    "label": "+1.27",
+    "fillHeight": "300.047px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 3,
+    "label": "-0.87",
+    "fillHeight": "270.109px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 4,
+    "label": "+1.69",
+    "fillHeight": "310.797px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 5,
+    "label": "-0.22",
+    "fillHeight": "289.359px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 6,
+    "label": "+1.65",
+    "fillHeight": "316.203px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 7,
+    "label": "-0.76",
+    "fillHeight": "277.391px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 8,
+    "label": "+1.37",
+    "fillHeight": "305.406px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 9,
+    "label": "-1.75",
+    "fillHeight": "251.609px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 10,
+    "label": "+1.89",
+    "fillHeight": "305.641px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 11,
+    "label": "-1.1",
+    "fillHeight": "269.516px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 12,
+    "label": "+2.23",
+    "fillHeight": "321.078px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 13,
+    "label": "-3.42",
+    "fillHeight": "224.266px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 14,
+    "label": "+1.71",
+    "fillHeight": "289.203px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 15,
+    "label": "-1.93",
+    "fillHeight": "247.375px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 16,
+    "label": "+1.96",
+    "fillHeight": "306.75px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 17,
+    "label": "-1.07",
+    "fillHeight": "272.375px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 18,
+    "label": "+2.18",
+    "fillHeight": "320.609px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 19,
+    "label": "+2",
+    "fillHeight": "340.859px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 20,
+    "label": "+2.25",
+    "fillHeight": "350.391px",
+    "fillBg": "rgb(248, 248, 248)"
+  },
+  {
+    "ply": 21,
+    "label": "-0.75",
+    "fillHeight": "286.047px",
+    "fillBg": "rgb(248, 248, 248)"
+  }
+]

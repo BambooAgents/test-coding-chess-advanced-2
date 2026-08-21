@@ -1,0 +1,22 @@
+[
+  {
+    "label": "Play",
+    "activeHref": "/test-coding-chess-advanced-2/play",
+    "bodyLen": 134
+  },
+  {
+    "label": "Analyze",
+    "activeHref": "/test-coding-chess-advanced-2/analyze",
+    "bodyLen": 54
+  },
+  {
+    "label": "Puzzles",
+    "activeHref": "/test-coding-chess-advanced-2/puzzles",
+    "bodyLen": 247
+  },
+  {
+    "label": "My Weaknesses",
+    "activeHref": "/test-coding-chess-advanced-2/weaknesses",
+    "bodyLen": 191
+  }
+]

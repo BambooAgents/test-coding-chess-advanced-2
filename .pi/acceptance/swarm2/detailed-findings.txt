@@ -1,0 +1,9 @@
+✓ Screenshot: full analysis view
+✓ Eval bar fill VISIBLE: 22x254px, bg=rgb(248, 248, 248)
+✓ Best-move arrow visible: 1 lines, 1 polygons
+✓ Brilliant badge VISIBLE: color=rgb(168, 85, 247), bg=rgba(0, 0, 0, 0), opacity=1
+✓ Accuracy plausible: White 35.4%, Black 32.3%
+✗ BLOCKER: Board position incorrect at ply 6
+✓ Final position loads: 33 / 33
+✓ All badges visible (no invisible badges with text)
+✓ Eval bar updates on scrub: ply5=, ply10=+2

@@ -1,0 +1,12 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ headless: true });
+const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+const errors = [];
+page.on('console', msg => { if (msg.type() === 'error') errors.push('CONSOLE: ' + msg.text()); });
+page.on('pageerror', err => errors.push('PAGEERR: ' + err.message));
+await page.goto('http://localhost:5183/test-coding-chess-advanced-2/analyze', { waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(3000);
+console.log('ERRORS:', errors);
+const bodyText = await page.locator('body').innerText().catch(() => '(empty)');
+console.log('BODY:', bodyText.slice(0, 300));
+await browser.close();

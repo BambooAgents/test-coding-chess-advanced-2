@@ -1,0 +1,549 @@
+{
+  "home": {
+    "url": "http://localhost:5183/test-coding-chess-advanced-2/",
+    "consoleMsgs": [
+      {
+        "type": "debug",
+        "text": "[vite] connecting..."
+      },
+      {
+        "type": "debug",
+        "text": "[vite] connected."
+      },
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+      }
+    ],
+    "pageErrors": [],
+    "info": {
+      "title": "Chess Advanced — Analysis & Training",
+      "url": "http://localhost:5183/test-coding-chess-advanced-2/",
+      "nav": [
+        {
+          "text": "Home",
+          "href": "/test-coding-chess-advanced-2/",
+          "active": true,
+          "color": "rgb(79, 70, 229)",
+          "bg": "rgb(224, 231, 255)"
+        },
+        {
+          "text": "Play",
+          "href": "/test-coding-chess-advanced-2/play",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Analyze",
+          "href": "/test-coding-chess-advanced-2/analyze",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Puzzles",
+          "href": "/test-coding-chess-advanced-2/puzzles",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "My Weaknesses",
+          "href": "/test-coding-chess-advanced-2/weaknesses",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "logo": "♟ Chess Advanced",
+      "headings": [
+        {
+          "tag": "h1",
+          "text": "Chess Advanced",
+          "color": "rgb(244, 244, 245)",
+          "fontSize": "36px"
+        },
+        {
+          "tag": "h2",
+          "text": "Play",
+          "color": "rgb(244, 244, 245)",
+          "fontSize": "20px"
+        },
+        {
+          "tag": "h2",
+          "text": "Analyze",
+          "color": "rgb(244, 244, 245)",
+          "fontSize": "20px"
+        },
+        {
+          "tag": "h2",
+          "text": "Puzzles",
+          "color": "rgb(244, 244, 245)",
+          "fontSize": "20px"
+        },
+        {
+          "tag": "h2",
+          "text": "My Weaknesses",
+          "color": "rgb(244, 244, 245)",
+          "fontSize": "20px"
+        }
+      ],
+      "buttons": [],
+      "links": [
+        {
+          "text": "♟PlayPlay against Stockfish at adjustabl",
+          "href": "/test-coding-chess-advanced-2/play"
+        },
+        {
+          "text": "📊AnalyzeFull game analysis with move cl",
+          "href": "/test-coding-chess-advanced-2/analyze"
+        },
+        {
+          "text": "🧩PuzzlesTrain with themed puzzles — ope",
+          "href": "/test-coding-chess-advanced-2/puzzles"
+        },
+        {
+          "text": "🔍My WeaknessesEnter your chess.com user",
+          "href": "/test-coding-chess-advanced-2/weaknesses"
+        }
+      ],
+      "textareas": [],
+      "inputs": [],
+      "selects": [],
+      "boardElements": 0,
+      "pieceCharsInText": 2,
+      "bodyTextLength": 602,
+      "contrastIssues": [],
+      "headerBg": "rgb(26, 26, 46)",
+      "headerColor": "rgb(244, 244, 245)",
+      "mainHasContent": true
+    }
+  },
+  "play": {
+    "url": "http://localhost:5183/test-coding-chess-advanced-2/play",
+    "consoleMsgs": [
+      {
+        "type": "debug",
+        "text": "[vite] connecting..."
+      },
+      {
+        "type": "debug",
+        "text": "[vite] connected."
+      },
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+      }
+    ],
+    "pageErrors": [],
+    "info": {
+      "title": "Chess Advanced — Analysis & Training",
+      "url": "http://localhost:5183/test-coding-chess-advanced-2/play",
+      "nav": [
+        {
+          "text": "Home",
+          "href": "/test-coding-chess-advanced-2/",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Play",
+          "href": "/test-coding-chess-advanced-2/play",
+          "active": true,
+          "color": "rgb(79, 70, 229)",
+          "bg": "rgb(224, 231, 255)"
+        },
+        {
+          "text": "Analyze",
+          "href": "/test-coding-chess-advanced-2/analyze",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Puzzles",
+          "href": "/test-coding-chess-advanced-2/puzzles",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "My Weaknesses",
+          "href": "/test-coding-chess-advanced-2/weaknesses",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "logo": "♟ Chess Advanced",
+      "headings": [],
+      "buttons": [
+        {
+          "text": "♔ White",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "text": "♚ Black",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "text": "New Game",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "text": "↩ Take Back",
+          "disabled": true,
+          "visible": true
+        },
+        {
+          "text": "Resign",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "text": "📊 Analyze this game",
+          "disabled": true,
+          "visible": true
+        }
+      ],
+      "links": [],
+      "textareas": [],
+      "inputs": [],
+      "selects": [
+        {
+          "options": [
+            "Easy",
+            "Medium",
+            "Hard",
+            "Expert"
+          ],
+          "visible": true
+        }
+      ],
+      "boardElements": 0,
+      "pieceCharsInText": 3,
+      "bodyTextLength": 206,
+      "contrastIssues": [],
+      "headerBg": "rgb(26, 26, 46)",
+      "headerColor": "rgb(244, 244, 245)",
+      "mainHasContent": true
+    }
+  },
+  "analyze": {
+    "url": "http://localhost:5183/test-coding-chess-advanced-2/analyze",
+    "consoleMsgs": [
+      {
+        "type": "debug",
+        "text": "[vite] connecting..."
+      },
+      {
+        "type": "debug",
+        "text": "[vite] connected."
+      },
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+      }
+    ],
+    "pageErrors": [],
+    "info": {
+      "title": "Chess Advanced — Analysis & Training",
+      "url": "http://localhost:5183/test-coding-chess-advanced-2/analyze",
+      "nav": [
+        {
+          "text": "Home",
+          "href": "/test-coding-chess-advanced-2/",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Play",
+          "href": "/test-coding-chess-advanced-2/play",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Analyze",
+          "href": "/test-coding-chess-advanced-2/analyze",
+          "active": true,
+          "color": "rgb(79, 70, 229)",
+          "bg": "rgb(224, 231, 255)"
+        },
+        {
+          "text": "Puzzles",
+          "href": "/test-coding-chess-advanced-2/puzzles",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "My Weaknesses",
+          "href": "/test-coding-chess-advanced-2/weaknesses",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "logo": "♟ Chess Advanced",
+      "headings": [],
+      "buttons": [
+        {
+          "text": "Load PGN",
+          "disabled": true,
+          "visible": true
+        },
+        {
+          "text": "Load games",
+          "disabled": true,
+          "visible": true
+        }
+      ],
+      "links": [],
+      "textareas": [
+        {
+          "placeholder": "1. e4 e5 2. ...",
+          "visible": true,
+          "rows": 2
+        }
+      ],
+      "inputs": [
+        {
+          "type": "text",
+          "placeholder": "hikaru",
+          "visible": true
+        }
+      ],
+      "selects": [
+        {
+          "options": [
+            "20",
+            "50",
+            "100"
+          ],
+          "visible": true
+        }
+      ],
+      "boardElements": 0,
+      "pieceCharsInText": 1,
+      "bodyTextLength": 117,
+      "contrastIssues": [],
+      "headerBg": "rgb(26, 26, 46)",
+      "headerColor": "rgb(244, 244, 245)",
+      "mainHasContent": true
+    }
+  },
+  "puzzles": {
+    "url": "http://localhost:5183/test-coding-chess-advanced-2/puzzles",
+    "consoleMsgs": [
+      {
+        "type": "debug",
+        "text": "[vite] connecting..."
+      },
+      {
+        "type": "debug",
+        "text": "[vite] connected."
+      },
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+      }
+    ],
+    "pageErrors": [],
+    "info": {
+      "title": "Chess Advanced — Analysis & Training",
+      "url": "http://localhost:5183/test-coding-chess-advanced-2/puzzles",
+      "nav": [
+        {
+          "text": "Home",
+          "href": "/test-coding-chess-advanced-2/",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Play",
+          "href": "/test-coding-chess-advanced-2/play",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Analyze",
+          "href": "/test-coding-chess-advanced-2/analyze",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Puzzles",
+          "href": "/test-coding-chess-advanced-2/puzzles",
+          "active": true,
+          "color": "rgb(79, 70, 229)",
+          "bg": "rgb(224, 231, 255)"
+        },
+        {
+          "text": "My Weaknesses",
+          "href": "/test-coding-chess-advanced-2/weaknesses",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "logo": "♟ Chess Advanced",
+      "headings": [
+        {
+          "tag": "h1",
+          "text": "🧩 Puzzles",
+          "color": "rgb(244, 244, 245)",
+          "fontSize": "24px"
+        }
+      ],
+      "buttons": [
+        {
+          "text": "Plain Puzzles",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "text": "Themed Sets",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "text": "Rush",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "text": "Death Match",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "text": "Show Solution",
+          "disabled": false,
+          "visible": true
+        }
+      ],
+      "links": [],
+      "textareas": [],
+      "inputs": [],
+      "selects": [],
+      "boardElements": 0,
+      "pieceCharsInText": 1,
+      "bodyTextLength": 344,
+      "contrastIssues": [],
+      "headerBg": "rgb(26, 26, 46)",
+      "headerColor": "rgb(244, 244, 245)",
+      "mainHasContent": true
+    }
+  },
+  "weaknesses": {
+    "url": "http://localhost:5183/test-coding-chess-advanced-2/weaknesses",
+    "consoleMsgs": [
+      {
+        "type": "debug",
+        "text": "[vite] connecting..."
+      },
+      {
+        "type": "debug",
+        "text": "[vite] connected."
+      },
+      {
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+      }
+    ],
+    "pageErrors": [],
+    "info": {
+      "title": "Chess Advanced — Analysis & Training",
+      "url": "http://localhost:5183/test-coding-chess-advanced-2/weaknesses",
+      "nav": [
+        {
+          "text": "Home",
+          "href": "/test-coding-chess-advanced-2/",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Play",
+          "href": "/test-coding-chess-advanced-2/play",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Analyze",
+          "href": "/test-coding-chess-advanced-2/analyze",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "Puzzles",
+          "href": "/test-coding-chess-advanced-2/puzzles",
+          "active": false,
+          "color": "rgb(161, 161, 170)",
+          "bg": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "text": "My Weaknesses",
+          "href": "/test-coding-chess-advanced-2/weaknesses",
+          "active": true,
+          "color": "rgb(79, 70, 229)",
+          "bg": "rgb(224, 231, 255)"
+        }
+      ],
+      "logo": "♟ Chess Advanced",
+      "headings": [
+        {
+          "tag": "h1",
+          "text": "My Weaknesses",
+          "color": "rgb(244, 244, 245)",
+          "fontSize": "30px"
+        }
+      ],
+      "buttons": [
+        {
+          "text": "Analyze",
+          "disabled": false,
+          "visible": true
+        }
+      ],
+      "links": [],
+      "textareas": [],
+      "inputs": [
+        {
+          "type": "text",
+          "placeholder": "e.g. hikaru",
+          "visible": true
+        }
+      ],
+      "selects": [
+        {
+          "options": [
+            "20 games",
+            "50 games",
+            "100 games"
+          ],
+          "visible": true
+        }
+      ],
+      "boardElements": 0,
+      "pieceCharsInText": 1,
+      "bodyTextLength": 257,
+      "contrastIssues": [],
+      "headerBg": "rgb(26, 26, 46)",
+      "headerColor": "rgb(244, 244, 245)",
+      "mainHasContent": true
+    }
+  }
+}

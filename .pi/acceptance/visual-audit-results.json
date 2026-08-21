@@ -1,0 +1,1121 @@
+{
+  "home": {
+    "nav": {
+      "rect": {
+        "x": 240,
+        "y": 16,
+        "w": 457.890625,
+        "h": 37
+      },
+      "bg": "rgba(0, 0, 0, 0)",
+      "position": "static"
+    },
+    "navLinks": [
+      {
+        "text": "Home",
+        "color": "rgb(79, 70, 229)",
+        "visible": true
+      },
+      {
+        "text": "Play",
+        "color": "rgb(161, 161, 170)",
+        "visible": true
+      },
+      {
+        "text": "Analyze",
+        "color": "rgb(161, 161, 170)",
+        "visible": true
+      },
+      {
+        "text": "Puzzles",
+        "color": "rgb(161, 161, 170)",
+        "visible": true
+      },
+      {
+        "text": "My Weaknesses",
+        "color": "rgb(161, 161, 170)",
+        "visible": true
+      }
+    ],
+    "main": {
+      "rect": {
+        "x": 40,
+        "y": 70,
+        "w": 1200,
+        "h": 854.125
+      }
+    },
+    "invisibleTexts": []
+  },
+  "puzzles": {
+    "board": {
+      "rect": {
+        "x": 72,
+        "y": 346,
+        "w": 560,
+        "h": 560
+      },
+      "childCount": 64
+    },
+    "pieces": 19,
+    "firstPiece": {
+      "rect": {
+        "x": 356.546875,
+        "y": 350.546875,
+        "w": 60.890625,
+        "h": 60.890625
+      },
+      "src": "nced-2/pieces/wR.svg"
+    },
+    "bodyText": "♟ Chess Advanced\nHome\nPlay\nAnalyze\nPuzzles\nMy Weaknesses\n🧩 Puzzles\nPlain Puzzles\nThemed Sets\nRush\nDeath Match\n0\nSTREAK\n0\nBEST\n0\nSOLVED\n0\nFAILED\n2000\nAVAILABLE\nBlack to move — find the best move\nRating\n2719\nThemes\nadvancedPawn, crushing, master, middlegame, quietMove, sacrifice, veryLong\nPuzzle #\n1 / 2000\nShow Solution",
+    "invisibleTexts": []
+  },
+  "play": {
+    "board": {
+      "rect": {
+        "x": 164,
+        "y": 161,
+        "w": 560,
+        "h": 560
+      },
+      "pieces": 32
+    },
+    "bodyText": "♟ Chess Advanced\nHome\nPlay\nAnalyze\nPuzzles\nMy Weaknesses\nYour move\nDIFFICULTY\nEasy\nMedium\nHard\nExpert\nPLAY AS\n♔ White\n♚ Black\nCONTROLS\nNew Game\n↩ Take Back\nResign\nMOVE LIST\nNo moves yet\n📊 Analyze this game",
+    "invisibleTexts": []
+  },
+  "weaknesses": {
+    "bodyText": "♟ Chess Advanced\nHome\nPlay\nAnalyze\nPuzzles\nMy Weaknesses\nMy Weaknesses\n\nEnter your chess.com username to get a live analysis of your weak spots — openings, endgames, and what to train.\n\nChess.com Username\nGames to Analyze\n20 games\n50 games\n100 games\nAnalyze",
+    "invisibleTexts": []
+  },
+  "analyze_ply0": {
+    "evalBar": {
+      "rect": {
+        "x": 72,
+        "y": 327,
+        "w": 24,
+        "h": 560
+      },
+      "bg": "rgb(30, 30, 30)",
+      "innerHTML": "<div class=\"sc-kLwfci ceUuTv\"></div><div class=\"sc-ikJwur jxUKse\" style=\"top: 4px;\">-0.71</div><div class=\"sc-ikJwur jxUKse\" style=\"bottom: 4px;\"></div>"
+    },
+    "evalBarFill": {
+      "rect": {
+        "x": 73,
+        "y": 886,
+        "w": 22,
+        "h": 0
+      },
+      "height": "0px",
+      "bg": "rgb(248, 248, 248)",
+      "visible": false
+    },
+    "evalLabels": [
+      {
+        "text": "-0.71",
+        "color": "rgb(51, 51, 51)",
+        "visible": true
+      }
+    ],
+    "board": {
+      "rect": {
+        "x": 104,
+        "y": 327,
+        "w": 560,
+        "h": 560
+      },
+      "pieces": 32
+    },
+    "boardArrows": {
+      "present": true,
+      "svgChildren": 2,
+      "html": "<svg data-testid=\"board-arrows\" viewBox=\"0 0 8 8\" style=\"position: absolute; inset: 0px; width: 100%; height: 100%; pointer-events: none;\"><g opacity=\"0.8\"><line x1=\"4.5\" y1=\"6.5\" x2=\"4.5\" y2=\"4.78\" s"
+    },
+    "bodyText": "♟ Chess Advanced\nHome\nPlay\nAnalyze\nPuzzles\nMy Weaknesses\nPaste PGN:\nLoad PGN\nchess.com username:\n20\n50\n100\nLoad games\nUnknown opening\nWhite accuracy: 35.4%\nBlack accuracy: 32.3%\n-0.71\n⏮\n◀\n1 / 33\n▶\n⏭\n1.\ne4\n?!\ne5\n?!\n2.\nNf3\n?!\nd6\n?!\n3.\nd4\n?!\nBg4\n?\n4.\ndxe5\n?\nBxf3\n?!\n5.\nQxf3\n??\ndxe5\n?\n6.\nBc4\n?\nNf6\n??\n7.\nQb3\n??\nQe7\n??\n8.\nNc3\n??\nc6\n?\n9.\nBg5\n?\nb5\n?\n10.\nNxb5\n!!\ncxb5\n??\n11.\nBxb5+\n??\nNbd7\n??\n12.\nO-O-O\n??\nRd8\n??\n13.\nRxd7\nRxd7\n??\n14.\nRd1\n??\nQe6\n??\n15.\nBxd7+\nNxd7\n??\n16.\nQb8+\nNxb8\n17.\nRd8#",
+    "badges": [
+      {
+        "text": "?!",
+        "glyph": "?!",
+        "color": "rgb(234, 179, 8)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC",
+        "rect": {
+          "x": 907,
+          "y": 374,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?!",
+        "glyph": "?!",
+        "color": "rgb(234, 179, 8)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC",
+        "rect": {
+          "x": 907,
+          "y": 399,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?!",
+        "glyph": "?!",
+        "color": "rgb(234, 179, 8)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC",
+        "rect": {
+          "x": 907,
+          "y": 424,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?!",
+        "glyph": "?!",
+        "color": "rgb(234, 179, 8)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC",
+        "rect": {
+          "x": 907,
+          "y": 449,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?!",
+        "glyph": "?!",
+        "color": "rgb(234, 179, 8)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC",
+        "rect": {
+          "x": 907,
+          "y": 474,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?",
+        "glyph": "?",
+        "color": "rgb(249, 115, 22)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb",
+        "rect": {
+          "x": 907,
+          "y": 499,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?",
+        "glyph": "?",
+        "color": "rgb(249, 115, 22)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb",
+        "rect": {
+          "x": 907,
+          "y": 524,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?!",
+        "glyph": "?!",
+        "color": "rgb(234, 179, 8)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC",
+        "rect": {
+          "x": 907,
+          "y": 549,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 574,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?",
+        "glyph": "?",
+        "color": "rgb(249, 115, 22)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb",
+        "rect": {
+          "x": 907,
+          "y": 599,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?",
+        "glyph": "?",
+        "color": "rgb(249, 115, 22)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb",
+        "rect": {
+          "x": 907,
+          "y": 624,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 649,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 674,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 699,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 724,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?",
+        "glyph": "?",
+        "color": "rgb(249, 115, 22)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb",
+        "rect": {
+          "x": 907,
+          "y": 749,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?",
+        "glyph": "?",
+        "color": "rgb(249, 115, 22)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb",
+        "rect": {
+          "x": 907,
+          "y": 774,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "?",
+        "glyph": "?",
+        "color": "rgb(249, 115, 22)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb",
+        "rect": {
+          "x": 907,
+          "y": 799,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "!!",
+        "glyph": "!!",
+        "color": "rgb(168, 85, 247)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ ePVjSf",
+        "rect": {
+          "x": 907,
+          "y": 824,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 849,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 874,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 899,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 924,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 949,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 999,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 1024,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 1049,
+          "w": 40,
+          "h": 16
+        }
+      },
+      {
+        "text": "??",
+        "glyph": "??",
+        "color": "rgb(220, 38, 38)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ",
+        "rect": {
+          "x": 907,
+          "y": 1099,
+          "w": 40,
+          "h": 16
+        }
+      }
+    ],
+    "brilliantBadges": [
+      {
+        "text": "!!",
+        "glyph": "!!",
+        "color": "rgb(168, 85, 247)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "visible": true,
+        "class": "sc-AjlSJ ePVjSf",
+        "rect": {
+          "x": 907,
+          "y": 824,
+          "w": 40,
+          "h": 16
+        }
+      }
+    ],
+    "accuracy": [
+      "accuracy: 35.4%",
+      "accuracy: 32.3%"
+    ],
+    "analyzingText": "analysis complete",
+    "progress": "1/33",
+    "scrubber": [
+      "1 / 33"
+    ],
+    "invisibleTexts": []
+  },
+  "analyze_ply10": {
+    "evalBarFill": {
+      "height": "0px",
+      "bg": "rgb(248, 248, 248)",
+      "rect": {
+        "h": 0
+      }
+    },
+    "evalLabels": [
+      {
+        "text": "-1.1",
+        "color": "rgb(51, 51, 51)",
+        "visible": true
+      }
+    ],
+    "arrows": {
+      "present": true,
+      "children": 2,
+      "html": "<svg data-testid=\"board-arrows\" viewBox=\"0 0 8 8\" style=\"position: absolute; inset: 0px; width: 100%; height: 100%; pointer-events: none;\"><g opacity=\"0.8\"><line x1=\"5.5\" y1=\"7.5\" x2=\"2.69798989873223"
+    },
+    "badges": [
+      {
+        "text": "?!",
+        "color": "rgb(234, 179, 8)",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC"
+      },
+      {
+        "text": "?!",
+        "color": "rgb(234, 179, 8)",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC"
+      },
+      {
+        "text": "?!",
+        "color": "rgb(234, 179, 8)",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC"
+      },
+      {
+        "text": "?!",
+        "color": "rgb(234, 179, 8)",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC"
+      },
+      {
+        "text": "?!",
+        "color": "rgb(234, 179, 8)",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC"
+      },
+      {
+        "text": "?",
+        "color": "rgb(249, 115, 22)",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb"
+      },
+      {
+        "text": "?",
+        "color": "rgb(249, 115, 22)",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb"
+      },
+      {
+        "text": "?!",
+        "color": "rgb(234, 179, 8)",
+        "visible": true,
+        "class": "sc-AjlSJ VomrC"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "?",
+        "color": "rgb(249, 115, 22)",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb"
+      },
+      {
+        "text": "?",
+        "color": "rgb(249, 115, 22)",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "?",
+        "color": "rgb(249, 115, 22)",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb"
+      },
+      {
+        "text": "?",
+        "color": "rgb(249, 115, 22)",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb"
+      },
+      {
+        "text": "?",
+        "color": "rgb(249, 115, 22)",
+        "visible": true,
+        "class": "sc-AjlSJ kElWeb"
+      },
+      {
+        "text": "!!",
+        "color": "rgb(168, 85, 247)",
+        "visible": true,
+        "class": "sc-AjlSJ ePVjSf"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      },
+      {
+        "text": "??",
+        "color": "rgb(220, 38, 38)",
+        "visible": true,
+        "class": "sc-AjlSJ rKqWQ"
+      }
+    ],
+    "brilliantBadges": [
+      {
+        "text": "!!",
+        "color": "rgb(168, 85, 247)",
+        "visible": true,
+        "class": "sc-AjlSJ ePVjSf"
+      }
+    ],
+    "scrubber": [
+      "11 / 33"
+    ]
+  },
+  "badgeStyles": [
+    {
+      "text": "?!",
+      "color": "rgb(234, 179, 8)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?!",
+      "color": "rgb(234, 179, 8)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?!",
+      "color": "rgb(234, 179, 8)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?!",
+      "color": "rgb(234, 179, 8)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?!",
+      "color": "rgb(234, 179, 8)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?",
+      "color": "rgb(249, 115, 22)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?",
+      "color": "rgb(249, 115, 22)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?!",
+      "color": "rgb(234, 179, 8)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?",
+      "color": "rgb(249, 115, 22)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?",
+      "color": "rgb(249, 115, 22)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgb(199, 210, 254)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?",
+      "color": "rgb(249, 115, 22)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?",
+      "color": "rgb(249, 115, 22)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "?",
+      "color": "rgb(249, 115, 22)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "!!",
+      "color": "rgb(168, 85, 247)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "text": "??",
+      "color": "rgb(220, 38, 38)",
+      "bg": "rgba(0, 0, 0, 0)",
+      "fontWeight": "600",
+      "parentTag": "BUTTON",
+      "parentColor": "rgb(244, 244, 245)",
+      "parentBg": "rgba(0, 0, 0, 0)"
+    }
+  ],
+  "layoutIssues": [],
+  "findings": [
+    {
+      "category": "home",
+      "severity": "pass",
+      "description": "No invisible text on home page"
+    },
+    {
+      "category": "home",
+      "severity": "info",
+      "description": "Nav bar present",
+      "evidence": {
+        "rect": {
+          "x": 240,
+          "y": 16,
+          "w": 457.890625,
+          "h": 37
+        },
+        "bg": "rgba(0, 0, 0, 0)",
+        "position": "static"
+      }
+    },
+    {
+      "category": "puzzles",
+      "severity": "info",
+      "description": "Board renders",
+      "evidence": {
+        "size": {
+          "x": 72,
+          "y": 346,
+          "w": 560,
+          "h": 560
+        },
+        "pieces": 19
+      }
+    },
+    {
+      "category": "puzzles",
+      "severity": "pass",
+      "description": "No invisible text on puzzles page"
+    },
+    {
+      "category": "play",
+      "severity": "pass",
+      "description": "No invisible text on play page"
+    },
+    {
+      "category": "weaknesses",
+      "severity": "pass",
+      "description": "No invisible text on weaknesses page"
+    }
+  ]
+}

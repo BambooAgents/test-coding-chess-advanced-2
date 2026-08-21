@@ -1,0 +1,73 @@
+{
+  "play": {
+    "imgInfo": {
+      "totalImgs": 32,
+      "pieceImgs": 32,
+      "loaded": 32,
+      "broken": [],
+      "srcs": [
+        "bR.svg",
+        "bN.svg",
+        "bB.svg",
+        "bQ.svg",
+        "bK.svg",
+        "bB.svg",
+        "bN.svg",
+        "bR.svg",
+        "bP.svg",
+        "bP.svg",
+        "bP.svg",
+        "bP.svg"
+      ]
+    },
+    "failedImgs": []
+  },
+  "puzzles": {
+    "imgInfo": {
+      "totalImgs": 14,
+      "pieceImgs": 14,
+      "loaded": 14,
+      "broken": [],
+      "srcs": [
+        "bP.svg",
+        "bP.svg",
+        "wQ.svg",
+        "bP.svg",
+        "bK.svg",
+        "wP.svg",
+        "bP.svg",
+        "wP.svg",
+        "bP.svg",
+        "wP.svg",
+        "wP.svg",
+        "bQ.svg"
+      ]
+    },
+    "failedImgs": [
+      {
+        "url": "http://localhost:5183/test-coding-chess-advanced-2/pieces/bP.svg",
+        "status": 304
+      },
+      {
+        "url": "http://localhost:5183/test-coding-chess-advanced-2/pieces/wQ.svg",
+        "status": 304
+      },
+      {
+        "url": "http://localhost:5183/test-coding-chess-advanced-2/pieces/bK.svg",
+        "status": 304
+      },
+      {
+        "url": "http://localhost:5183/test-coding-chess-advanced-2/pieces/wP.svg",
+        "status": 304
+      },
+      {
+        "url": "http://localhost:5183/test-coding-chess-advanced-2/pieces/bQ.svg",
+        "status": 304
+      },
+      {
+        "url": "http://localhost:5183/test-coding-chess-advanced-2/pieces/wK.svg",
+        "status": 304
+      }
+    ]
+  }
+}

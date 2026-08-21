@@ -1,0 +1,239 @@
+{
+  "bootUrl": "http://localhost:5183/test-coding-chess-advanced-2/analyze",
+  "pgnLoaded": true,
+  "moveCountLoaded": 21,
+  "analysisCompleted": true,
+  "analysisMoveCount": 0,
+  "finalStatus": "Analyzing… 3/21",
+  "evalBarHeight": "560px",
+  "evalBarFillHeight": "279px",
+  "accuracyWhite": "White accuracy: 59.5%Black accuracy: 62.8%",
+  "accuracyBlack": null,
+  "brilliantPresent": false,
+  "brilliantColor": null,
+  "arrowCount": 0,
+  "moveListRowCount": 21,
+  "scrubStates": [
+    {
+      "ply": 3,
+      "shot": ".pi/acceptance/swarm2/screenshots/analyze-scrub-ply3.png",
+      "scrubText": "⏮◀3 / 21▶⏭"
+    },
+    {
+      "ply": 6,
+      "shot": ".pi/acceptance/swarm2/screenshots/analyze-scrub-ply6.png",
+      "scrubText": "⏮◀6 / 21▶⏭"
+    },
+    {
+      "ply": 9,
+      "shot": ".pi/acceptance/swarm2/screenshots/analyze-scrub-ply9.png",
+      "scrubText": "⏮◀9 / 21▶⏭"
+    },
+    {
+      "ply": 11,
+      "shot": ".pi/acceptance/swarm2/screenshots/analyze-scrub-ply11.png",
+      "scrubText": "⏮◀11 / 21▶⏭"
+    }
+  ],
+  "domProbe": {
+    "accuracyText": "White accuracy: 59.5%Black accuracy: 62.8%",
+    "evalBarCandidates": [
+      {
+        "width": "24px",
+        "height": "560px",
+        "fillHeight": "279px",
+        "fillBg": "rgb(248, 248, 248)",
+        "fillColor": "rgb(244, 244, 245)"
+      }
+    ],
+    "brilliantSpans": [],
+    "arrowCount": 0,
+    "moveListRowCount": 21,
+    "badgeColors": [
+      {
+        "text": "1.",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "e4",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "?!",
+        "color": "rgb(234, 179, 8)"
+      },
+      {
+        "text": "",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "e5",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "?!",
+        "color": "rgb(234, 179, 8)"
+      },
+      {
+        "text": "2.",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Nf3",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "?!",
+        "color": "rgb(234, 179, 8)"
+      },
+      {
+        "text": "",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "d6",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "3.",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "d4",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Bg4",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "4.",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "dxe5",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Bxf3",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "5.",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Qxf3",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "dxe5",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "6.",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Bc4",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Nf6",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "7.",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Qb3",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Qe7",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "8.",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Nc3",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "c6",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "9.",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Bg5",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "b5",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "10.",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Nxb5",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "cxb5",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "11.",
+        "color": "rgb(244, 244, 245)"
+      },
+      {
+        "text": "Bxb5+",
+        "color": "rgb(244, 244, 245)"
+      }
+    ],
+    "scrubText": "⏮◀0 / 21▶⏭"
+  },
+  "errorText": null,
+  "consoleErrors": [],
+  "pageErrors": []
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"><head>
+    <script type="module">import { injectIntoGlobalHook } from "/test-coding-chess-advanced-2/@react-refresh";
+injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => {};
+window.$RefreshSig$ = () => (type) => type;</script>
+
+    <script type="module" src="/test-coding-chess-advanced-2/@vite/client"></script>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/test-coding-chess-advanced-2/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Advanced — Analysis &amp; Training</title>
+  <style type="text/css" data-vite-dev-id="/home/bamboo/pi/projects/coding/test-coding-chess-advanced-2/src/styles/global.css">:root {
+  /* Accent color — indigo default (reversible via visual prototype ticket #11) */
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-light: #e0e7ff;
+  --accent-soft: #c7d2fe;
+
+  /* Neutrals */
+  --bg: #0f0f1a;
+  --bg-surface: #1a1a2e;
+  --bg-elevated: #222238;
+  --text: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --text-dim: #71717a;
+  --border: #2e2e44;
+  --border-hover: #3f3f5f;
+
+  /* Board colors */
+  --board-light: #f0d9b5;
+  --board-dark: #b58863;
+
+  /* Semantic */
+  --success: #22c55e;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+
+  /* Typography scale — deliberate, not too tight, not too loose */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.25rem;
+  --fs-2xl: 1.5rem;
+  --fs-3xl: 1.875rem;
+  --fs-4xl: 2.25rem;
+
+  /* Spacing scale */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--fs-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--accent-soft);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+</style><style data-styled="active" data-styled-version="6.5.3"></style></head>
+  <body>
+    <div id="root"><header class="sc-bdvwhi jpajLu"><span class="sc-gsDMPd cLFNyi">♟ Chess Advanced</span><nav class="sc-dkPwfY kIoRyx"><a class="sc-hKwBjT dPWQiP" href="/test-coding-chess-advanced-2/" data-discover="true">Home</a><a class="sc-hKwBjT dPWQiP" href="/test-coding-chess-advanced-2/play" data-discover="true">Play</a><a aria-current="page" class="sc-hKwBjT dPWQiP active" href="/test-coding-chess-advanced-2/analyze" data-discover="true">Analyze</a><a class="sc-hKwBjT dPWQiP" href="/test-coding-chess-advanced-2/puzzles" data-discover="true">Puzzles</a><a class="sc-hKwBjT dPWQiP" href="/test-coding-chess-advanced-2/weaknesses" data-discover="true">My Weaknesses</a></nav></header><main class="sc-eCIkAO bhshub"><div class="sc-jJoSXA enfMYS"><div class="sc-hiCkpJ gwrakt"><div class="sc-gWWZvT bwlHCT"><label>Paste PGN:</label><textarea data-testid="pgn-input" placeholder="1. e4 e5 2. ..." class="sc-cidDfp isqJFD">1.e4 e5 2.Nf3 d6 3.d4 Bg4 4.dxe5 Bxf3 5.Qxf3 dxe5 6.Bc4 Nf6 7.Qb3 Qe7 8.Nc3 c6 9.Bg5 b5 10.Nxb5 cxb5 11.Bxb5+ Nbd7 12.O-O-O Rd8 13.Rxd7 Rxd7 14.Rd1 Qe6 15.Bxd7+ Nxd7 16.Qb8+ Nxb8 17.Rd8#</textarea><button class="sc-jcFiBM dcaPv">Load PGN</button></div><div class="sc-gWWZvT bwlHCT"><label>chess.com username:</label><input data-testid="username-input" placeholder="hikaru" class="sc-cCcVtu fsSERK" value=""><div style="display: flex; gap: var(--sp-1);"><select data-testid="game-count" class="sc-iUKrAm bnrWsv"><option value="20">20</option><option value="50">50</option><option value="100">100</option></select><button data-testid="load-games" disabled="" class="sc-jcFiBM dcaPv">Load games</button></div></div></div><div class="sc-hUpbpP bMokJx">Unknown opening</div><div data-testid="accuracy" style="display: flex; gap: var(--sp-3); font-size: var(--fs-sm);"><span>White accuracy: <strong>35.4%</strong></span><span>Black accuracy: <strong>32.3%</strong></span></div><div class="sc-iAKZmh iRsIkL"><div class="sc-efQVjI fzfmtQ"><div data-testid="eval-bar" class="sc-bYoBfp kGTUqq"><div class="sc-kLwfci gjdvfq"></div><div class="sc-ikJwur jxUKse" style="top: 4px;">-0.71</div><div class="sc-ikJwur jxUKse" style="bottom: 4px;"></div></div><div data-testid="chess-board" class="sc-ksdwth gHFOyk"><div data-square="a8" class="sc-hBUSYK kuaeHJ"><img alt="bR" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bR.svg"></div><div data-square="b8" class="sc-hBUSYK ddwrHX"><img alt="bN" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bN.svg"></div><div data-square="c8" class="sc-hBUSYK kuaeHJ"><img alt="bB" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bB.svg"></div><div data-square="d8" class="sc-hBUSYK ddwrHX"><img alt="bQ" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bQ.svg"></div><div data-square="e8" class="sc-hBUSYK kuaeHJ"><img alt="bK" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bK.svg"></div><div data-square="f8" class="sc-hBUSYK ddwrHX"><img alt="bB" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bB.svg"></div><div data-square="g8" class="sc-hBUSYK kuaeHJ"><img alt="bN" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bN.svg"></div><div data-square="h8" class="sc-hBUSYK ddwrHX"><img alt="bR" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bR.svg"></div><div data-square="a7" class="sc-hBUSYK ddwrHX"><img alt="bP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bP.svg"></div><div data-square="b7" class="sc-hBUSYK kuaeHJ"><img alt="bP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bP.svg"></div><div data-square="c7" class="sc-hBUSYK ddwrHX"><img alt="bP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bP.svg"></div><div data-square="d7" class="sc-hBUSYK kuaeHJ"><img alt="bP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bP.svg"></div><div data-square="e7" class="sc-hBUSYK ddwrHX"><img alt="bP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bP.svg"></div><div data-square="f7" class="sc-hBUSYK kuaeHJ"><img alt="bP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bP.svg"></div><div data-square="g7" class="sc-hBUSYK ddwrHX"><img alt="bP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bP.svg"></div><div data-square="h7" class="sc-hBUSYK kuaeHJ"><img alt="bP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/bP.svg"></div><div data-square="a6" class="sc-hBUSYK kuaeHJ"></div><div data-square="b6" class="sc-hBUSYK ddwrHX"></div><div data-square="c6" class="sc-hBUSYK kuaeHJ"></div><div data-square="d6" class="sc-hBUSYK ddwrHX"></div><div data-square="e6" class="sc-hBUSYK kuaeHJ"></div><div data-square="f6" class="sc-hBUSYK ddwrHX"></div><div data-square="g6" class="sc-hBUSYK kuaeHJ"></div><div data-square="h6" class="sc-hBUSYK ddwrHX"></div><div data-square="a5" class="sc-hBUSYK ddwrHX"></div><div data-square="b5" class="sc-hBUSYK kuaeHJ"></div><div data-square="c5" class="sc-hBUSYK ddwrHX"></div><div data-square="d5" class="sc-hBUSYK kuaeHJ"></div><div data-square="e5" class="sc-hBUSYK ddwrHX"></div><div data-square="f5" class="sc-hBUSYK kuaeHJ"></div><div data-square="g5" class="sc-hBUSYK ddwrHX"></div><div data-square="h5" class="sc-hBUSYK kuaeHJ"></div><div data-square="a4" class="sc-hBUSYK kuaeHJ"></div><div data-square="b4" class="sc-hBUSYK ddwrHX"></div><div data-square="c4" class="sc-hBUSYK kuaeHJ"></div><div data-square="d4" class="sc-hBUSYK ddwrHX"></div><div data-square="e4" class="sc-hBUSYK gvndvl"><img alt="wP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wP.svg"></div><div data-square="f4" class="sc-hBUSYK ddwrHX"></div><div data-square="g4" class="sc-hBUSYK kuaeHJ"></div><div data-square="h4" class="sc-hBUSYK ddwrHX"></div><div data-square="a3" class="sc-hBUSYK ddwrHX"></div><div data-square="b3" class="sc-hBUSYK kuaeHJ"></div><div data-square="c3" class="sc-hBUSYK ddwrHX"></div><div data-square="d3" class="sc-hBUSYK kuaeHJ"></div><div data-square="e3" class="sc-hBUSYK ddwrHX"></div><div data-square="f3" class="sc-hBUSYK kuaeHJ"></div><div data-square="g3" class="sc-hBUSYK ddwrHX"></div><div data-square="h3" class="sc-hBUSYK kuaeHJ"></div><div data-square="a2" class="sc-hBUSYK kuaeHJ"><img alt="wP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wP.svg"></div><div data-square="b2" class="sc-hBUSYK ddwrHX"><img alt="wP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wP.svg"></div><div data-square="c2" class="sc-hBUSYK kuaeHJ"><img alt="wP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wP.svg"></div><div data-square="d2" class="sc-hBUSYK ddwrHX"><img alt="wP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wP.svg"></div><div data-square="e2" class="sc-hBUSYK gvndvl"></div><div data-square="f2" class="sc-hBUSYK ddwrHX"><img alt="wP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wP.svg"></div><div data-square="g2" class="sc-hBUSYK kuaeHJ"><img alt="wP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wP.svg"></div><div data-square="h2" class="sc-hBUSYK ddwrHX"><img alt="wP" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wP.svg"></div><div data-square="a1" class="sc-hBUSYK ddwrHX"><img alt="wR" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wR.svg"></div><div data-square="b1" class="sc-hBUSYK kuaeHJ"><img alt="wN" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wN.svg"></div><div data-square="c1" class="sc-hBUSYK ddwrHX"><img alt="wB" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wB.svg"></div><div data-square="d1" class="sc-hBUSYK kuaeHJ"><img alt="wQ" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wQ.svg"></div><div data-square="e1" class="sc-hBUSYK ddwrHX"><img alt="wK" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wK.svg"></div><div data-square="f1" class="sc-hBUSYK kuaeHJ"><img alt="wB" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wB.svg"></div><div data-square="g1" class="sc-hBUSYK ddwrHX"><img alt="wN" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wN.svg"></div><div data-square="h1" class="sc-hBUSYK kuaeHJ"><img alt="wR" draggable="false" class="sc-fotPuT ePgPvW" src="/test-coding-chess-advanced-2/pieces/wR.svg"></div><svg data-testid="board-arrows" viewBox="0 0 8 8" style="position: absolute; inset: 0px; width: 100%; height: 100%; pointer-events: none;"><g opacity="0.8"><line x1="4.5" y1="6.5" x2="4.5" y2="4.78" stroke="#4f46e5" stroke-width="0.14" stroke-linecap="round"></line><polygon points="4.5,4.5 4.643827661581261,4.763274768567112 4.356172338418739,4.763274768567112" fill="#4f46e5"></polygon></g></svg></div></div><div class="sc-cTAoCz cSzWPh"><div data-testid="scrubber" class="sc-jObTYW imKWMb"><button class="sc-dPiIMO knZUuX">⏮</button><button class="sc-dPiIMO knZUuX">◀</button><span>1 / 33</span><button class="sc-dPiIMO knZUuX">▶</button><button class="sc-dPiIMO knZUuX">⏭</button></div><div data-testid="move-list" class="sc-bBHFiX fTrtbp"><div style="display: contents;"><button class="sc-cNKpwA ilWOnv"><span>1.</span><span>e4</span><span class="sc-AjlSJ VomrC">?!</span></button><button class="sc-cNKpwA kHutME"><span></span><span>e5</span><span class="sc-AjlSJ VomrC">?!</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>2.</span><span>Nf3</span><span class="sc-AjlSJ VomrC">?!</span></button><button class="sc-cNKpwA kHutME"><span></span><span>d6</span><span class="sc-AjlSJ VomrC">?!</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>3.</span><span>d4</span><span class="sc-AjlSJ VomrC">?!</span></button><button class="sc-cNKpwA kHutME"><span></span><span>Bg4</span><span class="sc-AjlSJ kElWeb">?</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>4.</span><span>dxe5</span><span class="sc-AjlSJ kElWeb">?</span></button><button class="sc-cNKpwA kHutME"><span></span><span>Bxf3</span><span class="sc-AjlSJ VomrC">?!</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>5.</span><span>Qxf3</span><span class="sc-AjlSJ rKqWQ">??</span></button><button class="sc-cNKpwA kHutME"><span></span><span>dxe5</span><span class="sc-AjlSJ kElWeb">?</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>6.</span><span>Bc4</span><span class="sc-AjlSJ kElWeb">?</span></button><button class="sc-cNKpwA kHutME"><span></span><span>Nf6</span><span class="sc-AjlSJ rKqWQ">??</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>7.</span><span>Qb3</span><span class="sc-AjlSJ rKqWQ">??</span></button><button class="sc-cNKpwA kHutME"><span></span><span>Qe7</span><span class="sc-AjlSJ rKqWQ">??</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>8.</span><span>Nc3</span><span class="sc-AjlSJ rKqWQ">??</span></button><button class="sc-cNKpwA kHutME"><span></span><span>c6</span><span class="sc-AjlSJ kElWeb">?</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>9.</span><span>Bg5</span><span class="sc-AjlSJ kElWeb">?</span></button><button class="sc-cNKpwA kHutME"><span></span><span>b5</span><span class="sc-AjlSJ kElWeb">?</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>10.</span><span>Nxb5</span><span class="sc-AjlSJ ePVjSf">!!</span></button><button class="sc-cNKpwA kHutME"><span></span><span>cxb5</span><span class="sc-AjlSJ rKqWQ">??</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>11.</span><span>Bxb5+</span><span class="sc-AjlSJ rKqWQ">??</span></button><button class="sc-cNKpwA kHutME"><span></span><span>Nbd7</span><span class="sc-AjlSJ rKqWQ">??</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>12.</span><span>O-O-O</span><span class="sc-AjlSJ rKqWQ">??</span></button><button class="sc-cNKpwA kHutME"><span></span><span>Rd8</span><span class="sc-AjlSJ rKqWQ">??</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>13.</span><span>Rxd7</span><span class="sc-AjlSJ etReKy"></span></button><button class="sc-cNKpwA kHutME"><span></span><span>Rxd7</span><span class="sc-AjlSJ rKqWQ">??</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>14.</span><span>Rd1</span><span class="sc-AjlSJ rKqWQ">??</span></button><button class="sc-cNKpwA kHutME"><span></span><span>Qe6</span><span class="sc-AjlSJ rKqWQ">??</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>15.</span><span>Bxd7+</span><span class="sc-AjlSJ etReKy"></span></button><button class="sc-cNKpwA kHutME"><span></span><span>Nxd7</span><span class="sc-AjlSJ rKqWQ">??</span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>16.</span><span>Qb8+</span><span class="sc-AjlSJ etReKy"></span></button><button class="sc-cNKpwA kHutME"><span></span><span>Nxb8</span><span class="sc-AjlSJ etReKy"></span></button></div><div style="display: contents;"><button class="sc-cNKpwA kHutME"><span>17.</span><span>Rd8#</span><span class="sc-AjlSJ etReKy"></span></button></div></div></div></div></div></main></div>
+    <script type="module" src="/test-coding-chess-advanced-2/src/main.tsx"></script>
+  
+
+</body></html>

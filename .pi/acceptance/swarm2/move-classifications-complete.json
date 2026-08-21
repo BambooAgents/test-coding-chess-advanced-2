@@ -1,0 +1,110 @@
+{
+  "moves": [
+    {
+      "san": "e4",
+      "badge": "?!",
+      "color": "rgb(234, 179, 8)"
+    },
+    {
+      "san": "e5",
+      "badge": "?!",
+      "color": "rgb(234, 179, 8)"
+    },
+    {
+      "san": "Nf3",
+      "badge": "?!",
+      "color": "rgb(234, 179, 8)"
+    },
+    {
+      "san": "d6",
+      "badge": "?!",
+      "color": "rgb(234, 179, 8)"
+    },
+    {
+      "san": "d4",
+      "badge": "?!",
+      "color": "rgb(234, 179, 8)"
+    },
+    {
+      "san": "Bg4",
+      "badge": "?",
+      "color": "rgb(249, 115, 22)"
+    },
+    {
+      "san": "dxe5",
+      "badge": "?",
+      "color": "rgb(249, 115, 22)"
+    },
+    {
+      "san": "Bxf3",
+      "badge": "?!",
+      "color": "rgb(234, 179, 8)"
+    },
+    {
+      "san": "Qxf3",
+      "badge": "??",
+      "color": "rgb(220, 38, 38)"
+    },
+    {
+      "san": "dxe5",
+      "badge": "?",
+      "color": "rgb(249, 115, 22)"
+    },
+    {
+      "san": "Bc4",
+      "badge": "?",
+      "color": "rgb(249, 115, 22)"
+    },
+    {
+      "san": "Nf6",
+      "badge": "??",
+      "color": "rgb(220, 38, 38)"
+    },
+    {
+      "san": "Qb3",
+      "badge": "??",
+      "color": "rgb(220, 38, 38)"
+    },
+    {
+      "san": "Qe7",
+      "badge": "??",
+      "color": "rgb(220, 38, 38)"
+    },
+    {
+      "san": "Nc3",
+      "badge": "??",
+      "color": "rgb(220, 38, 38)"
+    },
+    {
+      "san": "c6",
+      "badge": "?",
+      "color": "rgb(249, 115, 22)"
+    },
+    {
+      "san": "Bg5",
+      "badge": "?",
+      "color": "rgb(249, 115, 22)"
+    },
+    {
+      "san": "b5",
+      "badge": "?",
+      "color": "rgb(249, 115, 22)"
+    },
+    {
+      "san": "Nxb5",
+      "badge": "!!",
+      "color": "rgb(168, 85, 247)"
+    },
+    {
+      "san": "cxb5",
+      "badge": "??",
+      "color": "rgb(220, 38, 38)"
+    },
+    {
+      "san": "Bxb5+",
+      "badge": "??",
+      "color": "rgb(220, 38, 38)"
+    }
+  ],
+  "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%"
+}

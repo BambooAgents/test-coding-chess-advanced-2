@@ -1,0 +1,32 @@
+[
+  {
+    "type": "debug",
+    "text": "[vite] connecting...",
+    "loc": "http://localhost:5183/test-coding-chess-advanced-2/@vite/client"
+  },
+  {
+    "type": "debug",
+    "text": "[vite] connected.",
+    "loc": "http://localhost:5183/test-coding-chess-advanced-2/@vite/client"
+  },
+  {
+    "type": "info",
+    "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+    "loc": "http://localhost:5183/test-coding-chess-advanced-2/node_modules/.vite/deps/react-dom_client.js?v=bc152ee7"
+  },
+  {
+    "type": "debug",
+    "text": "[vite] connecting...",
+    "loc": "http://localhost:5183/test-coding-chess-advanced-2/@vite/client"
+  },
+  {
+    "type": "debug",
+    "text": "[vite] connected.",
+    "loc": "http://localhost:5183/test-coding-chess-advanced-2/@vite/client"
+  },
+  {
+    "type": "info",
+    "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+    "loc": "http://localhost:5183/test-coding-chess-advanced-2/node_modules/.vite/deps/react-dom_client.js?v=bc152ee7"
+  }
+]
