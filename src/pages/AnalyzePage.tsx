@@ -33,8 +33,11 @@ function realEngine(engine: StockfishEngine): AnalyzeEngine {
       return { cp: result.score, mate: result.mate, depth: result.depth }
     },
     async evaluateAfter(fen: string): Promise<EvalScore> {
-      // Lower depth for the eval-after pass (faster, still accurate enough for classification).
-      const result = await engine.getEvaluation(fen, 8)
+      // Depth 15 per docs/spec/annotation-thresholds.md §4.1: "At depth 15,
+      // eval is reliable enough for classification." Depth 8 produced noisy
+      // evals (e.g. -0.71 after 1.e4) that defeated book detection and
+      // marked top opening moves as inaccuracies.
+      const result = await engine.getEvaluation(fen, 15)
       return { cp: result.score, mate: result.mate, depth: result.depth }
     },
     async bestMove(fen: string): Promise<string> {
@@ -238,6 +241,16 @@ export function AnalyzePage() {
   const [analyzing, setAnalyzing] = useState(false)
   const engineRef = useRef<StockfishEngine | null>(null)
   const cancelRef = useRef<boolean>(false)
+  const moveListRef = useRef<HTMLDivElement | null>(null)
+
+  // Auto-scroll the move list to keep the current ply visible.
+  useEffect(() => {
+    if (!moveListRef.current || currentPly === 0) return
+    const row = moveListRef.current.querySelector<HTMLButtonElement>(
+      `[data-ply="${currentPly}"]`,
+    )
+    if (row) row.scrollIntoView({ block: 'nearest' })
+  }, [currentPly])
 
   // Handoff from Play page: router state carries a PGN.
   useEffect(() => {
@@ -273,6 +286,7 @@ export function AnalyzePage() {
       setGame(parsed)
       setAnalysis(null)
       setCurrentPly(0)
+      setPgnInput(pgn) // reflect the loaded PGN in the textarea (handoff/import)
       void runAnalysis(parsed)
     } catch (e) {
       setError(`Failed to parse PGN: ${(e as Error).message}`)
@@ -480,11 +494,12 @@ export function AnalyzePage() {
                 <ScrubBtn onClick={() => scrubTo(game.moves.length)} disabled={currentPly >= game.moves.length}>⏭</ScrubBtn>
               </Scrubber>
 
-              <MoveList data-testid="move-list">
+              <MoveList ref={moveListRef} data-testid="move-list">
                 {movePairs.map((pair, i) => (
                   <div key={i} style={{ display: 'contents' }}>
                     {pair.white && (
                       <MoveRow
+                        data-ply={pair.white.ply + 1}
                         $current={currentPly === pair.white.ply + 1}
                         $badge={pair.white.classification}
                         onClick={() => scrubTo(pair.white!.ply + 1)}
@@ -498,6 +513,7 @@ export function AnalyzePage() {
                     )}
                     {pair.black && (
                       <MoveRow
+                        data-ply={pair.black.ply + 1}
                         $current={currentPly === pair.black.ply + 1}
                         $badge={pair.black.classification}
                         onClick={() => scrubTo(pair.black!.ply + 1)}
