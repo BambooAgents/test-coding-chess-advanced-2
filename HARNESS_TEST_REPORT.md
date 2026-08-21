@@ -240,3 +240,93 @@ ACCEPTED, all 3 findings verified fixed.
 vision/DOM/code probes caught a real product-truth bug that survived the
 old harness's loose "check the page" reviews. This is the validation that
 the F25/F26 harness fixes actually improved detection, not just paperwork.
+
+---
+
+## F28 — Environment briefing (discovery tax)
+
+**What:** Across swarm 4, every fresh-context reviewer spent 2–8 minutes
+before its first useful action rediscovering the same environment facts —
+dev server URL, browser tool, testids, sample inputs. The puzzles reviewer
+spent 473s and visual-home 437s before their first vision-checker. The
+weaknesses reviewer spent 63% of its bash calls on p-browser/playwright
+discovery.
+
+**Root cause:** Fresh-context reviewers start from zero and independently
+re-derive the same facts every time. In a 5-reviewer parallel swarm, that's
+5× the discovery cost.
+
+**Fix:** New `environment-analyzer` agent (`.pi/agents/environment-analyzer.md`).
+The orchestrator dispatches it ONCE before the swarm. It probes the project
+and writes `.pi/acceptance/ENVIRONMENT.md` — dev server URL, routing mode,
+browser tool, the complete testid inventory, data files, ready-to-use
+sample inputs (real PGN, real username), external integrations. Every
+downstream reviewer reads it first (acceptance-reviewer §Step 0). One
+discovery, many consumers.
+
+**Lesson:** Amortize discovery. In a multi-agent swarm, any fact every agent
+needs should be discovered once by a dedicated agent and passed as a
+briefing, not rediscovered N times in parallel.
+
+## F29 — Two-vision-checker cross-reference with adjudication
+
+**What:** Swarm 4's vision-checkers were bound to the user story and biased
+toward confirming it. 20/21 returned freeform text (the prompt didn't
+request structured verdicts), and a single checker's "PRESENT" was the only
+visual signal — no cross-check against an independent observer.
+
+**Root cause:** A vision-checker handed expectations is biased toward
+confirming them ("is the arrow on the board? yes"). A single checker has no
+independent witness to contradict a hallucinated confirmation.
+
+**Fix:** Three vision-checker agents:
+- `vision-checker` (story-bound) — receives expectations, returns
+  per-expectation PRESENT/ABSENT/DIFFERENT.
+- `vision-checker-freeform` — receives NO expectations, writes freeform
+  prose about everything it sees, flags anything off. The unbiased witness.
+- `vision-checker-adjudicator` — dispatched ONLY on disagreement, resolves
+  the concrete discrepancy with a single verdict.
+
+The acceptance-reviewer dispatches the first two in parallel per
+screenshot, cross-references, and dispatches the adjudicator on
+disagreement. The DOM containment probe remains the spatial authority
+regardless.
+
+**Lesson:** Cross-reference independent observers with different
+incentives. A biased checker (knows the expectations) + an unbiased
+checker (knows nothing) + a tie-breaker catches confirmation bias that a
+single checker cannot. This generalizes beyond vision — any review with a
+contract should also have an independent no-contract observer.
+
+## F30 — Structured vision-checker output
+
+**What:** 20/21 swarm 4 vision-checkers ignored the PRESENT/ABSENT/DIFFERENT
+format the reviewers asked for and returned freeform descriptions, because
+the `vision-checker.md` agent def asked for "exhaustive description" not
+structured output. Reviewers had to manually cross-reference freeform text
+against the script (error-prone, non-deterministic).
+
+**Fix:** `vision-checker.md` now mandates per-expectation
+`EXPECTATION: ... VERDICT: PRESENT|ABSENT|DIFFERENT DETAIL: ...` output when
+the task includes expectations. Freeform detail is kept for serendipitous
+discovery (it caught the "Unknown" openings bug), but the structured
+verdict is the contract.
+
+**Lesson:** An agent's output format is defined by its agent def, not by the
+task text. If you need structured output, the agent def must require it — a
+task-text request is overridden by the def's own output-format section.
+
+## F31 — Containment-probe enforcement
+
+**What:** Only 2/6 swarm 4 reviewers ran DOM containment probes despite the
+mandate. The play reviewer skipped its 1 SPATIAL line. The §5 instruction
+was descriptive ("mandatory") but not enforced — a reviewer could skip it
+and still write a report.
+
+**Fix:** `acceptance-reviewer.md` §5 now explicitly states a step with a
+SPATIAL expectation and no containment-probe result is NOT_RUN, not
+silently passed. The skip is now visible in the report rather than silent.
+
+**Lesson:** "Mandatory" in prose is not enforcement. Make the skip visible
+(report NOT_RUN) so it surfaces in review rather than disappearing. A gate
+that can be silently skipped is not a gate.

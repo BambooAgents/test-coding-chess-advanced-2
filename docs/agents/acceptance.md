@@ -25,10 +25,50 @@ visual verdict anyway, (b) the vision model hallucinated the arrow was "on
 the board," and (c) the DOM probe checked the SVG existed but never checked
 its bounding rect was inside the board's. A human caught it in one glance.
 
-This document defines the gate that catches both classes of escape: a
-**fresh, from-zero acceptance reviewer that boots the app, uses it like a
-hostile user, and checks product truth AND visual truth against an
-explicit user-story script.**
+A third pattern emerged in post-analysis: every fresh-context reviewer
+spent 2–8 minutes rediscovering the same environment facts (dev server URL,
+browser tool, testids, sample inputs) in isolation. And vision-checkers
+bound to the user story were biased toward confirming it ("is the arrow on
+the board? yes"), missing defects a naive observer would notice.
+
+This document defines the gate that catches all these classes of escape:
+a **pre-swarm environment briefing**, a **per-ticket user-story script**, a
+**fresh from-zero acceptance reviewer**, and a **two-vision-checker cross-
+reference with adjudication** that catches vision-model bias.
+
+## Environment briefing — the orchestrator dispatches an analyzer first
+
+Before any swarm of reviewers/acceptance-reviewers runs, the orchestrator
+dispatches the **`environment-analyzer`** agent ONCE. It probes the project
+— dev server URL, routing mode, browser tool, the complete testid
+inventory, data file locations, sample inputs, external integrations — and
+writes a detailed briefing to `.pi/acceptance/ENVIRONMENT.md`.
+
+The orchestrator then passes `ENVIRONMENT.md` to every downstream reviewer
+as the first thing they read. This eliminates the "discovery tax" where
+every fresh-context reviewer independently spends 2–8 minutes
+re-discovering the dev server URL, the testids, and the browser command.
+
+### Why
+
+Post-analysis of swarm 4 found the puzzles reviewer spent 473s and the
+visual-home reviewer 437s before their first useful action — all
+rediscovering the same environment facts. The weaknesses reviewer spent 63%
+of its bash calls on p-browser/playwright discovery. Amortizing that into
+one briefing the orchestrator generates once is a large efficiency win.
+
+### Rules for the orchestrator
+
+- **Dispatch `environment-analyzer` before the swarm, not after.** Its
+  output is an input to every reviewer.
+- **Regenerate when `src/` changes.** If the last `ENVIRONMENT.md` is
+  older than the latest commit touching `src/`, regenerate it. Stale
+  testids or a stale dev-server URL send reviewers down dead ends.
+- **Hand the briefing path to every reviewer in its task.** The reviewer
+  reads it first (acceptance-reviewer §Step 0).
+- **The briefing is a discover, not a start.** The environment-analyzer is
+  read-only and ephemeral; it does NOT start a long-running dev server.
+  Starting servers is the orchestrator's job.
 
 ## User stories — the orchestrator authors the visual script
 
@@ -81,7 +121,7 @@ STORY: Analyze a game (ticket #14+#15)
 
 - **Author the script from the ticket requirements, not the worker's
   claims.** If the ticket says “best-move arrows on the board,” the script
-  says “VISIBLE: indigo arrow ON the board from <sq> to <sq>.”
+  says “VISIBLE: indigo arrow ON the board from <sq> to <sq>."
 - **Be concrete about visual specifics.** Name colors, positions, badges,
   and which container each element should be inside. “Looks fine” is not
   a visual requirement.
@@ -116,34 +156,85 @@ across the entire viewport while the text-only orchestrator wrote “arrows
 render on the board” based on hallucinated relayed reports. See
 `.pi/acceptance/VISUAL_SWARM_BLINDNESS.md`.
 
+## Two-vision-checker cross-reference with adjudication
+
+For every screenshot, the acceptance-reviewer dispatches **TWO**
+vision-checkers in parallel on the same image:
+
+1. **`vision-checker` (story-bound)** — receives the step's VISIBLE/SPATIAL
+   expectations and returns a per-expectation structured verdict
+   (PRESENT/ABSENT/DIFFERENT). This is the contract-checker.
+2. **`vision-checker-freeform`** — receives only a one-line page/state
+   context (NO expectations) and writes freeform prose about everything it
+   sees, flagging anything that looks off. This is the unbiased witness.
+
+The acceptance-reviewer cross-references the two. If they AGREE (the
+story-bound verdict is corroborated by the freeform prose), the expectation
+passes (subject to the DOM containment probe for spatial lines). If they
+DISAGREE (e.g. the story-bound checker says the arrow is PRESENT on the
+board, but the freeform checker describes an indigo line running across
+the top of the page), the acceptance-reviewer dispatches a **third**
+vision-checker:
+
+3. **`vision-checker-adjudicator`** — receives the SAME screenshot plus
+   the concrete discrepancy (quotes from both checkers) and returns a
+   single verdict: CONFIRMED-PRESENT / CONFIRMED-ABSENT / CONFIRMED-
+   DIFFERENT / CANNOT-RESOLVE. That is the final visual verdict on that
+   point. If CANNOT-RESOLVE, the acceptance-reviewer falls back to the DOM
+   containment probe (for spatial issues) or marks the expectation
+   NOT_VERIFIED.
+
+### Why three checkers
+
+A single vision-checker bound to the user story is biased toward confirming
+it (“is the arrow on the board? yes”). A single freeform checker has no
+contract to check against. The cross-reference catches the failure mode
+that shipped the arrow-bleed bug: the story-bound checker said “on the
+board” (biased) while a freeform checker would have said “an indigo line
+across the top of the page” (unbiased). The adjudicator breaks the tie
+concretely, and the DOM probe is the final authority for spatial
+containment regardless of what any vision-checker says.
+
+Each vision-checker is a fresh conversation reading 1 image — the 4-image-
+per-conversation cap is never hit. The three checkers are independent
+and can be dispatched in parallel (the adjudicator waits for the first two).
+
 ## The acceptance gate (mandatory before merge)
 
 After the worker claims "done" AND the code/visual reviewers pass, but
 BEFORE the orchestrator merges the PR:
 
-1. **Orchestrator authors the visual user-story script** for the ticket
+1. **Orchestrator dispatches the `environment-analyzer`** to write
+   `.pi/acceptance/ENVIRONMENT.md` (see §Environment briefing). Do this
+   ONCE before the swarm, not per reviewer.
+2. **Orchestrator authors the visual user-story script** for the ticket
    (see §User stories). Stored at `.pi/acceptance/stories/<ticket>.md`.
-2. **Launch the `acceptance-reviewer` agent in a fresh context** with the
-   script path. It has not seen the PR, the spec, or the worker's claims.
-3. It boots the app from scratch (`npm ci`, start dev server, Playwright).
-4. It executes the script step by step: performs each user action, takes a
-   screenshot, dispatches a vision-checker with the step's VISIBLE
-   expectations, runs a DOM containment probe for each SPATIAL expectation,
-   and cross-references both against the script.
-5. It writes `.pi/acceptance/ACCEPTANCE_REPORT.md` with a verdict
+3. **Launch the `acceptance-reviewer` agent in a fresh context** with the
+   script path AND the `ENVIRONMENT.md` path. It has not seen the PR, the
+   spec, or the worker's claims.
+4. It reads `ENVIRONMENT.md` first, then boots the app from scratch
+   (`npm ci`, start dev server, Playwright), using the briefing's testids
+   and sample inputs.
+5. It executes the script step by step: performs each user action, takes a
+   screenshot, dispatches BOTH vision-checkers (story-bound + freeform) on
+   the same screenshot, cross-references their reports, dispatches an
+   adjudicator on disagreement, runs a DOM containment probe for each
+   SPATIAL expectation, and cross-references all of it against the script.
+6. It writes `.pi/acceptance/ACCEPTANCE_REPORT.md` with a verdict
    (`ACCEPTED` / `REQUEST-CHANGES` / `REJECTED`) and a finding list
    (BLOCKER / IMPORTANT / NIT), with each finding tied to a script step.
-6. **The orchestrator does NOT merge until the acceptance reviewer returns
+7. **The orchestrator does NOT merge until the acceptance reviewer returns
    `ACCEPTED`** (or `REQUEST-CHANGES` with all BLOCKERs cleared on a re-run).
 
 ### Ordering relative to other gates
 
 ```
 worker claims done
-  -> code reviewer (Standards + Spec)         [code-level]
-  -> orchestrator authors user-story script     [visual contract]
-  -> visual-reviewer (screenshots)             [visual-level]
-  -> acceptance-reviewer (boots the app, runs script)  [product-level]   <-- mandatory
+  -> code reviewer (Standards + Spec)            [code-level]
+  -> orchestrator dispatches environment-analyzer  [briefing]
+  -> orchestrator authors user-story script       [visual contract]
+  -> visual-reviewer (screenshots)                [visual-level]
+  -> acceptance-reviewer (boots app, runs script, two-checker vision)  [product-level]  <-- mandatory
   -> orchestrator merges (only if all pass)
 ```
 
