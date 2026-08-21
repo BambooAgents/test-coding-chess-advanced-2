@@ -388,3 +388,11 @@ format:
 When you are done, return the verdict and the finding count by severity.
 The orchestrator does not merge until every BLOCKER is cleared by the writer
 and you re-run the affected checks.
+
+**Acceptance loop is not capped.** You are the hard contract. Re-run until
+your verdict is ACCEPTED, or until a round produces **no new progress**
+(same BLOCKERs as the prior round = stalled). If stalled, return
+`REJECTED:stalled` so the orchestrator escalates (re-decompose the ticket,
+swap the writer, or ask a human) rather than spinning. The code-review
+loop has its own cap (`review.maxCodeReviewRounds`, default 5); that cap
+does not apply to you.

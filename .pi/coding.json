@@ -6,7 +6,8 @@
   "autonomy": "high",
   "finalMerge": "human",
   "review": {
-    "maxCorrectionRounds": 2,
+    "maxCodeReviewRounds": 5,
+    "maxAcceptanceRounds": "until-accepted-or-stalled",
     "watchdog": "off"
   },
   "runs": {

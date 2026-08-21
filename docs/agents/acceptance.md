@@ -284,10 +284,18 @@ from a diff. The acceptance reviewer MUST verify each against real input.
    list, not a vague "fix it").
 3. Writer fixes; orchestrator re-runs affected gates + a **fresh**
    acceptance reviewer on the fixed bits.
-4. Cap at `.pi/coding.json -> review.maxCorrectionRounds` (default 2).
-5. **After the cap, if BLOCKERs remain, the PR is REJECTED — not
-   force-merged with `--admin`.** (The previous run force-merged broken
-   PRs; that is how the escape shipped.)
+4. **Code review is capped; acceptance is not.** Code-review correction
+   loops cap at `.pi/coding.json -> review.maxCodeReviewRounds` (default 5)
+   — style/quality disputes can loop forever, so a cap bounds that. The
+   **acceptance loop is a hard contract**: the acceptance-reviewer keeps
+   re-running until ACCEPTED, or until a round produces **no new progress**
+   (same BLOCKERs as the prior round = stalled). A stalled acceptance loop
+   signals a design or implementation problem another identical round won't
+   fix — escalate (re-decompose the ticket, swap the writer, or ask a
+   human) rather than spin.
+5. **If the acceptance loop stalls with BLOCKERs remaining, the PR is
+   REJECTED — not force-merged with `--admin`.** (The previous run
+   force-merged broken PRs; that is how the escape shipped.)
 
 ## Self-attestation is not "done"
 

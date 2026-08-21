@@ -1,17 +1,17 @@
-node_modules/
-dist/
+
+# Acceptance swarm scratch — reviewers' probe scripts and probe dumps.
 coverage/
-test-results/
-playwright-report/
+dist/
 .env
 .env.*
 !.env.example
-.pi-worktrees/
-.playwright-cli/
-tsconfig.tsbuildinfo
-tsconfig.*.tsbuildinfo
-
-# Acceptance swarm scratch — reviewers' probe scripts and probe dumps.
+node_modules/
 # Only final .md reports and stories/ are tracked.
 .pi/acceptance/*/scratch/
 .pi/acceptance/scratch/
+.pi-worktrees/
+.playwright-cli/
+playwright-report/
+test-results/
+tsconfig.*.tsbuildinfo
+tsconfig.tsbuildinfo
