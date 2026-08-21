@@ -5,9 +5,13 @@
 
 ## Executive Summary
 
-The acceptance reviewers did not lie, but they produced **false PASSes through a systematic methodology gap**: they verified the **data model** (DOM text, Playwright assertions) but could not verify the **visual presentation** because their model cannot read images. They captured screenshots but were blind to them. This let a critical visual bug — the Brilliant badge rendering with `color: transparent` — pass as FIXED when it was invisible to the user.
+**ROOT CAUSE: the `acceptance-reviewer` agent def had no `model:` field, so it used the default text-only model (GLM-5.2). It literally could not see the screenshots it captured.** This is a configuration bug, not a vague "harness bug" — one missing line in the agent definition.
 
-**The reviewers were honest but blind.** Two of five explicitly hit the `[Current model does not support images]` wall and proceeded anyway. The others never attempted to read images and verified purely via `innerText()` and Playwright test assertions.
+The acceptance reviewers did not lie. They captured screenshots, tried to `read` them, got `[Current model does not support images. The image will be omitted from this request.]`, and then fell back to verifying via DOM text (`innerText`). This let a critical visual bug — the Brilliant badge rendering with `color: transparent` — pass as FIXED because the text `!!` was present in the DOM even though it was invisible.
+
+**The fix:** pin `model: tng/Qwen/Qwen3.5-397B-A17B-FP8` (vision-capable) in `acceptance-reviewer.md`, matching the existing `visual-reviewer` agent. **Verified:** the acceptance-reviewer with the new model successfully reads screenshots and describes real visual details (eval bar fill level, badge glyphs, board state).
+
+**How to add vision capabilities to any agent:** add `model: tng/Qwen/Qwen3.5-397B-A17B-FP8` to the agent's frontmatter. The default model is text-only and cannot read images. This single line is the difference between a reviewer that can catch transparent/invisible elements and one that cannot.
 
 ---
 
