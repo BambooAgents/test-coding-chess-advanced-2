@@ -74,11 +74,22 @@ For EACH arrow, line, or marking you see in the image:
 
 ## Output format
 
-Return a structured text report (no markdown headings needed, just clear
-paragraphs). Start with a one-line summary, then detail each area above.
-End with a "GLITCHES FOUND" list — each glitch as a bullet with severity
-guess (BLOCKER/IMPORTANT/NIT) and a precise description of what's wrong and
-where in the image it is.
+**If the task includes VISIBLE EXPECTATIONS, you MUST respond per-expectation
+in this exact format:**
+
+```
+EXPECTATION: <quoted expectation text>
+VERDICT: PRESENT | ABSENT | DIFFERENT
+DETAIL: <what you actually see, with precise location>
+```
+
+Repeat for each expectation. Then give the freeform detail report below.
+
+**If the task does NOT include explicit expectations**, return a structured
+text report (no markdown headings needed, just clear paragraphs). Start with a
+one-line summary, then detail each area above. End with a "GLITCHES FOUND" list
+— each glitch as a bullet with severity guess (BLOCKER/IMPORTANT/NIT) and a
+precise description of what's wrong and where in the image it is.
 
 If the image looks clean and correct, say "GLITCHES FOUND: none" and
 describe what you confirmed is working.

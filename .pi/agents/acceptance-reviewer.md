@@ -175,7 +175,15 @@ found, is a BLOCKER unless noted:
   hallucinate these as "correctly on the board." You MUST verify spatial
   containment with a DOM probe (see §6), not just ask the vision-checker.
 
-### 5. DOM spatial-containment probes (mandatory for every visual element)
+### 5. DOM spatial-containment probes (mandatory for every SPATIAL expectation)
+This is NOT optional. The prior swarm missed a glaring arrow-bleed bug
+because reviewers checked "does the arrow SVG exist" (yes) but never checked
+"is the arrow SVG's bounding rect inside the board's bounding rect" (no).
+For ANY step with a SPATIAL line in the user-story script, you MUST run a
+`getBoundingClientRect` containment probe and report the numeric rects in
+your report. A step with a SPATIAL expectation that does not include a
+containment-probe result is NOT verified — report it as NOT_RUN.
+
 Vision models are unreliable for spatial verification — they see pixels and
   assume they're in the right place. For any element that has a visual
   position constraint (arrows on the board, badges in the move list, the
