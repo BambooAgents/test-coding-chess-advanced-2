@@ -38,3 +38,40 @@ This file is a running log. Final synthesis at the end.
 
 ## Suggested improvements to the agentic coding architecture / autonomous-coding skill
 (to fill at end)
+
+---
+
+## F23 — Acceptance-gate fix loop (2026-08-21)
+
+After the harness acceptance-reviewer gate was added, a hostile-reviewer swarm found 4 BLOCKERs that all previous gates (tsc/eslint/vitest/playwright + code review) had missed. The fix loop then demonstrated the gate working as designed.
+
+### What the hostile swarm found (all BLOCKERs, all missed by prior gates)
+- **B1**: Puzzle bundle 100% synthetic (17 templates × 140 copies, all `sample-*` IDs, starting-position FENs). Shipped as "real lichess CC0." tsc/eslint/260 vitest/build all green.
+- **B2**: `multiPv2` faked (returns `eval - 250` phantom; code comment admitted it). Brilliant badge never fired. 260 vitest green.
+- **B3**: Analysis hangs forever on any game ending in checkmate (Stockfish sends `info depth 0 score mate 0` and NO `bestmove` line; `getEvaluation` waited forever). 32 playwright green.
+- **B5**: "Show Solution" showed buttons but not the solution moves.
+
+### The fix loop (hostile review → fix workers → independent re-review)
+1. Spawned 5 parallel acceptance-reviewer children (fresh, hostile, different attack surfaces).
+2. Consolidated findings into 5 BLOCKERs.
+3. Dispatched 3 parallel fix workers (worktree isolation, one writer each). All 3 succeeded (tsc/eslint/vitest/build green).
+4. A 4th fix was needed after I discovered the real B3 root cause (Stockfish sends no `bestmove` on checkmate) via a direct browser debug test. Dispatched a targeted worker.
+5. Re-ran independent hostile acceptance reviewer (fresh context) — **ACCEPTED**, all 4 BLOCKERs verified fixed with product-truth evidence.
+
+### What the gate caught that prior gates missed
+- **Fake data**: the puzzle bundle passed all type/lint/test gates because the fake data matched the schema. Only a hostile reviewer that checked the actual IDs/FENs/themes caught it.
+- **Faked engine integration**: the `eval - 250` phantom passed all tests because the adapter interface was satisfied. Only a reviewer that read the implementation and checked for real UCI commands caught it.
+- **Edge-case hang**: the checkmate hang passed 32 playwright tests because none of them tested a game ending in checkmate. Only a reviewer that tested a real complete game caught it.
+- **Missing UX**: the invisible solution passed because the buttons rendered. Only a reviewer that clicked "Show Solution" and checked what was displayed caught it.
+
+### Harness bugs observed during the fix loop
+- **Worktree branch loss (recurring)**: 2 of 4 fix workers committed in their worktrees, but the worktree branches were discarded after completion (the commits became dangling). I recovered them via `git fsck --lost-found` for 2, but 1 was lost entirely and had to be re-derived from the session transcript + the fix re-applied. This is Bug 4 (detached-HEAD worktree push no-op) from HARNESS_FIX_PROMPT.md, recurring.
+- **`acceptance-reviewer` agent not visible in async workflow children**: the agent def lived on the orchestrator's branch but not the children's checkout. Fixed by committing the agent def onto the integration branch.
+- **Model override mismatch**: the agent def pinned `anthropic/claude-sonnet-4` which isn't in the model registry. Fixed by dropping the override.
+- **Reviewer children hang on Playwright/intercom**: 3 of 5 reviewers got stuck on long Playwright runs or the intercom-pause pattern. Steered them to finalize; interrupted the ones that wouldn't. The acceptance-reviewer would benefit from a per-tool-call timeout (Bug 5).
+- **Very long wait (405 min)**: one reviewer ran for 7 hours because it got stuck writing a Playwright script. The harness should bound reviewer wall-clock.
+
+### Outcome
+- **Product**: ACCEPTED by hostile review. Real puzzles, real MultiPV, Brilliant fires, checkmate analysis completes, solution displayed.
+- **Gate proven**: the acceptance-reviewer gate caught 4 BLOCKERs that all prior gates missed. The fix loop (find → fix → re-review) converged in one round.
+- **Tests**: 260 → 284 vitest (+24 new, all green).
