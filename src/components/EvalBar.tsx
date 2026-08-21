@@ -26,7 +26,7 @@ const WhiteFill = styled.div<{ $pct: number }>`
   bottom: 0;
   left: 0;
   right: 0;
-  height: ${($pct) => $pct}%;
+  height: ${(props) => props.$pct}%;
   background: #f8f8f8;
   transition: height 0.3s ease;
 `

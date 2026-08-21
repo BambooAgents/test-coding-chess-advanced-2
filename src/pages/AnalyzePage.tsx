@@ -197,6 +197,7 @@ const Badge = styled.span<{ $kind: string }>`
 
 function badgeColor(kind: string): string {
   switch (kind) {
+    case 'brilliant': return '#a855f7' // purple — chess.com convention for brilliant
     case 'best': return '#16a34a'
     case 'great': return '#0ea5e9'
     case 'good': return '#84cc16'
@@ -204,7 +205,7 @@ function badgeColor(kind: string): string {
     case 'inaccuracy': return '#eab308'
     case 'mistake': return '#f97316'
     case 'blunder': return '#dc2626'
-    default: return 'transparent'
+    default: return 'transparent' // 'no_annotation' has no glyph, transparent is correct
   }
 }
 
@@ -288,6 +289,11 @@ export function AnalyzePage() {
       const engine = realEngine(engineRef.current)
       const cancelChecker = () => cancelRef.current
       await analyzeGame(g, engine, (partial) => setAnalysis({ ...partial }), cancelChecker)
+      // Auto-advance to the first classified move so the eval bar, best-move
+      // arrow, and badges are immediately visible after analysis completes.
+      // (Without this the board sits at the starting position with no visual
+      // feedback — a major UX defect that made the page look broken.)
+      setCurrentPly(1)
     } catch (e) {
       setError(`Analysis failed: ${(e as Error).message}`)
     } finally {
