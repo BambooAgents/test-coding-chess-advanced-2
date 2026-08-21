@@ -1,0 +1,103 @@
+{
+  "steps": [
+    {
+      "step": 1,
+      "placement": "2r3k1/p1r2ppp/qp3b2/3Q4/5PN1/P5P1/1P5P/3RR1K1",
+      "matchedPuzzleId": "01XIa",
+      "matchedFen": "2r3k1/p1r2ppp/qp3b2/3Q4/5PN1/P5P1/1P5P/3RR1K1 b - - 2 27",
+      "isStartingPosition": false,
+      "isSampleTestId": false,
+      "moves": [
+        "c7c2",
+        "d5d8",
+        "c8d8",
+        "d1d8",
+        "f6d8",
+        "e1e8"
+      ],
+      "rating": "1788",
+      "puzzleNum": "1/2000",
+      "themes": "backRankMate, long, mate, mateIn3, middlegame, sacrifice",
+      "feedback": "Black to move — find the best move",
+      "boardProbe": {
+        "squareCount": 64,
+        "pieceCount": 20,
+        "boardRect": {
+          "x": 72,
+          "y": 346,
+          "w": 560,
+          "h": 560,
+          "right": 632,
+          "bottom": 906
+        },
+        "arrowsSvg": null,
+        "arrowsContained": null
+      }
+    },
+    {
+      "step": 2,
+      "playedMove": "c7c2",
+      "placementAfter": "2rQ2k1/p4ppp/qp3b2/8/5PN1/P5P1/1Pr4P/3RR1K1",
+      "placementChanged": true,
+      "feedback": "✓ Correct! Keep going..."
+    },
+    {
+      "step": 3,
+      "solvedDetected": true,
+      "finalFeedback": "✓ Puzzle solved! Well done.",
+      "beforeNextPlacement": "3bR1k1/p4ppp/qp6/8/5PN1/P5P1/1Pr4P/6K1",
+      "afterNextPlacement": "2k4r/Q1p2pp1/5n2/3rNq2/4p2p/6Pb/PPP1BP1P/R3R1K1",
+      "afterNextPuzzleId": "00HXr",
+      "afterNextIsDifferent": true,
+      "afterNextIsStarting": false
+    },
+    {
+      "step": 4,
+      "pickedTheme": "Rook Endgame",
+      "themeLabelVisible": "Queen Rook Endgame",
+      "placement": "8/5ppp/4p3/p6k/6R1/4P2P/3q1PP1/2R3K1",
+      "matchedPuzzleId": "00Vqp",
+      "matchedFen": "8/5ppp/4p3/p6k/6R1/4P2P/3q1PP1/2R3K1 w - - 2 33",
+      "isStarting": false,
+      "themes": [
+        "crushing",
+        "endgame",
+        "fork",
+        "long",
+        "queenRookEndgame"
+      ],
+      "hasRookEndgameTheme": false,
+      "rating": "1569",
+      "puzzleNum": "1/18",
+      "feedback": "White to move — find the best move"
+    },
+    {
+      "step": 5,
+      "time1": "2:59",
+      "time2": "2:57",
+      "timerDecremented": true,
+      "score": "0",
+      "wrong": "0/3",
+      "placement": "2r2rk1/pb3ppp/1p4q1/4P3/3P4/P7/BP2Q1PP/4RR1K"
+    },
+    {
+      "step": 6,
+      "lives1": "❤❤❤",
+      "placement1": "8/5pk1/4b2p/8/2r1NKP1/4P2P/5R2/8",
+      "puzzleId": "00yWQ",
+      "puzzleMoves": [
+        "f4f3",
+        "e6d5",
+        "f2d2",
+        "d5e4"
+      ]
+    },
+    {
+      "step": 6,
+      "wrongMovePlayed": "f4e5",
+      "lives1": "❤❤❤",
+      "lives2": "❤❤",
+      "livesDecremented": true
+    }
+  ]
+}

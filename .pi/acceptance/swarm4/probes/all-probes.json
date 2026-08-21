@@ -1,0 +1,209 @@
+{
+  "step1-nav": {
+    "navExists": true,
+    "headerRect": {
+      "x": 0,
+      "y": 0,
+      "width": 1400,
+      "height": 70,
+      "top": 0,
+      "right": 1400,
+      "bottom": 70,
+      "left": 0
+    },
+    "mainRect": {
+      "x": 100,
+      "y": 70,
+      "width": 1200,
+      "height": 854.125,
+      "top": 70,
+      "right": 1300,
+      "bottom": 924.125,
+      "left": 100
+    },
+    "links": [
+      {
+        "text": "Home",
+        "href": "/test-coding-chess-advanced-2/",
+        "active": true
+      },
+      {
+        "text": "Play",
+        "href": "/test-coding-chess-advanced-2/play",
+        "active": false
+      },
+      {
+        "text": "Analyze",
+        "href": "/test-coding-chess-advanced-2/analyze",
+        "active": false
+      },
+      {
+        "text": "Puzzles",
+        "href": "/test-coding-chess-advanced-2/puzzles",
+        "active": false
+      },
+      {
+        "text": "My Weaknesses",
+        "href": "/test-coding-chess-advanced-2/weaknesses",
+        "active": false
+      }
+    ],
+    "viewport": {
+      "w": 1400,
+      "h": 900
+    },
+    "mainHasContent": true
+  },
+  "step2-routing": [
+    {
+      "label": "Play",
+      "activeHref": "/test-coding-chess-advanced-2/play",
+      "bodyLen": 134
+    },
+    {
+      "label": "Analyze",
+      "activeHref": "/test-coding-chess-advanced-2/analyze",
+      "bodyLen": 54
+    },
+    {
+      "label": "Puzzles",
+      "activeHref": "/test-coding-chess-advanced-2/puzzles",
+      "bodyLen": 247
+    },
+    {
+      "label": "My Weaknesses",
+      "activeHref": "/test-coding-chess-advanced-2/weaknesses",
+      "bodyLen": 191
+    }
+  ],
+  "step2-final": [
+    {
+      "text": "Home",
+      "href": "/test-coding-chess-advanced-2/",
+      "active": false
+    },
+    {
+      "text": "Play",
+      "href": "/test-coding-chess-advanced-2/play",
+      "active": false
+    },
+    {
+      "text": "Analyze",
+      "href": "/test-coding-chess-advanced-2/analyze",
+      "active": false
+    },
+    {
+      "text": "Puzzles",
+      "href": "/test-coding-chess-advanced-2/puzzles",
+      "active": false
+    },
+    {
+      "text": "My Weaknesses",
+      "href": "/test-coding-chess-advanced-2/weaknesses",
+      "active": true
+    }
+  ],
+  "step3-arrow-containment": {
+    "svg": {
+      "x": 164,
+      "y": 365,
+      "w": 560,
+      "h": 560,
+      "right": 724,
+      "bottom": 925
+    },
+    "board": {
+      "x": 164,
+      "y": 365,
+      "w": 560,
+      "h": 560,
+      "right": 724,
+      "bottom": 925
+    },
+    "contained": true
+  },
+  "step3-viewport-overlays": {
+    "svgs": [
+      {
+        "testid": "board-arrows",
+        "x": 164,
+        "y": 365,
+        "w": 560,
+        "h": 560,
+        "spansFullViewport": false
+      }
+    ],
+    "viewport": {
+      "w": 1400,
+      "h": 900
+    },
+    "anyFullViewportSvg": false
+  },
+  "step4-evalbar-containment": {
+    "evalbar": {
+      "x": 132,
+      "y": 365,
+      "w": 24,
+      "h": 560,
+      "right": 156,
+      "bottom": 925
+    },
+    "board": {
+      "x": 164,
+      "y": 365,
+      "w": 560,
+      "h": 560,
+      "right": 724,
+      "bottom": 925
+    },
+    "adjacentLeft": true,
+    "adjacentRight": false,
+    "adjacent": true,
+    "withinViewport": false
+  },
+  "step5-movelist-containment": {
+    "moveList": {
+      "x": 736,
+      "y": 407,
+      "w": 280,
+      "h": 360,
+      "right": 1016,
+      "bottom": 767
+    },
+    "board": {
+      "x": 164,
+      "y": 365,
+      "w": 560,
+      "h": 560,
+      "right": 724,
+      "bottom": 925
+    },
+    "moveListRightOfBoard": true,
+    "overlapsBoard": false,
+    "badgeCount": 0,
+    "badges": [],
+    "allBadgesContained": true
+  },
+  "step6-error-containment": {
+    "error": {
+      "x": 132,
+      "y": 261,
+      "w": 1136,
+      "h": 21,
+      "text": "No moves found in PGN."
+    },
+    "withinViewport": true,
+    "viewport": {
+      "w": 1400,
+      "h": 900
+    }
+  },
+  "step6b-play-overlays": {
+    "fixedCount": 0,
+    "fixed": [],
+    "viewport": {
+      "w": 1400,
+      "h": 900
+    }
+  }
+}

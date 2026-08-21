@@ -1,0 +1,14 @@
+{
+  "error": {
+    "x": 132,
+    "y": 261,
+    "w": 1136,
+    "h": 21,
+    "text": "No moves found in PGN."
+  },
+  "withinViewport": true,
+  "viewport": {
+    "w": 1400,
+    "h": 900
+  }
+}

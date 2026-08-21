@@ -1,0 +1,18 @@
+{
+  "bodyText": "♟ Chess Advanced\nHome\nPlay\nAnalyze\nPuzzles\nMy Weaknesses\n🧩 Puzzles\nPlain Puzzles\nThemed Sets\nRush\nDeath Match\n0\nSTREAK\n0\nBEST\n0\nSOLVED\n0\nFAILED\n2000\nAVAILABLE\nBlack to move — find the best move\nRating\n2264\nThemes\ncrushing, endgame, fork, long, pin\nPuzzle #\n1 / 2000\nShow Solution",
+  "ratingPresent": true,
+  "themeWords": [
+    "crushing",
+    "endgame",
+    "fork",
+    "pin"
+  ],
+  "turnIndicator": "Black to move",
+  "buttons": [
+    "Plain Puzzles",
+    "Themed Sets",
+    "Rush",
+    "Death Match",
+    "Show Solution"
+  ]
+}

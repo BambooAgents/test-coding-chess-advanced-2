@@ -28,6 +28,7 @@ const BoardGrid = styled.div`
   overflow: hidden;
   user-select: none;
   touch-action: none;
+  position: relative;
 `
 
 const Sq = styled.div<{
@@ -179,6 +180,8 @@ export interface ChessBoardProps {
   orientation?: Color
   /** Called when the user attempts a move (UCI string). Return true if accepted. */
   onMove: (uci: string) => boolean
+  /** Called when the user clicks/drops on a square that is not a legal target. */
+  onIllegal?: () => void
   /** Squares that are part of the last move (from, to) for highlight */
   lastMove?: { from: Square; to: Square } | null
   /** Whether the side to move is in check (highlight king) */
@@ -193,6 +196,7 @@ export function ChessBoard({
   position,
   orientation = 'white',
   onMove,
+  onIllegal,
   lastMove = null,
   showCheck = false,
   disabled = false,
@@ -269,6 +273,10 @@ export function ChessBoard({
           const moves = position.moves().filter((m) => m.from === sq)
           setLegalTargets(new Set(moves.map((m) => m.to)))
         } else {
+          // Clicked an illegal destination (empty/enemy square not in legalTargets):
+          // surface feedback so the user knows the move was illegal.
+          onIllegal?.()
+          playIllegalSound()
           setSelected(null)
           setLegalTargets(new Set())
         }
@@ -281,7 +289,7 @@ export function ChessBoard({
         }
       }
     },
-    [selected, legalTargets, board, turn, position, onMove, disabled],
+    [selected, legalTargets, board, turn, position, onMove, onIllegal, disabled],
   )
 
   const handleDragStart = useCallback(
@@ -333,12 +341,19 @@ export function ChessBoard({
         }
         const accepted = onMove(uci)
         if (accepted) playMoveSound()
-        else playIllegalSound()
+        else {
+          playIllegalSound()
+          onIllegal?.()
+        }
+      } else if (dragData.current) {
+        // Dropped on an illegal square — surface feedback.
+        playIllegalSound()
+        onIllegal?.()
       }
       setSelected(null)
       setLegalTargets(new Set())
     },
-    [legalTargets, board, onMove],
+    [legalTargets, board, onMove, onIllegal],
   )
 
   const handleDragEnd = useCallback(() => {

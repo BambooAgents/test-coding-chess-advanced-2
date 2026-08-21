@@ -34,8 +34,56 @@ export function getUserResult(
   return 'draw'
 }
 
+/**
+ * Resolve a human-readable opening name for a parsed game.
+ *
+ * chess.com pubapi PGNs do NOT emit an `Opening` header — they emit `ECO`
+ * (the code, e.g. "A46") and `ECOUrl` (a chess.com openings URL whose slug
+ * encodes the human-readable name, e.g.
+ * "https://www.chess.com/openings/Indian-Game-Spielmann-Indian-Variation...4.Nxd4-d5-5.Bg2-e5").
+ * Lichess and other sources may emit `Opening` directly.
+ *
+ * Resolution order: Opening header → ECOUrl slug → ECO code → 'Unknown'.
+ * Never surface the literal 'Unknown' when an ECO code is available.
+ */
 export function getOpening(game: ParsedGame): string {
-  return game.headers.Opening || game.headers.opening || 'Unknown'
+  const fromHeader = game.headers.Opening || game.headers.opening
+  if (fromHeader && fromHeader.trim()) return fromHeader.trim()
+
+  const fromEcoUrl = parseEcoUrlName(game.headers.ECOUrl || game.headers.ecourl)
+  if (fromEcoUrl) return fromEcoUrl
+
+  const eco = game.headers.ECO || game.headers.eco
+  if (eco && eco.trim()) return eco.trim()
+
+  return 'Unknown'
+}
+
+/**
+ * Parse a human-readable opening name from a chess.com ECOUrl.
+ * Input:  https://www.chess.com/openings/Indian-Game-Spielmann-Indian-Variation...4.Nxd4-d5-5.Bg2-e5
+ * Output: "Indian Game: Spielmann Indian Variation"
+ *
+ * The slug is the opening name with hyphens, optionally followed by a move
+ * list after "..." (which we strip). We convert hyphens to spaces and
+ * capitalise words.
+ */
+export function parseEcoUrlName(ecoUrl: string): string {
+  if (!ecoUrl || typeof ecoUrl !== 'string') return ''
+  const idx = ecoUrl.indexOf('/openings/')
+  if (idx === -1) return ''
+  let slug = ecoUrl.slice(idx + '/openings/'.length)
+  // Strip query/hash
+  slug = slug.split(/[?#]/)[0]
+  // Strip the move-list suffix (chess.com uses "..." to separate name from moves)
+  slug = slug.split('...')[0]
+  slug = slug.trim()
+  if (!slug) return ''
+  // Hyphens → spaces, collapse whitespace
+  const name = slug.replace(/-/g, ' ').replace(/\s+/g, ' ').trim()
+  if (!name) return ''
+  // Capitalise each word (simple title case, keep roman numerals/numbers as-is)
+  return name.replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
 export function getEco(game: ParsedGame): string {

@@ -1,0 +1,82 @@
+{
+  "step1": {
+    "boardExists": true,
+    "squareCount": 64,
+    "pieceCount": 32,
+    "newGameExists": true,
+    "newGameText": "New Game",
+    "strengthExists": true,
+    "strengthValue": "Medium",
+    "strengthOptions": [
+      "Easy",
+      "Medium",
+      "Hard",
+      "Expert"
+    ],
+    "statusText": "Your move",
+    "boardRect": {
+      "x": 164,
+      "y": 161,
+      "w": 560,
+      "h": 560
+    },
+    "newGameRect": {
+      "x": 773,
+      "y": 389,
+      "w": 104.03125,
+      "h": 39
+    },
+    "controlsOverlap": false
+  },
+  "step2": {
+    "statusText": "Your move",
+    "e2Exists": true
+  },
+  "step2b": {
+    "e2bg": "rgb(199, 210, 254)",
+    "e4afterOpacity": "0.4",
+    "selectedCount": 0
+  },
+  "step3a": {
+    "statusText": "Your move"
+  },
+  "step3": {
+    "moveListText": "1. e4 e6",
+    "statusText": "Your move",
+    "moveListLen": 3
+  },
+  "step4": {
+    "moveListText": "1. e4 e6",
+    "moveListLen": 3,
+    "illegalToastSeen": true
+  },
+  "step5": {
+    "moves": "No moves yet",
+    "len": 3,
+    "statusText": "Your move"
+  },
+  "step6a": {
+    "statusText": "You resigned. Black wins.",
+    "resignDisabled": true
+  },
+  "step6b": {
+    "statusText": "Your move",
+    "moveListText": "No moves yet"
+  },
+  "step7": {
+    "hash": "",
+    "pgnTextareaExists": true,
+    "pgnValue": "[Event \"?\"]\n[Site \"?\"]\n[Date \"????.??.??\"]\n[Round \"?\"]\n[White \"Player\"]\n[Black \"Stockfish\"]\n[Result \"*\"]\n\n1. e4 d5 2. d4 Nf6 *",
+    "moveListText": "1.e4d52.d4Nf6",
+    "moveListLen": 1
+  },
+  "engineVariation": {
+    "replies": [
+      "1. e4 d5",
+      "1. e4 d6",
+      "1. e4 e6",
+      "1. e4 e6"
+    ],
+    "unique": 3
+  }
+}

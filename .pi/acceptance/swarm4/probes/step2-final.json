@@ -1,0 +1,27 @@
+[
+  {
+    "text": "Home",
+    "href": "/test-coding-chess-advanced-2/",
+    "active": false
+  },
+  {
+    "text": "Play",
+    "href": "/test-coding-chess-advanced-2/play",
+    "active": false
+  },
+  {
+    "text": "Analyze",
+    "href": "/test-coding-chess-advanced-2/analyze",
+    "active": false
+  },
+  {
+    "text": "Puzzles",
+    "href": "/test-coding-chess-advanced-2/puzzles",
+    "active": false
+  },
+  {
+    "text": "My Weaknesses",
+    "href": "/test-coding-chess-advanced-2/weaknesses",
+    "active": true
+  }
+]

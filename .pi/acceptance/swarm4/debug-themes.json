@@ -1,0 +1,1165 @@
+{
+  "chips": [
+    {
+      "text": "Plain Puzzles",
+      "active": false
+    },
+    {
+      "text": "Themed Sets",
+      "active": false
+    },
+    {
+      "text": "Rush",
+      "active": false
+    },
+    {
+      "text": "Death Match",
+      "active": false
+    },
+    {
+      "text": "All Endgames",
+      "active": false
+    },
+    {
+      "text": "Advanced Pawn",
+      "active": false
+    },
+    {
+      "text": "Bishop Endgame",
+      "active": false
+    },
+    {
+      "text": "Endgame",
+      "active": false
+    },
+    {
+      "text": "Knight Endgame",
+      "active": false
+    },
+    {
+      "text": "Pawn Endgame",
+      "active": false
+    },
+    {
+      "text": "Queen Endgame",
+      "active": false
+    },
+    {
+      "text": "Queen Rook Endgame",
+      "active": false
+    },
+    {
+      "text": "Rook Endgame",
+      "active": false
+    },
+    {
+      "text": "Alekhine Defense",
+      "active": false
+    },
+    {
+      "text": "Alekhine Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Alekhine Defense Scandinavian Variation",
+      "active": false
+    },
+    {
+      "text": "Anderssens Opening",
+      "active": false
+    },
+    {
+      "text": "Anderssens Opening Other variations",
+      "active": false
+    },
+    {
+      "text": "Benoni Defense",
+      "active": false
+    },
+    {
+      "text": "Benoni Defense Old Benoni",
+      "active": false
+    },
+    {
+      "text": "Bird Opening",
+      "active": false
+    },
+    {
+      "text": "Bird Opening Dutch Variation",
+      "active": false
+    },
+    {
+      "text": "Bishops Opening",
+      "active": false
+    },
+    {
+      "text": "Bishops Opening Boi Variation",
+      "active": false
+    },
+    {
+      "text": "Bishops Opening Other variations",
+      "active": false
+    },
+    {
+      "text": "Bishops Opening Ponziani Gambit",
+      "active": false
+    },
+    {
+      "text": "Blackmar-Diemer Gambit",
+      "active": false
+    },
+    {
+      "text": "Blackmar-Diemer Gambit Accepted",
+      "active": false
+    },
+    {
+      "text": "Blackmar-Diemer Gambit Accepted Euwe Defense",
+      "active": false
+    },
+    {
+      "text": "Blackmar-Diemer Gambit Other variations",
+      "active": false
+    },
+    {
+      "text": "Blackmar-Diemer Gambit Zeller Defense",
+      "active": false
+    },
+    {
+      "text": "Borg Defense",
+      "active": false
+    },
+    {
+      "text": "Borg Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense Accelerated Panov Attack",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense Advance Variation",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense Classical Variation",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense Exchange Variation",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense Hillbilly Attack",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense Karpov Variation",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense Main Line",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense Panov Attack",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense Tartakower Variation",
+      "active": false
+    },
+    {
+      "text": "Caro-Kann Defense Two Knights Attack",
+      "active": false
+    },
+    {
+      "text": "Center Game",
+      "active": false
+    },
+    {
+      "text": "Center Game Normal Variation",
+      "active": false
+    },
+    {
+      "text": "Center Game Other variations",
+      "active": false
+    },
+    {
+      "text": "Czech Defense",
+      "active": false
+    },
+    {
+      "text": "Czech Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Danish Gambit",
+      "active": false
+    },
+    {
+      "text": "Danish Gambit Accepted",
+      "active": false
+    },
+    {
+      "text": "Danish Gambit Accepted Other variations",
+      "active": false
+    },
+    {
+      "text": "Danish Gambit Other variations",
+      "active": false
+    },
+    {
+      "text": "Duras Gambit",
+      "active": false
+    },
+    {
+      "text": "Duras Gambit Other variations",
+      "active": false
+    },
+    {
+      "text": "Dutch Defense",
+      "active": false
+    },
+    {
+      "text": "Dutch Defense Hopton Attack",
+      "active": false
+    },
+    {
+      "text": "Dutch Defense Manhattan Gambit",
+      "active": false
+    },
+    {
+      "text": "Elephant Gambit",
+      "active": false
+    },
+    {
+      "text": "Elephant Gambit Paulsen Countergambit",
+      "active": false
+    },
+    {
+      "text": "English Defense",
+      "active": false
+    },
+    {
+      "text": "English Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "English Opening",
+      "active": false
+    },
+    {
+      "text": "English Opening Agincourt Defense",
+      "active": false
+    },
+    {
+      "text": "English Opening Anglo-Indian Defense",
+      "active": false
+    },
+    {
+      "text": "English Opening Carls-Bremen System",
+      "active": false
+    },
+    {
+      "text": "English Opening Kings English Variation",
+      "active": false
+    },
+    {
+      "text": "English Opening Mikenas-Carls",
+      "active": false
+    },
+    {
+      "text": "English Opening Symmetrical Variation",
+      "active": false
+    },
+    {
+      "text": "Englund Gambit",
+      "active": false
+    },
+    {
+      "text": "Englund Gambit Declined",
+      "active": false
+    },
+    {
+      "text": "Englund Gambit Declined Other variations",
+      "active": false
+    },
+    {
+      "text": "Englund Gambit Declined Reversed French",
+      "active": false
+    },
+    {
+      "text": "Englund Gambit Hartlaub-Charlick Gambit",
+      "active": false
+    },
+    {
+      "text": "Englund Gambit Other variations",
+      "active": false
+    },
+    {
+      "text": "Four Knights Game",
+      "active": false
+    },
+    {
+      "text": "Four Knights Game Halloween Gambit",
+      "active": false
+    },
+    {
+      "text": "Four Knights Game Italian Variation",
+      "active": false
+    },
+    {
+      "text": "Four Knights Game Other variations",
+      "active": false
+    },
+    {
+      "text": "Four Knights Game Spanish Variation",
+      "active": false
+    },
+    {
+      "text": "French Defense",
+      "active": false
+    },
+    {
+      "text": "French Defense Advance Variation",
+      "active": false
+    },
+    {
+      "text": "French Defense Chigorin Variation",
+      "active": false
+    },
+    {
+      "text": "French Defense Classical Variation",
+      "active": false
+    },
+    {
+      "text": "French Defense Exchange Variation",
+      "active": false
+    },
+    {
+      "text": "French Defense Henneberger Variation",
+      "active": false
+    },
+    {
+      "text": "French Defense Knight Variation",
+      "active": false
+    },
+    {
+      "text": "French Defense La Bourdonnais Variation",
+      "active": false
+    },
+    {
+      "text": "French Defense Normal Variation",
+      "active": false
+    },
+    {
+      "text": "French Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "French Defense Schlechter Variation",
+      "active": false
+    },
+    {
+      "text": "French Defense Two Knights Variation",
+      "active": false
+    },
+    {
+      "text": "French Defense Winawer Variation",
+      "active": false
+    },
+    {
+      "text": "Grob Opening",
+      "active": false
+    },
+    {
+      "text": "Grob Opening Grob Gambit",
+      "active": false
+    },
+    {
+      "text": "Grob Opening Other variations",
+      "active": false
+    },
+    {
+      "text": "Grunfeld Defense",
+      "active": false
+    },
+    {
+      "text": "Grunfeld Defense Three Knights Variation",
+      "active": false
+    },
+    {
+      "text": "Horwitz Defense",
+      "active": false
+    },
+    {
+      "text": "Horwitz Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Indian Defense",
+      "active": false
+    },
+    {
+      "text": "Indian Defense Budapest Defense",
+      "active": false
+    },
+    {
+      "text": "Indian Defense London System",
+      "active": false
+    },
+    {
+      "text": "Indian Defense Normal Variation",
+      "active": false
+    },
+    {
+      "text": "Indian Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Italian Game",
+      "active": false
+    },
+    {
+      "text": "Italian Game Blackburne-Kostic Gambit",
+      "active": false
+    },
+    {
+      "text": "Italian Game Classical Variation",
+      "active": false
+    },
+    {
+      "text": "Italian Game Giuoco Pianissimo",
+      "active": false
+    },
+    {
+      "text": "Italian Game Giuoco Piano",
+      "active": false
+    },
+    {
+      "text": "Italian Game Other variations",
+      "active": false
+    },
+    {
+      "text": "Italian Game Rousseau Gambit",
+      "active": false
+    },
+    {
+      "text": "Italian Game Scotch Gambit",
+      "active": false
+    },
+    {
+      "text": "Italian Game Two Knights Defense",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Accepted",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Accepted Abbazia Defense",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Accepted Bishops Gambit",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Accepted Cunningham Defense",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Accepted Fischer Defense",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Accepted MacLeod Defense",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Accepted Schallopp Defense",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Declined",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Declined Classical Variation",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Declined Falkbeer Countergambit",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Declined Queens Knight Defense",
+      "active": false
+    },
+    {
+      "text": "Kings Gambit Other variations",
+      "active": false
+    },
+    {
+      "text": "Kings Indian Attack",
+      "active": false
+    },
+    {
+      "text": "Kings Indian Attack Sicilian Variation",
+      "active": false
+    },
+    {
+      "text": "Kings Knight Opening",
+      "active": false
+    },
+    {
+      "text": "Kings Knight Opening Normal Variation",
+      "active": false
+    },
+    {
+      "text": "Kings Knight Opening Other variations",
+      "active": false
+    },
+    {
+      "text": "Kings Pawn Game",
+      "active": false
+    },
+    {
+      "text": "Kings Pawn Game Busch-Gass Gambit",
+      "active": false
+    },
+    {
+      "text": "Kings Pawn Game Damiano Defense",
+      "active": false
+    },
+    {
+      "text": "Kings Pawn Game Dresden Opening",
+      "active": false
+    },
+    {
+      "text": "Kings Pawn Game Gunderam Gambit",
+      "active": false
+    },
+    {
+      "text": "Kings Pawn Game Leonardis Variation",
+      "active": false
+    },
+    {
+      "text": "Kings Pawn Game Macleod Attack",
+      "active": false
+    },
+    {
+      "text": "Kings Pawn Game Maroczy Defense",
+      "active": false
+    },
+    {
+      "text": "Kings Pawn Game McConnell Defense",
+      "active": false
+    },
+    {
+      "text": "Mieses Opening",
+      "active": false
+    },
+    {
+      "text": "Mieses Opening Other variations",
+      "active": false
+    },
+    {
+      "text": "Modern Defense",
+      "active": false
+    },
+    {
+      "text": "Modern Defense Modern Pterodactyl",
+      "active": false
+    },
+    {
+      "text": "Modern Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Modern Defense Standard Line",
+      "active": false
+    },
+    {
+      "text": "Nimzo-Indian Defense",
+      "active": false
+    },
+    {
+      "text": "Nimzo-Indian Defense Spielmann Variation",
+      "active": false
+    },
+    {
+      "text": "Nimzo-Larsen Attack",
+      "active": false
+    },
+    {
+      "text": "Nimzo-Larsen Attack Classical Variation",
+      "active": false
+    },
+    {
+      "text": "Nimzo-Larsen Attack English Variation",
+      "active": false
+    },
+    {
+      "text": "Nimzo-Larsen Attack Indian Variation",
+      "active": false
+    },
+    {
+      "text": "Nimzo-Larsen Attack Modern Variation",
+      "active": false
+    },
+    {
+      "text": "Nimzo-Larsen Attack Other variations",
+      "active": false
+    },
+    {
+      "text": "Nimzowitsch Defense",
+      "active": false
+    },
+    {
+      "text": "Nimzowitsch Defense Kennedy Variation",
+      "active": false
+    },
+    {
+      "text": "Owen Defense",
+      "active": false
+    },
+    {
+      "text": "Owen Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Petrovs Defense",
+      "active": false
+    },
+    {
+      "text": "Petrovs Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Philidor Defense",
+      "active": false
+    },
+    {
+      "text": "Philidor Defense Exchange Variation",
+      "active": false
+    },
+    {
+      "text": "Philidor Defense Lion Variation",
+      "active": false
+    },
+    {
+      "text": "Philidor Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Pirc Defense",
+      "active": false
+    },
+    {
+      "text": "Pirc Defense Austrian Attack",
+      "active": false
+    },
+    {
+      "text": "Pirc Defense Byrne Variation",
+      "active": false
+    },
+    {
+      "text": "Pirc Defense Classical Variation",
+      "active": false
+    },
+    {
+      "text": "Pirc Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Pirc Defense Roscher Gambit",
+      "active": false
+    },
+    {
+      "text": "Polish Opening",
+      "active": false
+    },
+    {
+      "text": "Polish Opening Czech Defense",
+      "active": false
+    },
+    {
+      "text": "Polish Opening Grigorian Variation",
+      "active": false
+    },
+    {
+      "text": "Polish Opening Other variations",
+      "active": false
+    },
+    {
+      "text": "Ponziani Opening",
+      "active": false
+    },
+    {
+      "text": "Ponziani Opening Other variations",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Accepted",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Accepted Old Variation",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Accepted Other variations",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Declined",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Declined Albin Countergambit",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Declined Baltic Defense",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Declined Exchange Variation",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Declined Marshall Defense",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Declined Modern Variation",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Declined Normal Defense",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Declined Other variations",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Declined Queens Knight Variation",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Declined Tarrasch Defense",
+      "active": false
+    },
+    {
+      "text": "Queens Gambit Declined Three Knights",
+      "active": false
+    },
+    {
+      "text": "Queens Indian Defense",
+      "active": false
+    },
+    {
+      "text": "Queens Indian Defense Capablanca Variation",
+      "active": false
+    },
+    {
+      "text": "Queens Pawn Game",
+      "active": false
+    },
+    {
+      "text": "Queens Pawn Game Accelerated London System",
+      "active": false
+    },
+    {
+      "text": "Queens Pawn Game Chigorin Variation",
+      "active": false
+    },
+    {
+      "text": "Queens Pawn Game Colle System",
+      "active": false
+    },
+    {
+      "text": "Queens Pawn Game Krause Variation",
+      "active": false
+    },
+    {
+      "text": "Queens Pawn Game London System",
+      "active": false
+    },
+    {
+      "text": "Queens Pawn Game Mason Variation",
+      "active": false
+    },
+    {
+      "text": "Queens Pawn Game Morris Countergambit",
+      "active": false
+    },
+    {
+      "text": "Queens Pawn Game Other variations",
+      "active": false
+    },
+    {
+      "text": "Queens Pawn Game Veresov Attack",
+      "active": false
+    },
+    {
+      "text": "Queens Pawn Game Zukertort Variation",
+      "active": false
+    },
+    {
+      "text": "Rapport-Jobava System",
+      "active": false
+    },
+    {
+      "text": "Rapport-Jobava System Other variations",
+      "active": false
+    },
+    {
+      "text": "Reti Opening",
+      "active": false
+    },
+    {
+      "text": "Reti Opening Reti Accepted",
+      "active": false
+    },
+    {
+      "text": "Richter-Veresov Attack",
+      "active": false
+    },
+    {
+      "text": "Richter-Veresov Attack Other variations",
+      "active": false
+    },
+    {
+      "text": "Russian Game",
+      "active": false
+    },
+    {
+      "text": "Russian Game Italian Variation",
+      "active": false
+    },
+    {
+      "text": "Russian Game Other variations",
+      "active": false
+    },
+    {
+      "text": "Russian Game Stafford Gambit",
+      "active": false
+    },
+    {
+      "text": "Russian Game Three Knights Game",
+      "active": false
+    },
+    {
+      "text": "Ruy Lopez",
+      "active": false
+    },
+    {
+      "text": "Ruy Lopez Berlin Defense",
+      "active": false
+    },
+    {
+      "text": "Ruy Lopez Bird Variation",
+      "active": false
+    },
+    {
+      "text": "Ruy Lopez Cozio Defense",
+      "active": false
+    },
+    {
+      "text": "Ruy Lopez Morphy Defense",
+      "active": false
+    },
+    {
+      "text": "Ruy Lopez Steinitz Defense",
+      "active": false
+    },
+    {
+      "text": "Scandinavian Defense",
+      "active": false
+    },
+    {
+      "text": "Scandinavian Defense Gubinsky-Melts Defense",
+      "active": false
+    },
+    {
+      "text": "Scandinavian Defense Main Line",
+      "active": false
+    },
+    {
+      "text": "Scandinavian Defense Marshall Variation",
+      "active": false
+    },
+    {
+      "text": "Scandinavian Defense Mieses-Kotroc Variation",
+      "active": false
+    },
+    {
+      "text": "Scandinavian Defense Modern Variation",
+      "active": false
+    },
+    {
+      "text": "Scandinavian Defense Valencian Variation",
+      "active": false
+    },
+    {
+      "text": "Scotch Game",
+      "active": false
+    },
+    {
+      "text": "Scotch Game Goring Gambit",
+      "active": false
+    },
+    {
+      "text": "Scotch Game Haxo Gambit",
+      "active": false
+    },
+    {
+      "text": "Scotch Game Lolli Variation",
+      "active": false
+    },
+    {
+      "text": "Scotch Game Mieses Variation",
+      "active": false
+    },
+    {
+      "text": "Scotch Game Other variations",
+      "active": false
+    },
+    {
+      "text": "Scotch Game Scotch Gambit",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Alapin Variation",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Bowdler Attack",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Closed",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Dragon Variation",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Four Knights Variation",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Franco-Sicilian Variation",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Grand Prix Attack",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Kan Variation",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Katalimov Variation",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Kramnik Variation",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Lowenthal Variation",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense McDonnell Attack",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Modern Variations",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Najdorf Variation",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Nyezhmetdinov-Rossolimo Attack",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense OKelly Variation",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Old Sicilian",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Open",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Pin Variation",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Smith-Morra Gambit",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Smith-Morra Gambit Accepted",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Smith-Morra Gambit Declined",
+      "active": false
+    },
+    {
+      "text": "Sicilian Defense Taimanov Variation",
+      "active": false
+    },
+    {
+      "text": "Slav Defense",
+      "active": false
+    },
+    {
+      "text": "Slav Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Slav Defense Quiet Variation",
+      "active": false
+    },
+    {
+      "text": "Slav Defense Schlechter Variation",
+      "active": false
+    },
+    {
+      "text": "St George Defense",
+      "active": false
+    },
+    {
+      "text": "St George Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Tarrasch Defense",
+      "active": false
+    },
+    {
+      "text": "Tarrasch Defense Other variations",
+      "active": false
+    },
+    {
+      "text": "Tarrasch Defense Two Knights Variation",
+      "active": false
+    },
+    {
+      "text": "Three Knights Opening",
+      "active": false
+    },
+    {
+      "text": "Three Knights Opening Other variations",
+      "active": false
+    },
+    {
+      "text": "Torre Attack",
+      "active": false
+    },
+    {
+      "text": "Torre Attack Fianchetto Defense",
+      "active": false
+    },
+    {
+      "text": "Vienna Gambit with Max Lange Defense",
+      "active": false
+    },
+    {
+      "text": "Vienna Gambit with Max Lange Defense Steinitz Gambit",
+      "active": false
+    },
+    {
+      "text": "Ware Opening",
+      "active": false
+    },
+    {
+      "text": "Ware Opening Other variations",
+      "active": false
+    },
+    {
+      "text": "Yusupov-Rubinstein System",
+      "active": false
+    },
+    {
+      "text": "Yusupov-Rubinstein System Other variations",
+      "active": false
+    },
+    {
+      "text": "Zukertort Opening",
+      "active": false
+    },
+    {
+      "text": "Zukertort Opening Nimzo-Larsen Variation",
+      "active": false
+    },
+    {
+      "text": "Zukertort Opening Sicilian Invitation",
+      "active": false
+    },
+    {
+      "text": "Zukertort Opening Tennison Gambit",
+      "active": false
+    },
+    {
+      "text": "Zukertort Opening Vos Gambit",
+      "active": false
+    },
+    {
+      "text": "Show Solution",
+      "active": false
+    }
+  ],
+  "feedbackProbe": [
+    {
+      "text": "0Streak0Best0Solved0Failed2000Available",
+      "class": "sc-eJwVsk gNDFVh",
+      "color": "rgb(244, 244, 245)"
+    },
+    {
+      "text": "0Solved",
+      "class": "sc-nVikz jIfEEV",
+      "color": "rgb(244, 244, 245)"
+    },
+    {
+      "text": "Black to move — find the best move",
+      "class": "sc-jOxwkF sc-bTfXSk eXmYtm gbGKws",
+      "color": "rgb(161, 161, 170)"
+    }
+  ]
+}

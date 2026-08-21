@@ -1,0 +1,22 @@
+{
+  "evalbar": {
+    "x": 132,
+    "y": 365,
+    "w": 24,
+    "h": 560,
+    "right": 156,
+    "bottom": 925
+  },
+  "board": {
+    "x": 164,
+    "y": 365,
+    "w": 560,
+    "h": 560,
+    "right": 724,
+    "bottom": 925
+  },
+  "adjacentLeft": true,
+  "adjacentRight": false,
+  "adjacent": true,
+  "withinViewport": false
+}

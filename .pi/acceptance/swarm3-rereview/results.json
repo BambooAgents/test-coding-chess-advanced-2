@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-08-21T09:27:32.783Z",
+  "base": "http://localhost:5183/test-coding-chess-advanced-2/",
+  "results": {
+    "fix1-eval-perspective": {
+      "pass": true,
+      "details": [
+        "ply 1 (1.e4): badge=\"\" color=rgb(132, 204, 22) -> OK (no ?!/??)",
+        "ply 2 (e5): badge=\"\" color=rgb(132, 204, 22) -> OK (no ?!/??)",
+        "ply 3 (2.Nf3): badge=\"\" color=rgb(132, 204, 22) -> OK (no ?!/??)",
+        "ply 4 (d6): badge=\"\" color=rgb(163, 163, 163) -> OK (no ?!/??)",
+        "ply 5 (3.d4): badge=\"\" color=rgb(132, 204, 22) -> OK (no ?!/??)"
+      ]
+    },
+    "fix2-auto-scroll-brilliant": {
+      "pass": true,
+      "details": [
+        "auto-scroll: ply19 row visible = true",
+        "ply19 badge=\"!!\" color=rgb(168, 85, 247) brilliant=true",
+        "ply20 badge=\"?\" color=rgb(249, 115, 22) brilliant=false",
+        "brilliant found (purple !!) = true"
+      ]
+    },
+    "fix3-illegal-toast": {
+      "pass": true,
+      "details": [
+        "toast visible = true, text=\"Illegal move\"",
+        "toast element visible = true"
+      ]
+    },
+    "fix4-pgn-textarea": {
+      "pass": true,
+      "details": [
+        "url = http://localhost:5183/test-coding-chess-advanced-2/analyze",
+        "pgn textarea value = \"[Event \"?\"]\n[Site \"?\"]\n[Date \"????.??.??\"]\n[Round \"?\"]\n[White \"Player\"]\n[Black \"Stockfish\"]\n[Result \"*\"]\n\n1. e4 Nc6 2. Nf3 e6 *\"",
+        "isFilled = true, hasRealMoves = true"
+      ]
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "url": "http://localhost:5183/test-coding-chess-advanced-2/puzzles",
+  "hash": "",
+  "title": "Chess Advanced — Analysis & Training",
+  "bodyTextStart": "♟ Chess Advanced\nHome\nPlay\nAnalyze\nPuzzles\nMy Weaknesses\n🧩 Puzzles\nPlain Puzzles\nThemed Sets\nRush\nDeath Match\n0\nSTREAK\n0\nBEST\n0\nSOLVED\n0\nFAILED\n2000\nAVAILABLE\nWhite to move — find the best move\nRating\n2552\nThemes\ncrushing, endgame, master, pawnEndgame, quietMove, veryLong, zugzwang\nPuzzle #\n1 / 2000\nShow Solution",
+  "boardCount": 1,
+  "squareCount": 64,
+  "pieceCount": 12,
+  "dataTestids": [
+    "mode-rush",
+    "mode-deathmatch",
+    "chess-board"
+  ],
+  "firstSquares": [
+    {
+      "sq": "a8",
+      "hasImg": false
+    },
+    {
+      "sq": "b8",
+      "hasImg": false
+    },
+    {
+      "sq": "c8",
+      "hasImg": false
+    },
+    {
+      "sq": "d8",
+      "hasImg": false
+    },
+    {
+      "sq": "e8",
+      "hasImg": false
+    }
+  ],
+  "buttons": [
+    "Plain Puzzles",
+    "Themed Sets",
+    "Rush",
+    "Death Match",
+    "Show Solution"
+  ],
+  "h1": "🧩 Puzzles"
+}

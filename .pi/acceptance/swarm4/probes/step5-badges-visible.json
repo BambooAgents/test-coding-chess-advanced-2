@@ -1,0 +1,80 @@
+{
+  "moveList": {
+    "x": 736,
+    "y": 338,
+    "w": 280,
+    "h": 360,
+    "right": 1016,
+    "bottom": 698
+  },
+  "board": {
+    "x": 164,
+    "y": 296,
+    "w": 560,
+    "h": 560,
+    "right": 724,
+    "bottom": 856
+  },
+  "overlapBoard": false,
+  "visibleBadgeCount": 7,
+  "visibleBadges": [
+    {
+      "text": "?!",
+      "x": 967,
+      "y": 509,
+      "w": 40,
+      "h": 16,
+      "inColumn": true
+    },
+    {
+      "text": "?!",
+      "x": 967,
+      "y": 534,
+      "w": 40,
+      "h": 16,
+      "inColumn": true
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 559,
+      "w": 40,
+      "h": 16,
+      "inColumn": true
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 584,
+      "w": 40,
+      "h": 16,
+      "inColumn": true
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 609,
+      "w": 40,
+      "h": 16,
+      "inColumn": true
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 634,
+      "w": 40,
+      "h": 16,
+      "inColumn": true
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 659,
+      "w": 40,
+      "h": 16,
+      "inColumn": true
+    }
+  ],
+  "scrubber": "⏮◀27 / 35▶⏭",
+  "moveListTopText": "1.e4e52.Nf3Nc63.Bb5a64.Ba4Nf65.O-OBe76.Re1b57.Bb3d68.c3O-O9.h3Nb8?!10.d4Nbd711.N"
+}

@@ -1,0 +1,117 @@
+{
+  "test1": {
+    "statusBefore": "Your move",
+    "statusAfter": "Your move",
+    "moves": "1. e4 d5"
+  },
+  "test2": {
+    "statusAfter": "Your move",
+    "moves": "1. e4 c5"
+  },
+  "test3": {
+    "status": "Your move",
+    "moves": "1. d3",
+    "a8Box": {
+      "x": 654,
+      "y": 651,
+      "width": 70,
+      "height": 70
+    },
+    "h1Box": {
+      "x": 164,
+      "y": 161,
+      "width": 70,
+      "height": 70
+    }
+  },
+  "test4": {
+    "beforeTakeback": "1. e4 e6",
+    "afterTakeback": "No moves yet",
+    "status": "Your move"
+  },
+  "test5": {
+    "statusAfterResign": "You resigned. Black wins."
+  },
+  "test6": {
+    "probes": {
+      "a3": {
+        "afterOpacity": "0.4",
+        "afterContent": "\"\"",
+        "afterBg": "rgba(0, 0, 0, 0.25)",
+        "afterWidth": "21px",
+        "afterHeight": "21px",
+        "rect": {
+          "x": 164,
+          "y": 511,
+          "w": 70,
+          "h": 70
+        }
+      },
+      "c3": {
+        "afterOpacity": "0.4",
+        "afterContent": "\"\"",
+        "afterBg": "rgba(0, 0, 0, 0.25)",
+        "afterWidth": "21px",
+        "afterHeight": "21px",
+        "rect": {
+          "x": 304,
+          "y": 511,
+          "w": 70,
+          "h": 70
+        }
+      },
+      "d2": {
+        "afterOpacity": "0",
+        "afterContent": "\"\"",
+        "afterBg": "rgba(0, 0, 0, 0.25)",
+        "afterWidth": "21px",
+        "afterHeight": "21px",
+        "rect": {
+          "x": 374,
+          "y": 581,
+          "w": 70,
+          "h": 70
+        }
+      },
+      "e4": {
+        "afterOpacity": "0",
+        "afterContent": "\"\"",
+        "afterBg": "rgba(0, 0, 0, 0.25)",
+        "afterWidth": "21px",
+        "afterHeight": "21px",
+        "rect": {
+          "x": 444,
+          "y": 441,
+          "w": 70,
+          "h": 70
+        }
+      },
+      "b1": {
+        "afterOpacity": "0",
+        "afterContent": "\"\"",
+        "afterBg": "rgba(0, 0, 0, 0.25)",
+        "afterWidth": "21px",
+        "afterHeight": "21px",
+        "rect": {
+          "x": 234,
+          "y": 651,
+          "w": 70,
+          "h": 70
+        }
+      }
+    }
+  },
+  "test7": {
+    "toastCandidates": []
+  },
+  "test8": {
+    "playedMoves": "1. e4 e5",
+    "url": "http://localhost:5183/test-coding-chess-advanced-2/analyze",
+    "analyzeState": {
+      "pgnInputValue": "",
+      "pgnInputLen": 0,
+      "hasMoveList": true,
+      "bodyTextSample": "♟ Chess Advanced\nHome\nPlay\nAnalyze\nPuzzles\nMy Weaknesses\nPaste PGN:\nLoad PGN\nchess.com username:\n20\n50\n100\nLoad games\nUnknown opening\n⏮\n◀\n0 / 2\n▶\n⏭\n1.\ne4\ne5"
+    }
+  }
+}

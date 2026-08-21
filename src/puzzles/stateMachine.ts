@@ -278,6 +278,52 @@ export function stepSolution(session: PuzzleSessionState): PuzzleSessionState {
 }
 
 /**
+ * Convert UCI moves to SAN notation by replaying from the puzzle FEN.
+ * Returns the full solution line as an array of SAN strings.
+ */
+export function getSolutionSan(puzzle: Puzzle, upToStep?: number): string[] {
+  const pos = new Position(puzzle.fen)
+  const count = upToStep !== undefined ? upToStep : puzzle.moves.length
+  const sans: string[] = []
+  for (let i = 0; i < count && i < puzzle.moves.length; i++) {
+    const info = pos.move(puzzle.moves[i])
+    sans.push(info.san)
+  }
+  return sans
+}
+
+/**
+ * Format the solution as a numbered move-pair string (e.g. "1. e4 e5 2. Nf3 Nc6").
+ * If the puzzle starts with black to move, the first move is prefixed with "...".
+ */
+export function formatSolutionSan(puzzle: Puzzle, upToStep?: number): string {
+  const sans = getSolutionSan(puzzle, upToStep)
+  if (sans.length === 0) return ''
+  const fenTurn = puzzle.fen.split(' ')[1]
+  const startsBlack = fenTurn === 'b'
+  const parts: string[] = []
+  let moveNum = 1
+  let i = 0
+  if (startsBlack) {
+    parts.push(`1... ${sans[0]}`)
+    i = 1
+    moveNum = 2
+  }
+  while (i < sans.length) {
+    const white = sans[i]
+    const black = sans[i + 1]
+    if (black !== undefined) {
+      parts.push(`${moveNum}. ${white} ${black}`)
+    } else {
+      parts.push(`${moveNum}. ${white}`)
+    }
+    i += 2
+    moveNum++
+  }
+  return parts.join(' ')
+}
+
+/**
  * Get the legal moves for the current position.
  */
 export function getLegalMoves(session: PuzzleSessionState): string[] {

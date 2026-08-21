@@ -1,0 +1,96 @@
+[
+  {
+    "ply": 1,
+    "labels": [
+      "-0.71"
+    ]
+  },
+  {
+    "ply": 2,
+    "labels": [
+      "+1.27"
+    ]
+  },
+  {
+    "ply": 3,
+    "labels": [
+      "-0.87"
+    ]
+  },
+  {
+    "ply": 4,
+    "labels": [
+      "+1.69"
+    ]
+  },
+  {
+    "ply": 5,
+    "labels": [
+      "-0.22"
+    ]
+  },
+  {
+    "ply": 6,
+    "labels": []
+  },
+  {
+    "ply": 7,
+    "labels": []
+  },
+  {
+    "ply": 8,
+    "labels": []
+  },
+  {
+    "ply": 9,
+    "labels": []
+  },
+  {
+    "ply": 10,
+    "labels": []
+  },
+  {
+    "ply": 11,
+    "labels": []
+  },
+  {
+    "ply": 12,
+    "labels": []
+  },
+  {
+    "ply": 13,
+    "labels": []
+  },
+  {
+    "ply": 14,
+    "labels": []
+  },
+  {
+    "ply": 15,
+    "labels": []
+  },
+  {
+    "ply": 16,
+    "labels": []
+  },
+  {
+    "ply": 17,
+    "labels": []
+  },
+  {
+    "ply": 18,
+    "labels": []
+  },
+  {
+    "ply": 19,
+    "labels": []
+  },
+  {
+    "ply": 20,
+    "labels": []
+  },
+  {
+    "ply": 21,
+    "labels": []
+  }
+]

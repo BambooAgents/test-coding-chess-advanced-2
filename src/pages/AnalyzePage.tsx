@@ -29,23 +29,33 @@ import { EvalBar } from '../components/EvalBar'
 function realEngine(engine: StockfishEngine): AnalyzeEngine {
   return {
     async evaluate(fen: string): Promise<EvalScore> {
-      const result = await engine.getEvaluation(fen, 12)
+      const result = await engine.getEvaluation(fen, 15)
+      return { cp: result.score, mate: result.mate, depth: result.depth }
+    },
+    async evaluateAfter(fen: string): Promise<EvalScore> {
+      // Must use the SAME depth as evaluate() so evalBefore/evalAfter deltas are
+      // consistent. Using different depths (12 vs 8) produced noisy deltas that
+      // marked top opening moves as inaccuracies. Depth 15 per spec §4.1.
+      const result = await engine.getEvaluation(fen, 15)
       return { cp: result.score, mate: result.mate, depth: result.depth }
     },
     async bestMove(fen: string): Promise<string> {
       const result = await engine.getBestMove(fen, 12)
       return result.bestMove
     },
-    // MultiPV N=2 is approximated: pv1 = position eval, pv2 = position eval - 250cp
-    // (a rough second-line estimate). Full MultiPV would need a second engine option;
-    // this enables the only-move margin check with a conservative margin.
+    // Real MultiPV N=2: uses engine.getMultiPv which sends
+    // `setoption name MultiPV value 2` and parses the two PV lines.
     async multiPv2(fen: string): Promise<{ pv1: EvalScore; pv2: EvalScore }> {
-      const result = await engine.getEvaluation(fen, 12)
-      const pv1: EvalScore = { cp: result.score, mate: result.mate, depth: result.depth }
-      const pv2: EvalScore = result.score !== undefined
-        ? { cp: result.score - 250, depth: result.depth }
-        : { cp: -250, depth: result.depth }
-      return { pv1, pv2 }
+      const lines = await engine.getMultiPv(fen, 12, 2)
+      const toScore = (l: { cp?: number; mate?: number; depth?: number }): EvalScore => ({
+        cp: l.cp,
+        mate: l.mate,
+        depth: l.depth,
+      })
+      return {
+        pv1: toScore(lines[0]),
+        pv2: toScore(lines[1]),
+      }
     },
   }
 }
@@ -101,6 +111,16 @@ const Button = styled.button`
   font-size: var(--fs-sm);
   cursor: pointer;
   &:disabled { opacity: 0.5; cursor: not-allowed; }
+`
+
+const CancelBtn = styled.button`
+  padding: var(--sp-1) var(--sp-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  cursor: pointer;
 `
 
 const Select = styled.select`
@@ -179,6 +199,7 @@ const Badge = styled.span<{ $kind: string }>`
 
 function badgeColor(kind: string): string {
   switch (kind) {
+    case 'brilliant': return '#a855f7' // purple — chess.com convention for brilliant
     case 'best': return '#16a34a'
     case 'great': return '#0ea5e9'
     case 'good': return '#84cc16'
@@ -186,7 +207,7 @@ function badgeColor(kind: string): string {
     case 'inaccuracy': return '#eab308'
     case 'mistake': return '#f97316'
     case 'blunder': return '#dc2626'
-    default: return 'transparent'
+    default: return 'transparent' // 'no_annotation' has no glyph, transparent is correct
   }
 }
 
@@ -218,6 +239,17 @@ export function AnalyzePage() {
   const [currentPly, setCurrentPly] = useState(0)
   const [analyzing, setAnalyzing] = useState(false)
   const engineRef = useRef<StockfishEngine | null>(null)
+  const cancelRef = useRef<boolean>(false)
+  const moveListRef = useRef<HTMLDivElement | null>(null)
+
+  // Auto-scroll the move list to keep the current ply visible.
+  useEffect(() => {
+    if (!moveListRef.current || currentPly === 0) return
+    const row = moveListRef.current.querySelector<HTMLButtonElement>(
+      `[data-ply="${currentPly}"]`,
+    )
+    if (row) row.scrollIntoView({ block: 'nearest' })
+  }, [currentPly])
 
   // Handoff from Play page: router state carries a PGN.
   useEffect(() => {
@@ -253,6 +285,7 @@ export function AnalyzePage() {
       setGame(parsed)
       setAnalysis(null)
       setCurrentPly(0)
+      setPgnInput(pgn) // reflect the loaded PGN in the textarea (handoff/import)
       void runAnalysis(parsed)
     } catch (e) {
       setError(`Failed to parse PGN: ${(e as Error).message}`)
@@ -263,10 +296,17 @@ export function AnalyzePage() {
 
   const runAnalysis = useCallback(async (g: ParsedGame) => {
     if (!engineRef.current) return
+    cancelRef.current = false
     setAnalyzing(true)
     try {
       const engine = realEngine(engineRef.current)
-      await analyzeGame(g, engine, (partial) => setAnalysis({ ...partial }))
+      const cancelChecker = () => cancelRef.current
+      await analyzeGame(g, engine, (partial) => setAnalysis({ ...partial }), cancelChecker)
+      // Auto-advance to the first classified move so the eval bar, best-move
+      // arrow, and badges are immediately visible after analysis completes.
+      // (Without this the board sits at the starting position with no visual
+      // feedback — a major UX defect that made the page look broken.)
+      setCurrentPly(1)
     } catch (e) {
       setError(`Analysis failed: ${(e as Error).message}`)
     } finally {
@@ -412,7 +452,14 @@ export function AnalyzePage() {
       </TopBar>
 
       {error && <Status role="alert" data-testid="analyze-error">{error}</Status>}
-      {analyzing && <Status data-testid="analyzing">Analyzing… {analysis?.moves.length ?? 0}/{game?.moves.length ?? 0}</Status>}
+      {analyzing && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)' }}>
+          <Status data-testid="analyzing">Analyzing… {analysis?.moves.length ?? 0}/{game?.moves.length ?? 0}</Status>
+          <CancelBtn data-testid="cancel-analysis" onClick={() => { cancelRef.current = true }}>
+            Cancel
+          </CancelBtn>
+        </div>
+      )}
 
       {game && (
         <>
@@ -446,11 +493,12 @@ export function AnalyzePage() {
                 <ScrubBtn onClick={() => scrubTo(game.moves.length)} disabled={currentPly >= game.moves.length}>⏭</ScrubBtn>
               </Scrubber>
 
-              <MoveList data-testid="move-list">
+              <MoveList ref={moveListRef} data-testid="move-list">
                 {movePairs.map((pair, i) => (
                   <div key={i} style={{ display: 'contents' }}>
                     {pair.white && (
                       <MoveRow
+                        data-ply={pair.white.ply + 1}
                         $current={currentPly === pair.white.ply + 1}
                         $badge={pair.white.classification}
                         onClick={() => scrubTo(pair.white!.ply + 1)}
@@ -464,6 +512,7 @@ export function AnalyzePage() {
                     )}
                     {pair.black && (
                       <MoveRow
+                        data-ply={pair.black.ply + 1}
                         $current={currentPly === pair.black.ply + 1}
                         $badge={pair.black.classification}
                         onClick={() => scrubTo(pair.black!.ply + 1)}

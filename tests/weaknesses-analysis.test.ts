@@ -3,6 +3,7 @@ import {
   getUserResult,
   getOpening,
   getEco,
+  parseEcoUrlName,
   detectTurningPoint,
   analyzeGame,
   detectEndgameFailures,
@@ -22,18 +23,21 @@ function makeGame(opts: {
   result?: string
   opening?: string
   eco?: string
+  ecoUrl?: string
   white?: string
   black?: string
   startingFen?: string
 }): ParsedGame {
+  const headers: Record<string, string> = {
+    Opening: opts.opening ?? 'Unknown',
+    ECO: opts.eco || '',
+    White: opts.white || 'White',
+    Black: opts.black || 'Black',
+    Result: opts.result || '*',
+  }
+  if (opts.ecoUrl !== undefined) headers.ECOUrl = opts.ecoUrl
   return {
-    headers: {
-      Opening: opts.opening || 'Unknown',
-      ECO: opts.eco || '',
-      White: opts.white || 'White',
-      Black: opts.black || 'Black',
-      Result: opts.result || '*',
-    },
+    headers,
     moves: opts.moves || [],
     result: (opts.result as ParsedGame['result']) || '*',
     startingFen: opts.startingFen || 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
@@ -89,14 +93,62 @@ describe('getOpening / getEco', () => {
     expect(getOpening(game)).toBe('Sicilian Defense')
   })
 
-  it('returns Unknown if no opening header', () => {
-    const game = makeGame({})
+  it('returns Unknown if no opening header and no ECO/ECOUrl', () => {
+    const game = makeGame({ opening: '', eco: '' })
     expect(getOpening(game)).toBe('Unknown')
   })
 
   it('extracts ECO code', () => {
     const game = makeGame({ eco: 'B20' })
     expect(getEco(game)).toBe('B20')
+  })
+
+  it('resolves opening name from chess.com ECOUrl slug (regression: B1 — was Unknown)', () => {
+    const game = makeGame({
+      opening: '',
+      eco: 'A46',
+      ecoUrl: 'https://www.chess.com/openings/Indian-Game-Spielmann-Indian-Variation...4.Nxd4-d5-5.Bg2-e5',
+    })
+    expect(getOpening(game)).toBe('Indian Game Spielmann Indian Variation')
+  })
+
+  it('prefers the Opening header over ECOUrl when both present', () => {
+    const game = makeGame({
+      opening: 'Indian Game',
+      eco: 'A46',
+      ecoUrl: 'https://www.chess.com/openings/Indian-Game-Spielmann-Indian-Variation...4.Nxd4-d5-5.Bg2-e5',
+    })
+    expect(getOpening(game)).toBe('Indian Game')
+  })
+
+  it('falls back to ECO code when ECOUrl is absent or unparseable', () => {
+    const game = makeGame({ opening: '', eco: 'B20' })
+    expect(getOpening(game)).toBe('B20')
+  })
+
+  it('falls back to ECO code when ECOUrl has no /openings/ segment', () => {
+    const game = makeGame({ opening: '', eco: 'C28', ecoUrl: 'https://example.com/foo' })
+    expect(getOpening(game)).toBe('C28')
+  })
+})
+
+describe('parseEcoUrlName', () => {
+  it('parses a chess.com ECOUrl slug into a human-readable name', () => {
+    const url = 'https://www.chess.com/openings/Indian-Game-Spielmann-Indian-Variation...4.Nxd4-d5-5.Bg2-e5'
+    expect(parseEcoUrlName(url)).toBe('Indian Game Spielmann Indian Variation')
+  })
+
+  it('strips query strings', () => {
+    const url = 'https://www.chess.com/openings/French-Defense?ref=abc'
+    expect(parseEcoUrlName(url)).toBe('French Defense')
+  })
+
+  it('returns empty string for non-chess.com URLs without /openings/', () => {
+    expect(parseEcoUrlName('https://example.com/foo')).toBe('')
+  })
+
+  it('returns empty string for empty input', () => {
+    expect(parseEcoUrlName('')).toBe('')
   })
 })
 

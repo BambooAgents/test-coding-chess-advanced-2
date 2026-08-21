@@ -201,13 +201,13 @@ const StatLabel = styled.div`
   margin-top: var(--sp-1);
 `
 
-const RecCard = styled.div<{ severity: string }>`
+const RecCard = styled.div<{ $severity: string }>`
   background: var(--bg-elevated);
   border-radius: var(--radius-md);
   padding: var(--sp-4);
   margin-bottom: var(--sp-3);
   border-left: 4px solid ${($p) =>
-    $p.severity === 'high' ? 'var(--danger)' : $p.severity === 'medium' ? 'var(--warning)' : 'var(--success)'};
+    $p.$severity === 'high' ? 'var(--danger)' : $p.$severity === 'medium' ? 'var(--warning)' : 'var(--success)'};
 `
 
 const RecTitle = styled.h3`
@@ -443,7 +443,7 @@ export function WeaknessesPage() {
             <Section>
               <SectionTitle>Recommendations</SectionTitle>
               {report.recommendations.map((rec, i) => (
-                <RecCard key={i} severity={rec.severity}>
+                <RecCard key={i} $severity={rec.severity}>
                   <RecTitle>
                     {rec.title}
                     <SeverityBadge $severity={rec.severity}>

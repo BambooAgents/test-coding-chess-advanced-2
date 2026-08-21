@@ -442,6 +442,7 @@ export function PlayPage() {
           position={position}
           orientation={playerColor}
           onMove={handleMove}
+          onIllegal={() => showToast('Illegal move')}
           lastMove={lastMove}
           showCheck={position.inCheck()}
           disabled={gameOver || isThinking || position.turn() !== playerColor}
