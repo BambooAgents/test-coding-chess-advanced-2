@@ -75,3 +75,36 @@ After the harness acceptance-reviewer gate was added, a hostile-reviewer swarm f
 - **Product**: ACCEPTED by hostile review. Real puzzles, real MultiPV, Brilliant fires, checkmate analysis completes, solution displayed.
 - **Gate proven**: the acceptance-reviewer gate caught 4 BLOCKERs that all prior gates missed. The fix loop (find → fix → re-review) converged in one round.
 - **Tests**: 260 → 284 vitest (+24 new, all green).
+
+## F24 — Acceptance-reviewer was blind (no vision model pinned) [CRITICAL]
+
+**What happened:** The acceptance-reviewer agent def had no `model:` field, so
+it used the default text-only model (GLM-5.2). It captured screenshots but
+could not read them — every `read` of an image returned `[Current model does
+not support images. The image will be omitted from this request.]`. It fell
+back to verifying via `innerText`, which catches data-model bugs but not
+visual presentation bugs.
+
+**What escaped:** Three visual bugs shipped past "ACCEPTED" review:
+1. Brilliant badge `color: transparent` (invisible) — `innerText` found `!!`
+2. Eval bar fill `height: 0px` (styled-components transient-prop bug)
+3. No auto-advance after analysis (page looked empty)
+
+**Root cause:** One missing line in `acceptance-reviewer.md`. The
+`visual-reviewer` agent (which pins `model: tng/Qwen/Qwen3.5-397B-A17B-FP8`)
+successfully read screenshots and found real bugs. The `acceptance-reviewer`
+agent (no model field) could not. Same harness, same screenshots, different
+model = different outcome.
+
+**Fix:** Pinned `model: tng/Qwen/Qwen3.5-397B-A17B-FP8` in
+`acceptance-reviewer.md`. Verified: the agent now reads screenshots and
+describes real visual details (eval bar fill level, badge glyphs, board state).
+
+**Lesson:** Agent defs that verify visual output MUST pin a vision-capable
+model explicitly. The default model is text-only and cannot read images.
+An agent prompt that says "be specific and visual" is useless if the agent
+literally cannot see. This is a one-line config, not a deep harness bug.
+
+**Also:** the `visual-reviewer` agent (which DID have the right model) found
+a real board/move-list desync bug in the manual session that all the blind
+acceptance reviewers missed entirely. Vision matters.
