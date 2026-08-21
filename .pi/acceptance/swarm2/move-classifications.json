@@ -1,0 +1,131 @@
+{
+  "moves": [
+    {
+      "san": "e4",
+      "badge": "?!",
+      "badgeColor": "rgb(234, 179, 8)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "e5",
+      "badge": "?!",
+      "badgeColor": "rgb(234, 179, 8)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Nf3",
+      "badge": "?!",
+      "badgeColor": "rgb(234, 179, 8)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "d6",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "d4",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Bg4",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "dxe5",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Bxf3",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Qxf3",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "dxe5",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Bc4",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Nf6",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Qb3",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Qe7",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Nc3",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "c6",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Bg5",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "b5",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Nxb5",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "cxb5",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "san": "Bxb5+",
+      "badge": "",
+      "badgeColor": "rgba(0, 0, 0, 0)",
+      "rowBg": "rgba(0, 0, 0, 0)"
+    }
+  ],
+  "accuracy": "White accuracy: 59.5%Black accuracy: 62.8%"
+}

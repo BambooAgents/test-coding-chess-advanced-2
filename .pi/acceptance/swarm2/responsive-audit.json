@@ -1,0 +1,96 @@
+{
+  "390": {
+    "home": {
+      "overflowX": false,
+      "docScrollWidth": 390,
+      "viewportWidth": 390,
+      "bodyScrollWidth": 390,
+      "navWidth": 118,
+      "navWraps": true,
+      "navHeight": 238
+    },
+    "play": {
+      "overflowX": false,
+      "docScrollWidth": 390,
+      "viewportWidth": 390,
+      "bodyScrollWidth": 390,
+      "navWidth": 118,
+      "navWraps": true,
+      "navHeight": 238
+    },
+    "analyze": {
+      "overflowX": false,
+      "docScrollWidth": 390,
+      "viewportWidth": 390,
+      "bodyScrollWidth": 390,
+      "navWidth": 118,
+      "navWraps": true,
+      "navHeight": 238
+    },
+    "puzzles": {
+      "overflowX": false,
+      "docScrollWidth": 390,
+      "viewportWidth": 390,
+      "bodyScrollWidth": 390,
+      "navWidth": 118,
+      "navWraps": true,
+      "navHeight": 238
+    },
+    "weaknesses": {
+      "overflowX": false,
+      "docScrollWidth": 390,
+      "viewportWidth": 390,
+      "bodyScrollWidth": 390,
+      "navWidth": 118,
+      "navWraps": true,
+      "navHeight": 238
+    }
+  },
+  "768": {
+    "home": {
+      "overflowX": false,
+      "docScrollWidth": 768,
+      "viewportWidth": 768,
+      "bodyScrollWidth": 768,
+      "navWidth": 458,
+      "navWraps": true,
+      "navHeight": 37
+    },
+    "play": {
+      "overflowX": false,
+      "docScrollWidth": 768,
+      "viewportWidth": 768,
+      "bodyScrollWidth": 768,
+      "navWidth": 458,
+      "navWraps": true,
+      "navHeight": 37
+    },
+    "analyze": {
+      "overflowX": false,
+      "docScrollWidth": 768,
+      "viewportWidth": 768,
+      "bodyScrollWidth": 768,
+      "navWidth": 458,
+      "navWraps": true,
+      "navHeight": 37
+    },
+    "puzzles": {
+      "overflowX": false,
+      "docScrollWidth": 768,
+      "viewportWidth": 768,
+      "bodyScrollWidth": 768,
+      "navWidth": 458,
+      "navWraps": true,
+      "navHeight": 37
+    },
+    "weaknesses": {
+      "overflowX": false,
+      "docScrollWidth": 768,
+      "viewportWidth": 768,
+      "bodyScrollWidth": 768,
+      "navWidth": 458,
+      "navWraps": true,
+      "navHeight": 37
+    }
+  }
+}

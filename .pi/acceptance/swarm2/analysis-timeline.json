@@ -1,0 +1,107 @@
+[
+  {
+    "t": 0,
+    "analyzing": "Analyzing… 0/21",
+    "accuracy": null,
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 2,
+    "analyzing": "Analyzing… 5/21",
+    "accuracy": "White accuracy: 62.1%Black accuracy: 59.4%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 4,
+    "analyzing": "Analyzing… 11/21",
+    "accuracy": "White accuracy: 52.3%Black accuracy: 52.6%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 6,
+    "analyzing": "Analyzing… 18/21",
+    "accuracy": "White accuracy: 44.5%Black accuracy: 44.7%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 8,
+    "analyzing": null,
+    "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 10,
+    "analyzing": null,
+    "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 12,
+    "analyzing": null,
+    "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 14,
+    "analyzing": null,
+    "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 16,
+    "analyzing": null,
+    "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 18,
+    "analyzing": null,
+    "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 20,
+    "analyzing": null,
+    "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 22,
+    "analyzing": null,
+    "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 24,
+    "analyzing": null,
+    "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 26,
+    "analyzing": null,
+    "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%",
+    "error": null,
+    "moveListRows": 21
+  },
+  {
+    "t": 28,
+    "analyzing": null,
+    "accuracy": "White accuracy: 46.6%Black accuracy: 42.9%",
+    "error": null,
+    "moveListRows": 21
+  }
+]

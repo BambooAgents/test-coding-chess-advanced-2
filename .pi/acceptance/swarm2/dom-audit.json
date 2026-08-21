@@ -1,0 +1,120 @@
+{
+  "home": {
+    "page": "home",
+    "transparentText": [],
+    "zeroHeight": [],
+    "offScreen": [],
+    "tinyText": [],
+    "counts": {
+      "transparentText": 0,
+      "zeroHeight": 0,
+      "offScreen": 0,
+      "tinyText": 0
+    }
+  },
+  "play": {
+    "page": "play",
+    "transparentText": [],
+    "zeroHeight": [
+      {
+        "tag": "option",
+        "text": "Easy",
+        "cls": ""
+      },
+      {
+        "tag": "option",
+        "text": "Medium",
+        "cls": ""
+      },
+      {
+        "tag": "option",
+        "text": "Hard",
+        "cls": ""
+      },
+      {
+        "tag": "option",
+        "text": "Expert",
+        "cls": ""
+      }
+    ],
+    "offScreen": [],
+    "tinyText": [],
+    "counts": {
+      "transparentText": 0,
+      "zeroHeight": 4,
+      "offScreen": 0,
+      "tinyText": 0
+    }
+  },
+  "analyze": {
+    "page": "analyze",
+    "transparentText": [],
+    "zeroHeight": [
+      {
+        "tag": "option",
+        "text": "20",
+        "cls": ""
+      },
+      {
+        "tag": "option",
+        "text": "50",
+        "cls": ""
+      },
+      {
+        "tag": "option",
+        "text": "100",
+        "cls": ""
+      }
+    ],
+    "offScreen": [],
+    "tinyText": [],
+    "counts": {
+      "transparentText": 0,
+      "zeroHeight": 3,
+      "offScreen": 0,
+      "tinyText": 0
+    }
+  },
+  "puzzles": {
+    "page": "puzzles",
+    "transparentText": [],
+    "zeroHeight": [],
+    "offScreen": [],
+    "tinyText": [],
+    "counts": {
+      "transparentText": 0,
+      "zeroHeight": 0,
+      "offScreen": 0,
+      "tinyText": 0
+    }
+  },
+  "weaknesses": {
+    "page": "weaknesses",
+    "transparentText": [],
+    "zeroHeight": [
+      {
+        "tag": "option",
+        "text": "20 games",
+        "cls": ""
+      },
+      {
+        "tag": "option",
+        "text": "50 games",
+        "cls": ""
+      },
+      {
+        "tag": "option",
+        "text": "100 games",
+        "cls": ""
+      }
+    ],
+    "offScreen": [],
+    "tinyText": [],
+    "counts": {
+      "transparentText": 0,
+      "zeroHeight": 3,
+      "offScreen": 0,
+      "tinyText": 0
+    }
+  }
+}

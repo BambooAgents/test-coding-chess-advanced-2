@@ -1,0 +1,10 @@
+1. ✓ Initial page loaded
+2. ✓ PGN loaded
+3. ⚠ Analysis may still be running
+4. ✗ No eval bar found
+5. SVG arrows: 1
+6. Badges found: 0
+7. Accuracy elements: 0
+8. Board elements: 0
+9. Move elements: 0
+10. ✓ All checks completed
