@@ -1,0 +1,24 @@
+{
+  "p1": {
+    "placement": "8/8/8/1kr2P1R/8/6K1/8/8",
+    "puzzleId": "01tei",
+    "fen": "8/8/8/1kr2P1R/8/6K1/8/8 w - - 0 52",
+    "moves": [
+      "f5f6",
+      "c5h5",
+      "g3g4",
+      "h5h8",
+      "g4f5",
+      "b5c6"
+    ],
+    "feedback": "White to move — find the best move"
+  },
+  "afterSolveFeedback": "✓ Puzzle solved! Well done.",
+  "hasNextButton": 1,
+  "nextPuzzle": {
+    "beforeNextPlacement": "7r/8/2k2P2/5K2/8/8/8/8",
+    "afterNextPlacement": "2r5/2r3k1/p1q1b1pp/3pn3/3R4/4P1N1/PQ4PP/R5K1",
+    "afterNextPuzzleId": "00dwJ",
+    "boardStillPresent": true
+  }
+}

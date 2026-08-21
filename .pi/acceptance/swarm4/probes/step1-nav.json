@@ -1,0 +1,55 @@
+{
+  "navExists": true,
+  "headerRect": {
+    "x": 0,
+    "y": 0,
+    "width": 1400,
+    "height": 70,
+    "top": 0,
+    "right": 1400,
+    "bottom": 70,
+    "left": 0
+  },
+  "mainRect": {
+    "x": 100,
+    "y": 70,
+    "width": 1200,
+    "height": 854.125,
+    "top": 70,
+    "right": 1300,
+    "bottom": 924.125,
+    "left": 100
+  },
+  "links": [
+    {
+      "text": "Home",
+      "href": "/test-coding-chess-advanced-2/",
+      "active": true
+    },
+    {
+      "text": "Play",
+      "href": "/test-coding-chess-advanced-2/play",
+      "active": false
+    },
+    {
+      "text": "Analyze",
+      "href": "/test-coding-chess-advanced-2/analyze",
+      "active": false
+    },
+    {
+      "text": "Puzzles",
+      "href": "/test-coding-chess-advanced-2/puzzles",
+      "active": false
+    },
+    {
+      "text": "My Weaknesses",
+      "href": "/test-coding-chess-advanced-2/weaknesses",
+      "active": false
+    }
+  ],
+  "viewport": {
+    "w": 1400,
+    "h": 900
+  },
+  "mainHasContent": true
+}

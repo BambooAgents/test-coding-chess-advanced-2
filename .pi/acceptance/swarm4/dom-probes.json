@@ -1,0 +1,171 @@
+{
+  "step1": {
+    "moveListExists": true,
+    "boardExists": true,
+    "rowCount": 21,
+    "rows": [
+      "1:1. e4",
+      "2:e5",
+      "3:2. Nf3",
+      "4:d6",
+      "5:3. d4",
+      "6:Bg4",
+      "7:4. dxe5",
+      "8:Bxf3",
+      "9:5. Qxf3",
+      "10:dxe5",
+      "11:6. Bc4",
+      "12:Nf6",
+      "13:7. Qb3",
+      "14:Qe7",
+      "15:8. Nc3",
+      "16:c6",
+      "17:9. Bg5",
+      "18:b5",
+      "19:10. Nxb5",
+      "20:cxb5",
+      "21:11. Bxb5+"
+    ],
+    "movesText": "1. e4 e5 2. Nf3 d6 3. d4 Bg4 4. dxe5 Bxf3 5. Qxf3 dxe5 6. Bc4 Nf6 7. Qb3 Qe7 8. Nc3 c6 9. Bg5 b5 10. Nxb5 cxb5 11. Bxb5+",
+    "errorVisible": false,
+    "errorText": null
+  },
+  "step2": {
+    "analyzingVisible": false,
+    "analyzingText": null,
+    "accVisible": true,
+    "accText": "White accuracy: 86.2%\nBlack accuracy: 77.4%",
+    "badgeGlyphs": [
+      "1.",
+      "e4",
+      "e5",
+      "2.",
+      "Nf3",
+      "d6",
+      "3.",
+      "d4",
+      "Bg4",
+      "?!",
+      "4.",
+      "dxe5",
+      "Bxf3",
+      "?!",
+      "5.",
+      "Qxf3",
+      "dxe5",
+      "6.",
+      "Bc4",
+      "Nf6",
+      "?!",
+      "7.",
+      "Qb3",
+      "Qe7",
+      "?!",
+      "8.",
+      "Nc3",
+      "?!",
+      "c6",
+      "9.",
+      "Bg5",
+      "!",
+      "b5",
+      "?!",
+      "10.",
+      "Nxb5",
+      "!!",
+      "cxb5",
+      "?",
+      "11.",
+      "Bxb5+"
+    ],
+    "evalBarExists": true,
+    "evalBarRect": {
+      "x": 152,
+      "y": 327,
+      "w": 24,
+      "h": 560
+    }
+  },
+  "step3": {
+    "scrubberText": "⏮\n◀\n1 / 21\n▶\n⏭",
+    "row1Text": "1. e4",
+    "row1BadgeText": "",
+    "row1BadgeClass": "sc-AjlSJ jCkoUU",
+    "svgPresent": true,
+    "boardRect": {
+      "x": 184,
+      "y": 327,
+      "w": 560,
+      "h": 560,
+      "right": 744,
+      "bottom": 887
+    },
+    "svgRect": {
+      "x": 184,
+      "y": 327,
+      "w": 560,
+      "h": 560,
+      "right": 744,
+      "bottom": 887
+    },
+    "svgContainedInBoard": true,
+    "svgWidth": 560,
+    "svgHeight": 560,
+    "evalBarRect": {
+      "x": 152,
+      "y": 327,
+      "w": 24,
+      "h": 560,
+      "right": 176,
+      "bottom": 887
+    }
+  },
+  "step4": {
+    "scrubberText": "⏮\n◀\n19 / 21\n▶\n⏭",
+    "row19Text": "10. Nxb5 !!",
+    "row19BadgeText": "!!",
+    "row19BadgeClass": "sc-AjlSJ ePVjSf",
+    "svgPresent": true,
+    "boardRect": {
+      "x": 184,
+      "y": 327,
+      "w": 560,
+      "h": 560,
+      "right": 744,
+      "bottom": 887
+    },
+    "svgRect": {
+      "x": 184,
+      "y": 327,
+      "w": 560,
+      "h": 560,
+      "right": 744,
+      "bottom": 887
+    },
+    "svgContainedInBoard": true,
+    "moveListRect": {
+      "x": 756,
+      "y": 369,
+      "w": 280,
+      "h": 360,
+      "right": 1036,
+      "bottom": 729
+    },
+    "row19Rect": {
+      "x": 757,
+      "y": 653,
+      "w": 278,
+      "h": 25,
+      "right": 1035,
+      "bottom": 678
+    },
+    "badgeContainedInMoveList": true,
+    "row19VisibleInMoveListViewport": true
+  },
+  "meta": {
+    "analyzingHadSignal": true,
+    "analyzingGone": true,
+    "accuracyPresent": true,
+    "moveListCount": 21
+  }
+}

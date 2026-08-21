@@ -1,0 +1,116 @@
+{
+  "moveList": {
+    "x": 736,
+    "y": 369,
+    "w": 280,
+    "h": 360,
+    "right": 1016,
+    "bottom": 729
+  },
+  "board": {
+    "x": 164,
+    "y": 327,
+    "w": 560,
+    "h": 560,
+    "right": 724,
+    "bottom": 887
+  },
+  "evalBar": {
+    "x": 132,
+    "y": 327,
+    "w": 24,
+    "h": 560,
+    "right": 156
+  },
+  "badgeCount": 10,
+  "badges": [
+    {
+      "text": "?!",
+      "x": 967,
+      "y": 799,
+      "w": 40,
+      "h": 16,
+      "contained": false
+    },
+    {
+      "text": "?!",
+      "x": 967,
+      "y": 1024,
+      "w": 40,
+      "h": 16,
+      "contained": false
+    },
+    {
+      "text": "?!",
+      "x": 967,
+      "y": 1049,
+      "w": 40,
+      "h": 16,
+      "contained": false
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 1074,
+      "w": 40,
+      "h": 16,
+      "contained": false
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 1099,
+      "w": 40,
+      "h": 16,
+      "contained": false
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 1124,
+      "w": 40,
+      "h": 16,
+      "contained": false
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 1149,
+      "w": 40,
+      "h": 16,
+      "contained": false
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 1174,
+      "w": 40,
+      "h": 16,
+      "contained": false
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 1199,
+      "w": 40,
+      "h": 16,
+      "contained": false
+    },
+    {
+      "text": "??",
+      "x": 967,
+      "y": 1224,
+      "w": 40,
+      "h": 16,
+      "contained": false
+    }
+  ],
+  "allBadgesContained": false,
+  "moveListText": "1.e4e52.Nf3Nc63.Bb5a64.Ba4Nf65.O-OBe76.Re1b57.Bb3d68.c3O-O9.h3Nb8?!10.d4Nbd711.Nbd2Bb712.Bc2Re813.a4c514.b4?!c4?!15.Bb3?",
+  "overlapsBoard": false,
+  "evalFill": {
+    "tag": "DIV",
+    "h": 313.6875,
+    "cls": "sc-kLwfci iDGJDo"
+  }
+}

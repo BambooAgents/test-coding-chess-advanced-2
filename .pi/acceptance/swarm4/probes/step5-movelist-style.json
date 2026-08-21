@@ -1,0 +1,38 @@
+{
+  "moveListOverflow": "auto",
+  "moveListOverflowY": "auto",
+  "moveListMaxHeight": "360px",
+  "moveListHeight": "360px",
+  "moveList": {
+    "x": 736,
+    "y": 369,
+    "w": 280,
+    "h": 360,
+    "right": 1016,
+    "bottom": 729
+  },
+  "board": {
+    "x": 164,
+    "y": 327,
+    "w": 560,
+    "h": 560,
+    "right": 724,
+    "bottom": 887
+  },
+  "rowCount": 35,
+  "overlapBoardX": false,
+  "badgesInColumn": true,
+  "badgeCount": 10,
+  "badgeXs": [
+    967,
+    967,
+    967,
+    967,
+    967,
+    967,
+    967,
+    967,
+    967,
+    967
+  ]
+}

@@ -108,3 +108,135 @@ literally cannot see. This is a one-line config, not a deep harness bug.
 **Also:** the `visual-reviewer` agent (which DID have the right model) found
 a real board/move-list desync bug in the manual session that all the blind
 acceptance reviewers missed entirely. Vision matters.
+
+## F25 — Vision swarm blindness: three stacked failures let a glaring arrow-bleed bug ship [CRITICAL]
+
+**What happened:** After F24, the acceptance-reviewer was upgraded to a
+vision-capable model. But a new, glaring visual bug — the board best-move
+arrow SVG rendering across the *entire viewport* into the nav bar and move
+list (because `BoardGrid` lacked `position: relative`, so the SVG's
+`position: absolute; inset: 0` resolved against the viewport instead of the
+board) — shipped past 20 vision-checker runs and two review rounds. A human
+caught it in one glance at a screenshot.
+
+**What escaped:** indigo arrows drawn diagonally across the page
+background, nav tabs, and move list — not on the board — on 7 of 11 analyze
+screenshots. The acceptance swarm's `analyze.md` report claimed "best-move
+arrows render on the board."
+
+**Root cause — three independent failures stacked:**
+
+1. **Nesting-depth cap killed the first vision wave.** The analyze
+   orchestrator dispatched 4 vision-checkers; ALL 4 failed with `Nested
+   subagent call blocked (depth=1, max=1)`. It never got any vision data.
+2. **The orchestrator wrote a visual verdict anyway.** Instead of reporting
+   "vision unavailable," it asked the supervisor, which dispatched
+   parent-level vision-checkers that *hallucinated* the arrow's position
+   ("purple arrow from f7 toward d5" on a screenshot where the arrow was
+   in the nav bar). The orchestrator then wrote "arrows render on the
+   board" based on hallucinated relayed reports.
+3. **The vision-checker prompt was a leading question.** It asked "Are there
+   any arrows drawn on the board?" — assuming the arrow IS on the board.
+   The model sees indigo pixels, invents plausible from/to squares, and
+   reports "no glitches." Proven by re-running the same model on the same
+   screenshot with old vs new prompt: old → "correctly on the board, e5 to
+   d4"; new → "BLOCKER: arrow NOT on the board, spans nav bar to move list."
+
+**The deeper pattern:** vision models are unreliable for spatial-position
+verification. They hallucinate "on the board" when an arrow is in the nav
+bar. The DOM probe checked `arrowCount` (SVG has children) and reported
+"arrows render" — but never compared the SVG's `getBoundingClientRect()` to
+the board's. A 3-line containment check would have caught it instantly, and
+the text orchestrator (GLM-5.2) can do that reliably without vision.
+
+**Fixes applied (commit `e99cc21`, `9e7efcf`):**
+- `vision-checker.md`: rewrote the arrow/overlay section to require EXACT
+  region specification per arrow, explicit warning not to assume arrows are
+  on the board, flag any arrow outside the board grid as BLOCKER. Verified
+  working on the same screenshot the old prompt missed.
+- `acceptance-reviewer.md`: added §5 (mandatory DOM `getBoundingClientRect`
+  containment probes for every visual element with a position constraint)
+  and the absolute text-only rule (see F26).
+- `VISUAL_SWARM_BLINDNESS.md`: full investigation report.
+
+**Lesson:** Vision models are unreliable for spatial verification. The
+harness MUST use DOM containment checks (which the text orchestrator can do
+reliably) as the primary spatial-correctness gate, with vision only for
+subjective confirmation. A vision report saying "on the board" is not
+evidence; a `getBoundingClientRect` containment check is.
+
+## F26 — User-story-driven review + absolute text-only rule [HARNESS FIX]
+
+**What happened:** F25 showed a reviewer with no explicit visual target
+invents its own (loose) target and misses defects. A vision model asked
+"are there arrows on the board?" says "yes" regardless of where the arrow is.
+
+**Fix:** Two harness changes (commit `9e7efcf`):
+
+1. **User-story-driven review pipeline.** The orchestrator now authors a
+   detailed visual user-story script per ticket (stored in
+   `.pi/acceptance/stories/<ticket>.md`) BEFORE launching reviewers — a
+   step-by-step description of what a user does and what they should VISIBLE-
+   see at each step, derived from the ticket requirements, with explicit
+   SPATIAL expectations (which element is inside which container). The
+   reviewer executes the script step by step: performs each user action,
+   screenshots, dispatches a vision-checker with that step's VISIBLE
+   expectations, runs a DOM containment probe for each SPATIAL expectation,
+   and cross-references both against the script. A step passes only when
+   vision confirms appearance AND the DOM probe confirms containment. No
+   script = BLOCKER on the review (no visual verdict without a contract).
+
+2. **The absolute text-only rule.** Hammered down in both
+   `acceptance-reviewer.md` (as THE FIRST RULE, at the top) and
+   `docs/agents/acceptance.md`: a text-only model (GLM-5.2) has NO vision.
+   Any visual fact it states is a hallucination. Four absolute sub-rules:
+   - NEVER describe what a screenshot shows.
+   - NEVER substitute a DOM probe for appearance checks (contrast,
+     legibility, color visibility need vision).
+   - NEVER substitute vision for spatial-containment checks (vision
+     hallucinates positions; use DOM containment).
+   - NEVER write a visual verdict when vision-checkers fail.
+   DOM probes AND vision are both required — they check different things.
+   A gate passes only when BOTH agree.
+
+**Validation — Swarm 4 (the first run under the new harness):** 5 parallel
+fresh reviewers, all using user-story scripts + two-tier vision + DOM
+containment probes. Results: Analyze ACCEPTED, Puzzles ACCEPTED, Play
+ACCEPTED, Visual/Home ACCEPTED (arrow-bleed confirmed NOT recursing via DOM
+containment probe), Weaknesses REQUEST-CHANGES (caught a real bug — see F27).
+
+**Lesson:** An explicit visual contract (the user-story script) +
+cross-referencing vision against DOM containment is what makes the visual
+review trustworthy. A reviewer with a concrete checklist ("indigo arrow ON
+the board e2→e4; BOOK badge next to 1.e4; arrow SVG contained in board rect")
+catches defects a reviewer told "check the analyze page" misses.
+
+## F27 — Swarm 4 caught a real product-truth bug the prior swarms missed [VALIDATION]
+
+**What happened:** Under the new harness (F25+F26 fixes), Swarm 4's
+Weaknesses reviewer caught a genuine defect no prior swarm flagged: every
+opening in the My Weaknesses Openings table showed "Unknown" because
+`getOpening()` read only the PGN `Opening` header, which chess.com pubapi
+PGNs omit (they provide `ECO` + `ECOUrl` instead). The human-readable name
+was present in the data (in `ECOUrl`) but the code never read it.
+
+**Why the new harness caught it:** The user-story script's Step 2 explicitly
+required "opening names … NOT a hardcoded fixture." The reviewer
+cross-referenced the vision report (which independently flagged "Unknown")
+against a DOM probe (which confirmed 30/30 rows showed "Unknown") and a
+code probe (which found the root cause in `getOpening()`). The explicit
+visual contract turned a vague "check the page" into a concrete "does the
+Openings table show real opening names?" check.
+
+**Fix (commit `aaa81bb`):** `getOpening()` now resolves Opening header →
+ECOUrl slug (parsed to a human name) → ECO code → "Unknown". Verified
+live: 0/19 rows show "Unknown" for hikaru; opening names render as "Indian
+Game Knights Variation", "Sicilian Defense Canal Main Line", etc. Two
+downstream issues also fixed: the "Train →" link dead-end (I1) and the
+styled-components `severity` prop warning (N1). Fresh independent re-review:
+ACCEPTED, all 3 findings verified fixed.
+
+**Lesson:** The new harness works. The user-story script + cross-referenced
+vision/DOM/code probes caught a real product-truth bug that survived the
+old harness's loose "check the page" reviews. This is the validation that
+the F25/F26 harness fixes actually improved detection, not just paperwork.
