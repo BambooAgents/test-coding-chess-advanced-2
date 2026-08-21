@@ -28,6 +28,7 @@ const BoardGrid = styled.div`
   overflow: hidden;
   user-select: none;
   touch-action: none;
+  position: relative;
 `
 
 const Sq = styled.div<{
