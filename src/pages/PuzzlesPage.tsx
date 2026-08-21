@@ -339,13 +339,37 @@ export function PuzzlesPage() {
       const match = index.themes.find((t) => t.toLowerCase() === 'middlegame')
       setSelectedTheme(match ?? 'all-endgames')
     } else {
-      // Otherwise treat as an opening slug (e.g. 'sicilian-defense' → 'Sicilian_Defense')
+      // Otherwise treat as an opening slug (e.g. 'sicilian-defense' → 'Sicilian_Defense').
+      // chess.com ECOUrl names are often more specific than lichess opening tags
+      // (e.g. 'Indian Game Spielmann Indian Variation' vs 'Indian_Game'), so fall
+      // back to the longest lichess opening tag whose slug is a prefix of the
+      // requested slug — this keeps the 'Train this opening' intent alive.
       const unslug = set.replace(/-/g, '_')
-      const match = index.openings.find((o) => o.toLowerCase().replace(/[^a-z0-9]+/g, '-') === set || o === unslug || o.toLowerCase() === unslug.toLowerCase())
+      let match = index.openings.find(
+        (o) => o.toLowerCase().replace(/[^a-z0-9]+/g, '-') === set || o === unslug || o.toLowerCase() === unslug.toLowerCase(),
+      )
+      if (!match) {
+        const prefixMatch = index.openings
+          .filter((o) => {
+            const oSlug = o.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+            return set.startsWith(oSlug) || oSlug.startsWith(set)
+          })
+          .sort((a, b) => b.length - a.length)[0]
+        if (prefixMatch) match = prefixMatch
+      }
       if (match) {
         setMode('themed')
         setThemeType('opening')
         setSelectedTheme(match)
+      } else {
+        // chess.com opening names and lichess opening tags use different vocabularies
+        // (e.g. chess.com 'Indian Game' vs lichess 'Indian_Defense'), so an exact or
+        // prefix match is not always possible. Fall back to themed openings (no
+        // specific opening selected) so the 'Train →' intent lands the user on a
+        // useful opening-practice view rather than a silent dead-end on plain mode.
+        setMode('themed')
+        setThemeType('opening')
+        setSelectedTheme(null)
       }
     }
     // Clear the param so a manual visit to /puzzles starts plain.
