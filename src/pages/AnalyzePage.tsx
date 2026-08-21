@@ -29,14 +29,13 @@ import { EvalBar } from '../components/EvalBar'
 function realEngine(engine: StockfishEngine): AnalyzeEngine {
   return {
     async evaluate(fen: string): Promise<EvalScore> {
-      const result = await engine.getEvaluation(fen, 12)
+      const result = await engine.getEvaluation(fen, 15)
       return { cp: result.score, mate: result.mate, depth: result.depth }
     },
     async evaluateAfter(fen: string): Promise<EvalScore> {
-      // Depth 15 per docs/spec/annotation-thresholds.md §4.1: "At depth 15,
-      // eval is reliable enough for classification." Depth 8 produced noisy
-      // evals (e.g. -0.71 after 1.e4) that defeated book detection and
-      // marked top opening moves as inaccuracies.
+      // Must use the SAME depth as evaluate() so evalBefore/evalAfter deltas are
+      // consistent. Using different depths (12 vs 8) produced noisy deltas that
+      // marked top opening moves as inaccuracies. Depth 15 per spec §4.1.
       const result = await engine.getEvaluation(fen, 15)
       return { cp: result.score, mate: result.mate, depth: result.depth }
     },

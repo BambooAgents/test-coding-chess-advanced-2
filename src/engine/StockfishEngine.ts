@@ -122,6 +122,12 @@ export class StockfishEngine {
       throw new Error('Stockfish not initialized. Call init() first.')
     }
 
+    // UCI scores are from the side-to-move's perspective. Normalize to
+    // White's POV by negating when Black is to move (FEN field 2 = 'b').
+    const stm = fen.split(' ')[1]
+    const toWhite = (v: number | undefined) =>
+      v === undefined ? undefined : stm === 'b' ? -v : v
+
     return new Promise<StockfishResult>((resolve) => {
       let resolved = false
       let bestMove = ''
@@ -148,11 +154,11 @@ export class StockfishEngine {
           // Format: "info ... score cp <N> ..." or "info ... score mate <N> ..."
           const cpMatch = line.match(/score cp (-?\d+)/)
           if (cpMatch) {
-            score = parseInt(cpMatch[1], 10)
+            score = toWhite(parseInt(cpMatch[1], 10))
           }
           const mateMatch = line.match(/score mate (-?\d+)/)
           if (mateMatch) {
-            mate = parseInt(mateMatch[1], 10)
+            mate = toWhite(parseInt(mateMatch[1], 10))
             // On a checkmate (or stalemate) position Stockfish outputs
             // `info depth 0 score mate 0` and never sends `bestmove`.
             // Resolve immediately so we don't hang forever.
@@ -216,6 +222,11 @@ export class StockfishEngine {
       throw new Error('Stockfish not initialized. Call init() first.')
     }
 
+    // UCI scores are from the side-to-move's perspective. Normalize to White's POV.
+    const stm = fen.split(' ')[1]
+    const toWhite = (v: number | undefined) =>
+      v === undefined ? undefined : stm === 'b' ? -v : v
+
     return new Promise<StockfishResult>((resolve) => {
       let resolved = false
       let bestMove = ''
@@ -241,11 +252,11 @@ export class StockfishEngine {
           }
           const cpMatch = line.match(/score cp (-?\d+)/)
           if (cpMatch) {
-            score = parseInt(cpMatch[1], 10)
+            score = toWhite(parseInt(cpMatch[1], 10))
           }
           const mateMatch = line.match(/score mate (-?\d+)/)
           if (mateMatch) {
-            mate = parseInt(mateMatch[1], 10)
+            mate = toWhite(parseInt(mateMatch[1], 10))
             // Checkmate/stalemate: no bestmove will follow.
             if (parseInt(mateMatch[1], 10) === 0) {
               finish({
@@ -308,6 +319,11 @@ export class StockfishEngine {
       throw new Error('Stockfish not initialized. Call init() first.')
     }
 
+    // UCI scores are from the side-to-move's perspective. Normalize to White's POV.
+    const stm = fen.split(' ')[1]
+    const toWhite = (v: number | undefined) =>
+      v === undefined ? undefined : stm === 'b' ? -v : v
+
     return new Promise<MultiPvLine[]>((resolve) => {
       let resolved = false
       const lines: Map<number, MultiPvLine> = new Map()
@@ -346,8 +362,8 @@ export class StockfishEngine {
 
             lines.set(multipv, {
               pv: pvUci,
-              cp: cpMatch ? parseInt(cpMatch[1], 10) : undefined,
-              mate: mateMatch ? parseInt(mateMatch[1], 10) : undefined,
+              cp: cpMatch ? toWhite(parseInt(cpMatch[1], 10)) : undefined,
+              mate: mateMatch ? toWhite(parseInt(mateMatch[1], 10)) : undefined,
               depth: searchDepth,
             })
           }
