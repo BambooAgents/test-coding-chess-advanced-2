@@ -111,6 +111,11 @@ export class StockfishEngine {
   /**
    * Get the full evaluation for a given FEN position at a given depth.
    * Includes both best move and score (cp or mate).
+   *
+   * On a checkmate position Stockfish 2019-08-15 outputs `info depth 0 score
+   * mate 0` and then NO `bestmove` line. We resolve immediately when we see
+   * `score mate 0` so the caller never hangs. A 10-second safety timeout is
+   * also set as a backstop for any other edge case.
    */
   async getEvaluation(fen: string, depth = 6): Promise<StockfishResult> {
     if (!this.worker) {
@@ -118,11 +123,20 @@ export class StockfishEngine {
     }
 
     return new Promise<StockfishResult>((resolve) => {
+      let resolved = false
       let bestMove = ''
       let ponder: string | undefined
       let score: number | undefined
       let mate: number | undefined
       let searchDepth: number | undefined
+
+      const finish = (result: StockfishResult) => {
+        if (resolved) return
+        resolved = true
+        clearTimeout(timer)
+        this.removeListener('search', handler)
+        resolve(result)
+      }
 
       const handler = (line: string) => {
         if (line.startsWith('info')) {
@@ -139,6 +153,18 @@ export class StockfishEngine {
           const mateMatch = line.match(/score mate (-?\d+)/)
           if (mateMatch) {
             mate = parseInt(mateMatch[1], 10)
+            // On a checkmate (or stalemate) position Stockfish outputs
+            // `info depth 0 score mate 0` and never sends `bestmove`.
+            // Resolve immediately so we don't hang forever.
+            if (parseInt(mateMatch[1], 10) === 0) {
+              finish({
+                bestMove: '(none)',
+                score: undefined,
+                mate: 0,
+                depth: searchDepth ?? 0,
+              })
+              return
+            }
           }
         }
 
@@ -148,8 +174,7 @@ export class StockfishEngine {
           if (parts[3] && parts[3] !== '(none)') {
             ponder = parts[3]
           }
-          this.removeListener('search', handler)
-          resolve({
+          finish({
             bestMove,
             ponder,
             score,
@@ -164,11 +189,27 @@ export class StockfishEngine {
       this.send('ucinewgame')
       this.send(`position fen ${fen}`)
       this.send(`go depth ${depth}`)
+
+      // 10-second safety timeout: if no bestmove and no mate 0 arrives,
+      // resolve with whatever we have so we never hang.
+      const timer = setTimeout(() => {
+        finish({
+          bestMove: bestMove || '(none)',
+          ponder,
+          score,
+          mate,
+          depth: searchDepth,
+        })
+      }, 10_000)
     })
   }
 
   /**
    * Get the best move for a given FEN position at a given depth.
+   *
+   * On a checkmate position Stockfish does not send `bestmove` — see
+   * `getEvaluation` for details. We resolve immediately on `score mate 0`
+   * and add a 10-second safety timeout.
    */
   async getBestMove(fen: string, depth = 10): Promise<StockfishResult> {
     if (!this.worker) {
@@ -176,11 +217,20 @@ export class StockfishEngine {
     }
 
     return new Promise<StockfishResult>((resolve) => {
+      let resolved = false
       let bestMove = ''
       let ponder: string | undefined
       let score: number | undefined
       let mate: number | undefined
       let searchDepth: number | undefined
+
+      const finish = (result: StockfishResult) => {
+        if (resolved) return
+        resolved = true
+        clearTimeout(timer)
+        this.removeListener('search', handler)
+        resolve(result)
+      }
 
       const handler = (line: string) => {
         // Parse info lines for score/depth
@@ -196,6 +246,16 @@ export class StockfishEngine {
           const mateMatch = line.match(/score mate (-?\d+)/)
           if (mateMatch) {
             mate = parseInt(mateMatch[1], 10)
+            // Checkmate/stalemate: no bestmove will follow.
+            if (parseInt(mateMatch[1], 10) === 0) {
+              finish({
+                bestMove: '(none)',
+                score: undefined,
+                mate: 0,
+                depth: searchDepth ?? 0,
+              })
+              return
+            }
           }
         }
 
@@ -206,8 +266,7 @@ export class StockfishEngine {
           if (parts[3] && parts[3] !== '(none)') {
             ponder = parts[3]
           }
-          this.removeListener('search', handler)
-          resolve({
+          finish({
             bestMove,
             ponder,
             score,
@@ -222,6 +281,16 @@ export class StockfishEngine {
       this.send('ucinewgame')
       this.send(`position fen ${fen}`)
       this.send(`go depth ${depth}`)
+
+      const timer = setTimeout(() => {
+        finish({
+          bestMove: bestMove || '(none)',
+          ponder,
+          score,
+          mate,
+          depth: searchDepth,
+        })
+      }, 10_000)
     })
   }
 
@@ -240,8 +309,17 @@ export class StockfishEngine {
     }
 
     return new Promise<MultiPvLine[]>((resolve) => {
+      let resolved = false
       const lines: Map<number, MultiPvLine> = new Map()
       let searchDepth: number | undefined
+
+      const finish = (result: MultiPvLine[]) => {
+        if (resolved) return
+        resolved = true
+        clearTimeout(timer)
+        this.removeListener('search', handler)
+        resolve(result)
+      }
 
       const handler = (line: string) => {
         if (line.startsWith('info')) {
@@ -251,10 +329,17 @@ export class StockfishEngine {
           if (depthMatch) {
             searchDepth = parseInt(depthMatch[1], 10)
           }
+
+          // Check for mate 0 (checkmate/stalemate) — no bestmove will follow.
+          const mateMatch = line.match(/score mate (-?\d+)/)
+          if (mateMatch && parseInt(mateMatch[1], 10) === 0) {
+            finish([{ pv: [], mate: 0, depth: searchDepth ?? 0 }])
+            return
+          }
+
           if (multipvMatch) {
             const multipv = parseInt(multipvMatch[1], 10)
             const cpMatch = line.match(/score cp (-?\d+)/)
-            const mateMatch = line.match(/score mate (-?\d+)/)
             // Extract PV moves: "pv e2e4 e7e5 ..."
             const pvMatch = line.match(/ pv (.+)$/)!
             const pvUci = pvMatch ? pvMatch[1].trim().split(/\s+/) : []
@@ -269,7 +354,6 @@ export class StockfishEngine {
         }
 
         if (line.startsWith('bestmove')) {
-          this.removeListener('search', handler)
           // Build result array of length n, filling any missing PVs.
           const result: MultiPvLine[] = []
           for (let i = 1; i <= n; i++) {
@@ -280,7 +364,7 @@ export class StockfishEngine {
               result.push({ pv: [], depth: searchDepth })
             }
           }
-          resolve(result)
+          finish(result)
         }
       }
 
@@ -290,6 +374,19 @@ export class StockfishEngine {
       this.send('ucinewgame')
       this.send(`position fen ${fen}`)
       this.send(`go depth ${depth}`)
+
+      const timer = setTimeout(() => {
+        const result: MultiPvLine[] = []
+        for (let i = 1; i <= n; i++) {
+          const entry = lines.get(i)
+          if (entry) {
+            result.push(entry)
+          } else {
+            result.push({ pv: [], depth: searchDepth })
+          }
+        }
+        finish(result)
+      }, 10_000)
     }).finally(() => {
       // Reset MultiPV to 1 so other callers (Play page, getEvaluation, etc.)
       // are not affected.
